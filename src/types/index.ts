@@ -35,7 +35,7 @@ export interface IUser {
     email: string;
     phone: number;
     favorites: number[];
-    bookings: IBooking[]
+    bookings: IBooking[];
 }
 
 export interface IBooking {
