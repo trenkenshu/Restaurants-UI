@@ -1,5 +1,11 @@
 import React from 'react';
 
+const participants = [
+    { id: 0, name: 'Viktor Minkov', link: 'https://github.com/ViktorMinkov' },
+    { id: 1, name: 'Oleg Trenkenshu', link: 'https://github.com/trenkenshu' },
+    { id: 2, name: 'Railia Balakaeva', link: 'https://github.com/RallyZK' },
+];
+
 const Footer = () => {
     return (
         <footer className='bg-zinc-800 dark:bg-smoke-gray'>
@@ -11,15 +17,11 @@ const Footer = () => {
                     rel='noreferrer'
                 ></a>
                 <div className='flex gap-2.5'>
-                    <a className='' href='https://github.com/ViktorMinkov' target='_blank' rel='noreferrer'>
-                        Viktor Minkov
-                    </a>
-                    <a className='' href='https://github.com/trenkenshu' target='_blank' rel='noreferrer'>
-                        Oleg Trenkenshu
-                    </a>
-                    <a className='' href='https://github.com/RallyZK' target='_blank' rel='noreferrer'>
-                        Railia Balakaeva
-                    </a>
+                    {participants.map(({ id, name, link }) => (
+                        <a key={id} className='' href={link} target='_blank' rel='noreferrer'>
+                            {name}
+                        </a>
+                    ))}
                 </div>
                 <div className=''>© {new Date().getFullYear()}</div>
             </div>

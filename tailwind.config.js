@@ -15,6 +15,7 @@ module.exports = {
                 darkmode: "url('/src/assets/icons/dark_mode.svg')",
                 account: "url('/src/assets/icons/account_profile.svg')",
                 login: "url('/src/assets/icons/login.svg')",
+                rating: "url('/src/assets/icons/rating-star.svg')",
             },
             flex: {
                 100: '1 1 100%',
@@ -26,6 +27,9 @@ module.exports = {
             fontFamily: {
                 logo: ['"Cinzel Decorative"'],
             },
+            height: {
+                '820px': '820px',
+              }
         },
     },
     plugins: [],
