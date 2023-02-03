@@ -14,7 +14,7 @@ const restcoords = [53.90498385281464, 27.552403201036014];
 
 const Map = () => {
     return (
-        <div id='map' className='w-3/5 h-full'>
+        <div id='map' className='w-full h-[500px] lg:w-3/5 lg:h-full'>
             <MapContainer
                 className='w-full h-full rounded'
                 center={[cityCoords.Minsk[0], cityCoords.Minsk[1]]}
