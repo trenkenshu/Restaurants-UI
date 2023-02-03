@@ -28,7 +28,8 @@ module.exports = {
                 logo: ['"Cinzel Decorative"'],
             },
             height: {
-                '820px': '820px',
+                '15': '3.75rem',
+                '17': '4.375rem',
               }
         },
     },

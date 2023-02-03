@@ -8,7 +8,7 @@ const participants = [
 
 const Footer = () => {
     return (
-        <footer className='bg-zinc-800 dark:bg-smoke-gray'>
+        <footer id='footer' className='h-15 bg-zinc-800 dark:bg-smoke-gray'>
             <div className='flex items-center justify-between p-2.5 text-smoke-gray dark:text-zinc-800 px-5 py-2.5'>
                 <a
                     className='bg-rslogo bg-no-repeat h-10 w-21'

@@ -9,7 +9,7 @@ const links = [
 
 const Header = () => {
     return (
-        <header className='border-b border-b-gray-500 dark:border-b-corall'>
+        <header id='header' className='h-17 border-b border-b-gray-500 dark:border-b-corall'>
             <div className='flex justify-between items-center px-5 py-2.5'>
                 <ul className='flex gap-3 text-lg font-medium'>
                     {links.map(({ id, route, title }) => (
