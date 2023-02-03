@@ -21,9 +21,9 @@ const Carousel: FC<CarouselProps> = ({ width, height, imgs }) => {
     };
     return (
         <div className={`w-${width} h-${height}`}>
-            <img src={imgs[count]} className='w-full h-full transition-all duration-1000' alt='Panel 4'></img>
+            <img src={imgs[count]} className='w-full h-full transition-all duration-1000' alt='Restaurant'></img>
             <div className='flex justify-center gap-0.5 mt-4'>
-                <button onClick={decrease} className='w-6 h-6 bg-arrowBack bg-cover dark:bg-arrowBackWhite'></button>
+                <button onClick={decrease} className='w-6 h-6 bg-arrowBack bg-contain dark:bg-arrowBackWhite'></button>
                 <button onClick={increase} className='w-6 h-6 bg-arrowNext bg-cover dark:bg-arrowNextWhite'></button>
             </div>
         </div>

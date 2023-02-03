@@ -23,16 +23,6 @@ module.exports = {
                 // eslint-disable-next-line quotes
                 login: "url('/src/assets/icons/login.svg')",
                 // eslint-disable-next-line quotes
-                HPmainSection: "url('/src/assets/images/home-page/main.jpg')",
-                // eslint-disable-next-line quotes
-                advantage1: "url('/src/assets/images/home-page/advantage-1.jpg')",
-                // eslint-disable-next-line quotes
-                advantage2: "url('/src/assets/images/home-page/advantage-2.jpg')",
-                // eslint-disable-next-line quotes
-                advantage3: "url('/src/assets/images/home-page/advantage-3.jpg')",
-                // eslint-disable-next-line quotes
-                advantage4: "url('/src/assets/images/home-page/advantage-4.jpg')",
-                // eslint-disable-next-line quotes
                 randomRest: "url('/src/assets/images/home-page/random-restaurant.jpg')",
                 // eslint-disable-next-line quotes
                 arrowNext: "url('/src/assets/icons/arrow_forward.svg')",

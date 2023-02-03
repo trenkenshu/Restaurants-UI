@@ -3,7 +3,6 @@ import MainSection from 'components/MainSection';
 import Advantages from 'components/Advantages';
 import RestaurantRecs from 'components/RestaurantRecs';
 import RegistrationProposal from 'components/RegistrationProposal';
-import Carousel from 'components/Carousel';
 
 const HomePage = () => {
     return (

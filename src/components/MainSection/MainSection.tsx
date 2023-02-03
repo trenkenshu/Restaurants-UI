@@ -1,4 +1,4 @@
-import Carousel from 'components/Carousel/Carousel';
+import SimpleSlider from './SimpleSlider';
 import React from 'react';
 import { content } from 'utils/content';
 import jpg1 from '../../assets/images/home-page/carousel/1.jpg';
@@ -15,15 +15,16 @@ const MainSection = () => {
     const star = '\\2605';
     const imgs = [jpg1, jpg2, jpg3, jpg4, jpg5, jpg6, jpg7];
     return (
-        <div className='flex w-full justify-end mt-6 mb-14'>
+        <div className='flex w-full justify-end mb-14'>
             <div className='flex flex-col w-11/12'>
-                <div className='flex mt-14 mb-5'>
+                <div className='flex mt-8 mb-5'>
                     <div className='flex flex-col w-5/12 mt-14 pr-10'>
                         <h1 className='text-3xl font-bold mb-5 dark:text-smoke-gray'>{content.homePage.title[lang]}</h1>
                         <h3 className='text-sm dark:text-smoke-gray'>{content.homePage.subtitle[lang]}</h3>
                     </div>
-                    <div className='w-7/12 h-96'>
-                        <Carousel width={'full'} height={'full'} imgs={imgs} />
+                    <div className='w-7/12 h-80'>
+                        {/* <Carousel width={'full'} height={'full'} imgs={imgs} /> */}
+                        <SimpleSlider width={'full'} height={'full'} imgs={imgs} />
                     </div>
                 </div>
                 <p
