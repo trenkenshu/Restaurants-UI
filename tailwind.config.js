@@ -16,6 +16,8 @@ module.exports = {
                 account: "url('/src/assets/icons/account_profile.svg')",
                 login: "url('/src/assets/icons/login.svg')",
                 rating: "url('/src/assets/icons/rating-star.svg')",
+                burgermenu: "url('/src/assets/icons/burger-menu.svg')",
+                closemenu: "url('/src/assets/icons/close_menu.svg')",
             },
             flex: {
                 100: '1 1 100%',

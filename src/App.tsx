@@ -1,4 +1,3 @@
-import axios from 'axios';
 import Layout from 'components/Layout';
 import Restaurants from 'pages/Restaurants';
 import React from 'react';
