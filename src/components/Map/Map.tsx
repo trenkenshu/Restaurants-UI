@@ -18,8 +18,8 @@ const Map = () => {
             <MapContainer
                 className='w-full h-full rounded'
                 center={[cityCoords.Minsk[0], cityCoords.Minsk[1]]}
-                zoom={13}
-                scrollWheelZoom={false}
+                zoom={15}
+                scrollWheelZoom={true}
             >
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -27,7 +27,9 @@ const Map = () => {
                 />
                 <Marker position={[restcoords[0], restcoords[1]]}>
                     <Popup>
-                        A pretty CSS3 popup. <br /> Easily customizable.
+                        <p>RESTNAME</p>
+                        <p>Cuisine</p>
+                        <p>WORK TIME</p>
                     </Popup>
                 </Marker>
             </MapContainer>

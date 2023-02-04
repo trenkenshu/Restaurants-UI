@@ -33,6 +33,9 @@ module.exports = {
                 '15': '3.75rem',
                 '17': '4.375rem',
               },
+              zIndex: {
+                '1001': '1001',
+              }
         },
     },
     plugins: [],
