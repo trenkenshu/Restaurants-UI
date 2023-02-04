@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const links = [
@@ -8,6 +8,23 @@ const links = [
 ];
 
 const Header = () => {
+    const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+
+    useEffect(() => {
+        if (isBurgerOpen) {
+            document.body.classList.add('active');
+        } else {
+            document.body.classList.remove('active');
+        }
+    }, [isBurgerOpen]);
+
+    const openBurger = () => {
+        setIsBurgerOpen(true);
+    };
+    const closeBurger = () => {
+        setIsBurgerOpen(false);
+    };
+
     return (
         // <header id='header' className='h-17 border-b border-b-gray-500 dark:border-b-corall'>
         //     <div className='flex justify-between items-center px-5 py-2.5'>
@@ -42,27 +59,53 @@ const Header = () => {
                         RaViOle
                     </Link>
                 </div>
-                <ul className='w-full fixed top-0 left-full md:relative md:left-0 flex justify-between gap-3 text-lg font-medium'>
-                    <div className='flex gap-2.5'>
+                <ul
+                    className={` ${
+                        isBurgerOpen
+                            ? 'w-full fixed flex gap-10 top-0 left-0 items-center justify-center bg-smoke-gray flex-col h-screen z-1001 text-4xl'
+                            : 'w-full fixed flex top-0 left-full'
+                    } font-medium md:text-lg font-medium md:justify-between md:gap-3 md:static md:flex-row md:h-auto`}
+                >
+                    <div className={`flex gap-2.5 ${isBurgerOpen ? 'w-full items-center flex-col' : 'flex-row'}`}>
                         {links.map(({ id, route, title }) => (
                             <li key={id}>
-                                <Link className='transition ease-in duration-300 hover:text-corall' to={route}>
+                                <Link
+                                    className='transition ease-in duration-300 hover:text-corall'
+                                    to={route}
+                                    onClick={closeBurger}
+                                >
                                     {title}
                                 </Link>
                             </li>
                         ))}
                     </div>
-                    <div className='flex gap-2.5'>
-                        <li className='text-lg font-medium cursor-pointer transition ease-in duration-300 hover:text-corall'>
+                    <div className={`flex gap-2.5 flex-row items-center ${isBurgerOpen && 'w-full justify-center'}`}>
+                        <li
+                            className={`cursor-pointer transition ease-in duration-300 hover:text-corall ${
+                                isBurgerOpen && 'mr-10'
+                            }`}
+                        >
                             Minsk
                         </li>
                         <li className='bg-eng w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
-                        <li className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
-                        <li className='w-8 h-8'>
-                            <a href='' className='block bg-login w-full h-full bg-no-repeat bg-cover'></a>
+                        <li className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'>
+                            {/* {isBurgerOpen && 'Theme: Dark'} */}
                         </li>
+                        <li className='w-8 h-8'>
+                            <a href='' className='block bg-login w-full h-full bg-no-repeat bg-cover'>
+                                {/* {isBurgerOpen && 'Login'} */}
+                            </a>
+                        </li>
+                        <div
+                            className='bg-closemenu w-8 h-8 bg-no-repeat bg-cover cursor-pointer absolute top-5 right-5 md:hidden'
+                            onClick={closeBurger}
+                        ></div>
                     </div>
                 </ul>
+                <div
+                    className='bg-burgermenu w-8 h-8 bg-no-repeat bg-cover cursor-pointer ml-auto md:hidden'
+                    onClick={openBurger}
+                ></div>
             </div>
         </header>
     );
