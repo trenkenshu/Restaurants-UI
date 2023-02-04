@@ -3,8 +3,8 @@ import React, { FC } from 'react';
 interface ButtonBlackProps {
     width: number | string;
     height: number | string;
-    fontsize: number | string;
     buttonText: string;
+    fontsize?: number | string;
 }
 
 const ButtonBlack: FC<ButtonBlackProps> = ({ width, height, fontsize, buttonText }) => {

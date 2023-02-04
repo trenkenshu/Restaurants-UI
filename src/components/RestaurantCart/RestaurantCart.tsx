@@ -1,4 +1,5 @@
 import ButtonBlack from 'components/ButtonBlack';
+import ButtonFavorite from 'components/ButtonFavorite';
 import React from 'react';
 import { content } from 'utils/content';
 
@@ -7,7 +8,8 @@ const lang = 'en';
 const RestaurantCart = () => {
     return (
         <div className='flex flex-col w-1/4 h-96'>
-            <div className='w-full h-full bg-randomRest bg-cover bg-no-repeat bg-bottom overflow-y-hidden'>
+            <div className='w-full h-full bg-randomRest bg-cover bg-no-repeat bg-bottom overflow-y-hidden relative'>
+                <ButtonFavorite size={8} />
                 <div className='flex flex-col w-full h-4/5 bg-smoke-gray  dark:bg-zinc-800 transition-all translate-y-80 duration-1000 hover:translate-y-24 py-4 px-2 cursor-pointer'>
                     <h4 className='text-xl text-center font-bold pb-6 dark:text-smoke-gray'>Restaurant Name</h4>
                     <p className='text-xs mb-2 italic leading-3 dark:text-smoke-gray'>
@@ -25,13 +27,7 @@ const RestaurantCart = () => {
                     <p className='dark:text-smoke-gray mb-4'>
                         <span className='font-semibold'>{content.restaurantCart.averageCheck[lang]}: </span> 35
                     </p>
-                    {/* <ButtonBlack width={44} height={10} buttonText={content.common.learnMore[lang]} /> */}
-                    <ButtonBlack
-                        width={'1/2'}
-                        height={'10'}
-                        fontsize={'inherit'}
-                        buttonText={content.common.learnMore[lang]}
-                    />
+                    <ButtonBlack width={'1/2'} height={'10'} buttonText={content.common.learnMore[lang]} />
                 </div>
             </div>
         </div>

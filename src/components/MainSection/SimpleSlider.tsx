@@ -4,12 +4,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 interface SimpleSliderProps {
-    width: number | string;
-    height: number | string;
+    width?: number | string;
+    height?: number | string;
     imgs: string[];
 }
 
-const SimpleSlider: FC<SimpleSliderProps> = ({ width, height, imgs }) => {
+const SimpleSlider: FC<SimpleSliderProps> = ({ imgs }) => {
     const settings = {
         dots: true,
         infinite: true,
@@ -18,6 +18,8 @@ const SimpleSlider: FC<SimpleSliderProps> = ({ width, height, imgs }) => {
         slidesToScroll: 1,
         autoplay: true,
         arrows: false,
+        adaptiveHeight: true,
+        swipeToSlide: true,
     };
 
     return (
@@ -25,7 +27,7 @@ const SimpleSlider: FC<SimpleSliderProps> = ({ width, height, imgs }) => {
             {imgs.map((el) => {
                 return (
                     <div key={el}>
-                        <img src={el} className={`w-${width} h-${height}`} alt='Restaurant'></img>
+                        <img src={el} alt='Restaurant'></img>
                     </div>
                 );
             })}

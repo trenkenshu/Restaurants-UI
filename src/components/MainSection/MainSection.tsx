@@ -22,9 +22,8 @@ const MainSection = () => {
                         <h1 className='text-3xl font-bold mb-5 dark:text-smoke-gray'>{content.homePage.title[lang]}</h1>
                         <h3 className='text-sm dark:text-smoke-gray'>{content.homePage.subtitle[lang]}</h3>
                     </div>
-                    <div className='w-7/12 h-80'>
-                        {/* <Carousel width={'full'} height={'full'} imgs={imgs} /> */}
-                        <SimpleSlider width={'full'} height={'full'} imgs={imgs} />
+                    <div className='w-7/12 h-96'>
+                        <SimpleSlider imgs={imgs} />
                     </div>
                 </div>
                 <p

@@ -32,6 +32,10 @@ module.exports = {
                 arrowNextWhite: "url('/src/assets/icons/arrow_forward_white.svg')",
                 // eslint-disable-next-line quotes
                 arrowBackWhite: "url('/src/assets/icons/arrow_back_white.svg')",
+                // eslint-disable-next-line quotes
+                favorite: "url('/src/assets/icons/favorite.svg')",
+                // eslint-disable-next-line quotes
+                favoriteFilled: "url('/src/assets/icons/favorite_filled.svg')",
             },
             flex: {
                 100: '1 1 100%',
