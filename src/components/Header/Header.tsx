@@ -71,7 +71,7 @@ const Header = () => {
                             : 'w-full fixed flex top-0 left-full'
                     } font-medium md:text-lg font-medium md:justify-between md:gap-3 md:static md:flex-row md:h-auto`}
                 >
-                    <div className={`flex gap-2.5 ${isBurgerOpen ? 'w-full items-center flex-col' : 'flex-row'}`}>
+                    <div className={`flex gap-2.5 items-center ${isBurgerOpen ? 'w-full flex-col' : 'flex-row'}`}>
                         {links.map(({ id, route, title }) => (
                             <li key={id}>
                                 <Link
@@ -104,13 +104,9 @@ const Header = () => {
                             />
                         </li>
                         <li className='bg-eng w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
-                        <li className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'>
-                            {/* {isBurgerOpen && 'Theme: Dark'} */}
-                        </li>
+                        <li className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
                         <li className='w-8 h-8'>
-                            <a href='' className='block bg-login w-full h-full bg-no-repeat bg-cover'>
-                                {/* {isBurgerOpen && 'Login'} */}
-                            </a>
+                            <a href='' className='block bg-login w-full h-full bg-no-repeat bg-cover'></a>
                         </li>
                         <div
                             className='bg-closemenu w-8 h-8 bg-no-repeat bg-cover cursor-pointer absolute top-5 right-5 md:hidden'
