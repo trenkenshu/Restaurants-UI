@@ -1,4 +1,5 @@
 import Layout from 'components/Layout';
+import Restaurants from 'pages/Restaurants';
 import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
@@ -8,7 +9,7 @@ const App = () => {
             <Layout>
                 <Routes>
                     <Route path='/' element={<div>Homepage</div>} />
-                    <Route path='/restaurants' element={<div>Restaurants</div>} />
+                    <Route path='/restaurants' element={<Restaurants />} />
                     <Route path='/about' element={<div>About</div>} />
                     <Route path='/*' element={<div>ERROR PAGE</div>} />
                 </Routes>
