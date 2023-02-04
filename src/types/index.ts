@@ -3,6 +3,7 @@ export interface IRestaurant {
     name: string;
     description: string;
     address: string;
+    coordinates: number[];
     phone: string;
     workTime: {
         start: number;

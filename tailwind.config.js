@@ -23,6 +23,12 @@ module.exports = {
                 // eslint-disable-next-line quotes
                 login: "url('/src/assets/icons/login.svg')",
                 // eslint-disable-next-line quotes
+                rating: "url('/src/assets/icons/rating-star.svg')",
+                // eslint-disable-next-line quotes
+                burgermenu: "url('/src/assets/icons/burger-menu.svg')",
+                // eslint-disable-next-line quotes
+                closemenu: "url('/src/assets/icons/close_menu.svg')",
+                // eslint-disable-next-line quotes
                 randomRest: "url('/src/assets/images/home-page/random-restaurant.jpg')",
                 // eslint-disable-next-line quotes
                 arrowNext: "url('/src/assets/icons/arrow_forward.svg')",
@@ -46,6 +52,10 @@ module.exports = {
             },
             fontFamily: {
                 logo: ['"Cinzel Decorative"'],
+            },
+            height: {
+                15: '3.75rem',
+                17: '4.375rem',
             },
         },
     },
