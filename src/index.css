@@ -12,3 +12,7 @@
 #root {
   height: 100vh;
 } */
+
+body.active {
+  overflow: hidden;
+}
