@@ -9,7 +9,9 @@ const RestaurantCart = () => {
     return (
         <div className='flex flex-col w-full h-80 lg:h-96 px-5'>
             <div className='w-full h-full bg-randomRest bg-cover bg-no-repeat bg-bottom overflow-y-hidden relative'>
-                <ButtonFavorite />
+                <div className='w-8 h-8 absolute right-2 top-2'>
+                    <ButtonFavorite />
+                </div>
                 <div className='flex flex-col w-full h-4/5 bg-smoke-gray  dark:bg-zinc-800 transition-all translate-y-64 lg:translate-y-80 duration-1000 hover:translate-y-24 py-4 px-2 cursor-pointer'>
                     <h4 className='text-xl text-center font-bold pb-6 dark:text-smoke-gray'>Restaurant Name</h4>
                     <p className='text-xs mb-2 italic leading-3 dark:text-smoke-gray hidden h-12 overflow-y-auto lg:block'>
@@ -27,8 +29,8 @@ const RestaurantCart = () => {
                     <p className='dark:text-smoke-gray mb-4'>
                         <span className='font-semibold'>{content.restaurantCart.averageCheck[lang]}: </span> 35
                     </p>
-                    <div className='w-1/2 h-10 mx-auto'>
-                        <ButtonBlack buttonText={content.common.learnMore[lang]} />
+                    <div className='flex justify-center'>
+                        <ButtonBlack width={'1/2'} height={10} buttonText={content.common.learnMore[lang]} />
                     </div>
                 </div>
             </div>

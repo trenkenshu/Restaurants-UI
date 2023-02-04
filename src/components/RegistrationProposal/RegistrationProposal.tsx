@@ -18,8 +18,13 @@ const RegistrationProposal = () => {
             <div className='w-9/12 m-auto flex'>
                 <div className='hidden lg:block w-1/2'></div>
                 <div className='lg:w-1/2 flex justify-center mt-10 m-auto'>
-                    <div className='w-56 h-14'>
-                        <ButtonBlack fontsize={'xl'} buttonText={content.RegistrationProposal.join[lang]} />
+                    <div>
+                        <ButtonBlack
+                            width={56}
+                            height={14}
+                            fontsize={'xl'}
+                            buttonText={content.RegistrationProposal.join[lang]}
+                        />
                     </div>
                 </div>
             </div>
