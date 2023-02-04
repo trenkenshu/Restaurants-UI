@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Select from 'react-select';
 
 const links = [
     { id: 0, route: '/', title: 'Home' },
     { id: 1, route: '/restaurants', title: 'Restaurants' },
     { id: 2, route: '/about', title: 'About us' },
+];
+const cities = [
+    { value: 'minsk', label: 'Minsk' },
+    { value: 'kazan', label: 'Kazan' },
 ];
 
 const Header = () => {
@@ -81,11 +86,22 @@ const Header = () => {
                     </div>
                     <div className={`flex gap-2.5 flex-row items-center ${isBurgerOpen && 'w-full justify-center'}`}>
                         <li
-                            className={`cursor-pointer transition ease-in duration-300 hover:text-corall ${
+                            className={`cursor-pointer transition ease-in duration-300 z-1001 ${
                                 isBurgerOpen && 'mr-10'
                             }`}
                         >
-                            Minsk
+                            <Select
+                                defaultValue={cities[0]}
+                                name='city'
+                                options={cities}
+                                theme={(theme) => ({
+                                    ...theme,
+                                    colors: {
+                                        ...theme.colors,
+                                        primary: 'black',
+                                    },
+                                })}
+                            />
                         </li>
                         <li className='bg-eng w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
                         <li className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'>
