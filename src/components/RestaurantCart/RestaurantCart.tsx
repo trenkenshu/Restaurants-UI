@@ -7,12 +7,12 @@ const lang = 'en';
 
 const RestaurantCart = () => {
     return (
-        <div className='flex flex-col w-1/4 h-96'>
+        <div className='flex flex-col w-full h-80 lg:h-96 px-5'>
             <div className='w-full h-full bg-randomRest bg-cover bg-no-repeat bg-bottom overflow-y-hidden relative'>
-                <ButtonFavorite size={8} />
-                <div className='flex flex-col w-full h-4/5 bg-smoke-gray  dark:bg-zinc-800 transition-all translate-y-80 duration-1000 hover:translate-y-24 py-4 px-2 cursor-pointer'>
+                <ButtonFavorite size={8} filled={false} />
+                <div className='flex flex-col w-full h-4/5 bg-smoke-gray  dark:bg-zinc-800 transition-all translate-y-64 lg:translate-y-80 duration-1000 hover:translate-y-24 py-4 px-2 cursor-pointer'>
                     <h4 className='text-xl text-center font-bold pb-6 dark:text-smoke-gray'>Restaurant Name</h4>
-                    <p className='text-xs mb-2 italic leading-3 dark:text-smoke-gray'>
+                    <p className='text-xs mb-2 italic leading-3 dark:text-smoke-gray hidden h-12 overflow-y-auto lg:block'>
                         Bar-restaurant Luna in Minsk is a stylish space where you can spend time in pleasure in the
                         company of loved ones, delicious dishes and live music. For guests - a relaxing atmosphere,
                         friendly staff, friendly service, versatile cuisine and signature drinks.

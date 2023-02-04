@@ -10,7 +10,7 @@ const lang = 'en';
 const Advantages = () => {
     const imgs = [jpg1, jpg2, jpg3, jpg4];
     return (
-        <div className='w-full flex flex-col mt-6 mb-20'>
+        <div className='w-full flex flex-col md:mt-6 lg:mb-20'>
             <h2 className='text-2xl font-bold text-zinc-400 mt-8 mb-4'>{content.homePage.titleSec2[lang]}</h2>
             <h3
                 className='text-3xl font-semibold dark:text-smoke-gray mb-16
@@ -18,14 +18,16 @@ const Advantages = () => {
             >
                 {content.homePage.subtitleSec2[lang]}
             </h3>
-            <div className='flex gap-10'>
+            <div className='flex flex-wrap gap-4 md:gap-10 w-full justify-center lg:justify-between'>
                 {content.homePage.advantages.map((el, index) => {
                     return (
-                        <div className='flex flex-col w-1/4 h-54' key={el.id}>
-                            <div className='w-full h-48 mb-8'>
+                        <div className='flex flex-col w-1/2 md:w-1/3 lg:w-1/5 h-38 md:h-48 mb-2' key={el.id}>
+                            <div className='w-full h-32 md:h-40 mb-2'>
                                 <img src={imgs[index]} className='w-full h-full' alt={el[lang]}></img>
                             </div>
-                            <p className='text-lg font-semibold dark:text-smoke-gray'>{el[lang]}</p>
+                            <p className='text-xs md:text-base lg:text-lg font-semibold dark:text-smoke-gray'>
+                                {el[lang]}
+                            </p>
                         </div>
                     );
                 })}

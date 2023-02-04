@@ -6,7 +6,7 @@ import RegistrationProposal from 'components/RegistrationProposal';
 
 const HomePage = () => {
     return (
-        <div className='flex flex-col w-full pb-40'>
+        <div className='flex flex-col w-full pb-10 md:pb-40'>
             <MainSection />
             <Advantages />
             <RestaurantRecs />
