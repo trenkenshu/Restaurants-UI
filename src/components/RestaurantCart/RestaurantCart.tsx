@@ -30,7 +30,7 @@ const RestaurantCart = () => {
                         <span className='font-semibold'>{content.restaurantCart.averageCheck[lang]}: </span> 35
                     </p>
                     <div className='flex justify-center'>
-                        <ButtonBlack width={'1/2'} height={10} buttonText={content.common.learnMore[lang]} />
+                        <ButtonBlack width={'1/2'} height={10} buttonText={content.common.details[lang]} />
                     </div>
                 </div>
             </div>
