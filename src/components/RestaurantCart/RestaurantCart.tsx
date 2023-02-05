@@ -1,13 +1,13 @@
+import React from 'react';
 import ButtonBlack from 'components/ButtonBlack';
 import ButtonFavorite from 'components/ButtonFavorite';
-import React from 'react';
 import { content } from 'utils/content';
 
 const lang = 'en';
 
 const RestaurantCart = () => {
     return (
-        <div className='flex flex-col w-full h-80 lg:h-96 px-5'>
+        <div className='flex flex-col w-full h-80 lg:h-96 border-b border-zinc-800 dark:border-corall'>
             <div className='w-full h-full bg-randomRest bg-cover bg-no-repeat bg-bottom overflow-y-hidden relative'>
                 <div className='w-8 h-8 absolute right-2 top-2'>
                     <ButtonFavorite />
@@ -30,7 +30,7 @@ const RestaurantCart = () => {
                         <span className='font-semibold'>{content.restaurantCart.averageCheck[lang]}: </span> 35
                     </p>
                     <div className='flex justify-center'>
-                        <ButtonBlack width={'1/2'} height={10} buttonText={content.common.details[lang]} />
+                        <ButtonBlack width={'w-1/2'} height={'h-10'} buttonText={content.common.details[lang]} />
                     </div>
                 </div>
             </div>

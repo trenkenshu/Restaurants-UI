@@ -56,6 +56,7 @@ module.exports = {
             height: {
                 15: '3.75rem',
                 17: '4.375rem',
+                136: '34rem',
             },
             zIndex: {
                 1001: '1001',
