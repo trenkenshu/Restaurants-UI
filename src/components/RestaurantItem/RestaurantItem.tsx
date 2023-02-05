@@ -74,7 +74,7 @@ const RestaurantItem = () => {
             </div>
             <div className='text-sm'>Average check: </div>
             <div className='flex gap-2.5 w-full'>
-                <ButtonBlack width={40} height={10} buttonText={'Details'} />
+                <ButtonBlack width={'w-40'} height={'h-10'} buttonText={'Details'} />
                 <div className='w-10 h-10'>
                     <ButtonFavorite />
                 </div>
