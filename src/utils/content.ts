@@ -1,7 +1,7 @@
 export const content = {
     common: {
-        learnMore: {
-            en: 'Learn more',
+        details: {
+            en: 'Details',
             ru: 'Подробнее',
         },
     },
