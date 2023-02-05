@@ -1,4 +1,18 @@
 export const content = {
+    header: {
+        home: {
+            en: 'Home',
+            ru: 'Главня',
+        },
+        restaurants: {
+            en: 'Restaurants',
+            ru: 'Рестораны',
+        },
+        about: {
+            en: 'About us',
+            ru: 'О нас',
+        },
+    },
     common: {
         details: {
             en: 'Details',
@@ -91,6 +105,12 @@ export const content = {
         join: {
             en: 'JOIN',
             ru: 'Создать аккаунт',
+        },
+    },
+    restaurantsPage: {
+        title: {
+            en: 'Restaurants in ',
+            ru: 'Рестораны города ',
         },
     },
 };
