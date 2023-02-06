@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Map from 'components/Map';
 import RestaurantItem from 'components/RestaurantItem';
 import { content } from 'utils/content';
 import { getRestaurant, getRestaurants } from 'api/api';
 import { IRestaurant } from 'types';
+import { AppContext } from 'store/store';
 
 const lang = 'en';
 
 const Restaurants = () => {
-    const [restaurants, setRestaurants] = useState([]);
+    // const [restaurants, setRestaurants] = useState([]);
+    const { state, dispatch } = useContext(AppContext);
 
     useEffect(() => {
         getRestaurants('Minsk').then((resp) => {
@@ -16,7 +18,11 @@ const Restaurants = () => {
             resp.data.forEach((el: IRestaurant) => {
                 el.parsedTranslation = JSON.parse(el.translation);
             });
-            setRestaurants(resp.data);
+            // setRestaurants(resp.data);
+            dispatch({
+                type: 'getRestaurants',
+                payload: resp.data,
+            });
         });
         // getRestaurant(3).then((resp) => console.log('cafe', resp));
     }, []);
@@ -38,12 +44,12 @@ const Restaurants = () => {
                 scrollbar scrollbar-thumb-zinc-500 scrollbar-track-transparent hover:scrollbar-thumb-zinc-700 dark:scrollbar-thumb-zinc-200 dark:hover:scrollbar-thumb-zinc-400'
                 >
                     <div className='flex  flex-col gap-2.5 lg:mr-2'>
-                        {restaurants.map((restaurant: IRestaurant) => {
+                        {state.restaurants.map((restaurant: IRestaurant) => {
                             return <RestaurantItem restaurant={restaurant} key={restaurant.id} />;
                         })}
                     </div>
                 </div>
-                <Map restaurants={restaurants} />
+                <Map restaurants={state.restaurants} />
             </div>
         </div>
     );

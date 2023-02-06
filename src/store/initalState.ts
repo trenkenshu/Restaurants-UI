@@ -1,23 +1,15 @@
-const initialState = {
-    // currentRestaurant: {
-    //   id: 0,
-    //   name : '',
-    //   description: '',
-    //   address: '',
-    //   phone: '',
-    //   workTime: {
-    //       start: 0,
-    //       end: 0,
-    //   },
-    //   rating: 0,
-    //   averageCheck: 0,
-    //   cuisineType: [],
-    //   reviews : [],
-    //   images: [],
-    //   menuImg : '',
-    //   tag: [],
-    //   city: '',
-    // },
+import { IState } from 'types';
+
+// interface IState {
+//     restaurants: IRestaurant[];
+//     user: IUser;
+//     currentCity: string;
+//     cities: string[];
+//     language: string;
+//     theme: string;
+// }
+
+const initialState: IState = {
     restaurants: [],
     user: {
         id: 0,
@@ -26,6 +18,7 @@ const initialState = {
         email: '',
         phone: 0,
         favorites: [],
+        bookings: [],
     },
     currentCity: 'Minsk',
     cities: ['Minsk', 'Kazan'],
