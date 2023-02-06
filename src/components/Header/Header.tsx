@@ -1,19 +1,52 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Select from 'react-select';
+import { AppContext } from 'store/store';
+import { content } from 'utils/content';
 
 const links = [
-    { id: 0, route: '/', title: 'Home' },
-    { id: 1, route: '/restaurants', title: 'Restaurants' },
-    { id: 2, route: '/about', title: 'About us' },
+    { id: 0, route: '/', title: content.header.home },
+    { id: 1, route: '/restaurants', title: content.header.restaurants },
+    { id: 2, route: '/about', title: content.header.about },
 ];
-const cities = [
-    { value: 'minsk', label: 'Minsk' },
-    { value: 'kazan', label: 'Kazan' },
-];
+const cities = {
+    en: [
+        { value: 'minsk', label: 'Minsk' },
+        { value: 'kazan', label: 'Kazan' },
+    ],
+    ru: [
+        { value: 'minsk', label: 'Минск' },
+        { value: 'kazan', label: 'Казань' },
+    ],
+};
+// const city = {
+//     minsk: {
+//         en: {
+//             value: 'minsk',
+//             label: 'Minsk',
+//         },
+//         ru: {
+//             value: 'minsk',
+//             label: 'Минск',
+//         },
+//     },
+//     kazan: {
+//         en: {
+//             value: 'kazan',
+//             label: 'Kazan',
+//         },
+//         ru: {
+//             value: 'kazan',
+//             label: 'Казань',
+//         },
+//     },
+// };
 
 const Header = () => {
+    const { state, dispatch } = useContext(AppContext);
     const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+    const lang = state.language === 'en' ? 'en' : 'ru';
+    // const currCity = 'minsk';
 
     useEffect(() => {
         if (isBurgerOpen) {
@@ -28,6 +61,18 @@ const Header = () => {
     };
     const closeBurger = () => {
         setIsBurgerOpen(false);
+    };
+
+    const changeLang = () => {
+        if (state.language === 'en') {
+            dispatch({ type: 'changeLang', payload: 'ru' });
+        } else {
+            dispatch({ type: 'changeLang', payload: 'en' });
+        }
+    };
+    const changeCityHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { target } = event;
+        console.log('value', target);
     };
 
     return (
@@ -79,7 +124,7 @@ const Header = () => {
                                     to={route}
                                     onClick={closeBurger}
                                 >
-                                    {title}
+                                    {title[lang]}
                                 </Link>
                             </li>
                         ))}
@@ -91,9 +136,12 @@ const Header = () => {
                             }`}
                         >
                             <Select
-                                defaultValue={cities[0]}
+                                className='text-black'
+                                defaultValue={cities[lang][0]}
+                                // value={cities[lang][0]}
                                 name='city'
-                                options={cities}
+                                options={cities[lang]}
+                                // onChange={(event) => changeCityHandler(event)}
                                 theme={(theme) => ({
                                     ...theme,
                                     colors: {
@@ -103,7 +151,12 @@ const Header = () => {
                                 })}
                             />
                         </li>
-                        <li className='bg-eng w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
+                        <li
+                            className={`w-8 h-8 bg-no-repeat bg-cover cursor-pointer ${
+                                state.language === 'en' ? 'bg-eng' : 'bg-ru'
+                            }`}
+                            onClick={changeLang}
+                        ></li>
                         <li className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
                         {/* <li className='w-8 h-8'>
                             <a
