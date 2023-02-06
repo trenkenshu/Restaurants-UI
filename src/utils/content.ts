@@ -113,6 +113,16 @@ export const content = {
             ru: 'Рестораны города ',
         },
     },
+    errorPage: {
+        title: {
+            en: 'Error',
+            ru: 'Ошибка',
+        },
+        subtitle: {
+            en: 'The page you are looking for can`t be found',
+            ru: 'Такой страницы не существует',
+        },
+    },
 };
 
 // {
