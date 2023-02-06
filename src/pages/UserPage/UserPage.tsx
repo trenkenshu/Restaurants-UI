@@ -52,7 +52,7 @@ const UserPage = () => {
             </div>
             <div className='flex p-5 gap-3 items-center justify-end bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                 <h3>Log out</h3>
-                <div className='w-8 h-8 bg-logout dark:bg-logoutWhite bg-cover cursor-pointer'></div>
+                <div className='w-8 h-8 bg-logout dark:bg-logoutWhite bg-cover cursor-pointer hover:shadow-red-600'></div>
             </div>
         </div>
     );
