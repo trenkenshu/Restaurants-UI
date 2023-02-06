@@ -42,6 +42,14 @@ module.exports = {
                 favorite: "url('/src/assets/icons/favorite.svg')",
                 // eslint-disable-next-line quotes
                 favoriteFilled: "url('/src/assets/icons/favorite_filled.svg')",
+                // eslint-disable-next-line quotes
+                userIcon: "url('/src/assets/icons/account_profile.svg')",
+                // eslint-disable-next-line quotes
+                userIconWhite: "url('/src/assets/icons/account_profile_white.svg')",
+                // eslint-disable-next-line quotes
+                logout: "url('/src/assets/icons/logout.svg')",
+                // eslint-disable-next-line quotes
+                logoutWhite: "url('/src/assets/icons/logout_white.svg')",
             },
             flex: {
                 100: '1 1 100%',
