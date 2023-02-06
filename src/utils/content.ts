@@ -112,6 +112,10 @@ export const content = {
             en: 'Restaurants in ',
             ru: 'Рестораны города ',
         },
+        averageCheck: {
+            en: 'Average check',
+            ru: 'Средний чек',
+        },
     },
     errorPage: {
         title: {

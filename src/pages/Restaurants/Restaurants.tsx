@@ -6,24 +6,38 @@ import { getRestaurant, getRestaurants } from 'api/api';
 import { IRestaurant } from 'types';
 import { AppContext } from 'store/store';
 
-const lang = 'en';
+// const lang = 'en';
 
 const Restaurants = () => {
     // const [restaurants, setRestaurants] = useState([]);
     const { state, dispatch } = useContext(AppContext);
+    // console.log('language', state.language);
+    console.log('state', state);
+    const lang = state.language === 'en' ? 'en' : 'ru';
+    console.log('lang', lang);
 
     useEffect(() => {
-        getRestaurants('Minsk').then((resp) => {
-            console.log(resp.data);
-            resp.data.forEach((el: IRestaurant) => {
+        // getRestaurants('Minsk').then((restaurants) => {
+        //     console.log(restaurants);
+        //     restaurants.forEach((el: IRestaurant) => {
+        //         el.parsedTranslation = JSON.parse(el.translation);
+        //     });
+        //     // setRestaurants(resp.data);
+        //     dispatch({
+        //         type: 'getRestaurants',
+        //         payload: restaurants,
+        //     });
+        // });
+        const saveRestaurants = async () => {
+            const restaurants = await getRestaurants('Minsk');
+            restaurants.forEach((el: IRestaurant) => {
                 el.parsedTranslation = JSON.parse(el.translation);
             });
-            // setRestaurants(resp.data);
-            dispatch({
-                type: 'getRestaurants',
-                payload: resp.data,
-            });
-        });
+            console.log(restaurants);
+            dispatch({ type: 'getRestaurants', payload: restaurants });
+        };
+
+        saveRestaurants();
         // getRestaurant(3).then((resp) => console.log('cafe', resp));
     }, []);
 
@@ -49,7 +63,7 @@ const Restaurants = () => {
                         })}
                     </div>
                 </div>
-                <Map restaurants={state.restaurants} />
+                <Map />
             </div>
         </div>
     );

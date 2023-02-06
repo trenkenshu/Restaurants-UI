@@ -37,3 +37,7 @@ body.active {
 .homepage-dark .slick-next:before {
   color: lightgray !important;
 } */
+
+.leaflet-popup-content p {
+  margin: 0;
+}
