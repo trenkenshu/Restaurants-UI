@@ -11,9 +11,9 @@ interface ParticipantCardProps {
 const ParticipantCard: FC<ParticipantCardProps> = ({ name, title, photo, link, description }) => {
     return (
         <div className='w-full flex flex-col sm:flex-row items-center h-max md:h-70 lg:h-80 gap-5 p-5'>
-            <img className='w-36 h-48 md:w-60 md:h-full rounded' src={photo}></img>
+            <img className='w-36 h-48 md:w-60 md:h-full rounded' src={photo} alt={`${name}`}></img>
             <div className='w-54 h-full rounded'>
-                <h2 className='sm:text-lg md:text-xl lg:text-2xl 2xl:text-3xl leading-6 sm:leading-8 text-center sm:text-start font-bold mb-0.5 dark:text-smoke-gray'>
+                <h2 className='sm:text-lg md:text-xl lg:text-3xl 2xl:text-4xl leading-6 sm:leading-8 text-center sm:text-start font-bold mb-1 dark:text-smoke-gray'>
                     <a href={link} target='_blank' rel='noreferrer'>
                         {name}
                     </a>
