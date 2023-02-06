@@ -1,4 +1,6 @@
 import Layout from 'components/Layout';
+import AboutUs from 'pages/AboutUs';
+import Error404 from 'pages/Error404';
 import HomePage from 'pages/HomePage';
 import Restaurants from 'pages/Restaurants';
 import UserPage from 'pages/UserPage';
@@ -12,8 +14,9 @@ const App = () => {
                 <Routes>
                     <Route path='/' element={<HomePage />} />
                     <Route path='/restaurants' element={<Restaurants />} />
-                    <Route path='/about' element={<UserPage />} />
-                    <Route path='/*' element={<div>ERROR PAGE</div>} />
+                    <Route path='/about' element={<AboutUs />} />
+                    <Route path='/userpage' element={<UserPage />} />
+                    <Route path='/*' element={<Error404 />} />
                 </Routes>
             </Layout>
         </BrowserRouter>

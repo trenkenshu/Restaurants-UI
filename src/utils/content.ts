@@ -2,7 +2,7 @@ export const content = {
     header: {
         home: {
             en: 'Home',
-            ru: 'Главня',
+            ru: 'Главная',
         },
         restaurants: {
             en: 'Restaurants',
@@ -111,6 +111,16 @@ export const content = {
         title: {
             en: 'Restaurants in ',
             ru: 'Рестораны города ',
+        },
+    },
+    errorPage: {
+        title: {
+            en: 'Error',
+            ru: 'Ошибка',
+        },
+        subtitle: {
+            en: 'The page you are looking for can`t be found',
+            ru: 'Такой страницы не существует',
         },
     },
 };

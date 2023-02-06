@@ -1,10 +1,5 @@
 import React from 'react';
-
-const participants = [
-    { id: 0, name: 'Viktor Minkov', link: 'https://github.com/ViktorMinkov' },
-    { id: 1, name: 'Oleg Trenkenshu', link: 'https://github.com/trenkenshu' },
-    { id: 2, name: 'Railia Balakaeva', link: 'https://github.com/RallyZK' },
-];
+import participants from 'utils/participants';
 
 const Footer = () => {
     return (

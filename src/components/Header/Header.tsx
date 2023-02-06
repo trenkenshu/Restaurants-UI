@@ -67,7 +67,7 @@ const Header = () => {
                 <ul
                     className={` ${
                         isBurgerOpen
-                            ? 'w-full fixed flex gap-10 top-0 left-0 items-center justify-center bg-smoke-gray flex-col h-screen z-1001 text-4xl'
+                            ? 'w-full fixed flex gap-10 top-0 left-0 items-center justify-center bg-smoke-gray dark:bg-zinc-800 flex-col h-screen z-1001 text-4xl'
                             : 'w-full fixed flex top-0 left-full'
                     } font-medium md:text-lg font-medium md:justify-between md:gap-3 md:static md:flex-row md:h-auto`}
                 >
@@ -105,17 +105,26 @@ const Header = () => {
                         </li>
                         <li className='bg-eng w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
                         <li className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
+                        {/* <li className='w-8 h-8'>
+                            <a
+                                href=''
+                                className='block bg-login dark:bg-loginWhite w-full h-full bg-no-repeat bg-cover'
+                            ></a>
+                        </li> */}
                         <li className='w-8 h-8'>
-                            <a href='' className='block bg-login w-full h-full bg-no-repeat bg-cover'></a>
+                            <Link
+                                className='block bg-login dark:bg-loginWhite w-full h-full bg-no-repeat bg-cover'
+                                to='/userpage'
+                            ></Link>
                         </li>
                         <div
-                            className='bg-closemenu w-8 h-8 bg-no-repeat bg-cover cursor-pointer absolute top-5 right-5 md:hidden'
+                            className='bg-closemenu dark:bg-closemenuWhite w-8 h-8 bg-no-repeat bg-cover cursor-pointer absolute top-5 right-5 md:hidden'
                             onClick={closeBurger}
                         ></div>
                     </div>
                 </ul>
                 <div
-                    className='bg-burgermenu w-8 h-8 bg-no-repeat bg-cover cursor-pointer ml-auto md:hidden'
+                    className='bg-burgermenu dark:bg-burgermenuWhite w-8 h-8 bg-no-repeat bg-cover cursor-pointer ml-auto md:hidden'
                     onClick={openBurger}
                 ></div>
             </div>

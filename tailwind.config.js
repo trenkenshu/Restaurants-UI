@@ -23,11 +23,17 @@ module.exports = {
                 // eslint-disable-next-line quotes
                 login: "url('/src/assets/icons/login.svg')",
                 // eslint-disable-next-line quotes
+                loginWhite: "url('/src/assets/icons/login_white.svg')",
+                // eslint-disable-next-line quotes
                 rating: "url('/src/assets/icons/rating-star.svg')",
                 // eslint-disable-next-line quotes
                 burgermenu: "url('/src/assets/icons/burger-menu.svg')",
                 // eslint-disable-next-line quotes
+                burgermenuWhite: "url('/src/assets/icons/burger-menu_white.svg')",
+                // eslint-disable-next-line quotes
                 closemenu: "url('/src/assets/icons/close_menu.svg')",
+                // eslint-disable-next-line quotes
+                closemenuWhite: "url('/src/assets/icons/close_menu_white.svg')",
                 // eslint-disable-next-line quotes
                 randomRest: "url('/src/assets/images/home-page/random-restaurant.jpg')",
                 // eslint-disable-next-line quotes

@@ -1,19 +1,20 @@
+import React, { FC } from 'react';
 import ButtonBlack from 'components/ButtonBlack';
 import ButtonFavorite from 'components/ButtonFavorite';
-import jpg1 from '../../assets/images/home-page/carousel/1.jpg';
-import jpg2 from '../../assets/images/home-page/carousel/2.jpg';
-import jpg3 from '../../assets/images/home-page/carousel/3.jpg';
-import jpg4 from '../../assets/images/home-page/carousel/4.jpg';
-import jpg5 from '../../assets/images/home-page/carousel/5.jpg';
-import jpg6 from '../../assets/images/home-page/carousel/6.jpg';
-import jpg7 from '../../assets/images/home-page/carousel/7.jpg';
-import Slider from 'react-slick';
 
+import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { IRestaurant } from 'types';
 
-const RestaurantItem = () => {
-    const imgs = [jpg1, jpg2, jpg3, jpg4, jpg5, jpg6, jpg7];
+type RestaurantItemType = {
+    restaurant: IRestaurant;
+};
+
+const lang = 'en';
+
+const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
+    // console.log(restaurant);
 
     const sliderSetting = {
         dots: false,
@@ -53,26 +54,39 @@ const RestaurantItem = () => {
     return (
         <div className='flex flex-col gap-1 p-2 bg-white dark:bg-zinc-200 dark:text-zinc-800 rounded-md'>
             <div className='flex gap-2.5'>
-                <div className='font-bold uppercase'>RestName</div>
+                <div className='font-bold uppercase'>{restaurant.name.toUpperCase()}</div>
                 <div className='flex items-center  gap-1 border rounded px-0.5'>
                     <div className='bg-rating h-4 w-4 bg-no-repeat bg-cover'></div>
-                    <div className=''>4.5</div>
+                    <div className=''>{restaurant.rating}</div>
                 </div>
                 <div className=''>N of Reviews</div>
             </div>
-            <div className='text-sm'>CuisineType</div>
-            <div className='flex gap-2.5'>
-                <div className='text-sm'>Adress</div>
-                <div className='text-sm'>End of work</div>
+            <div className='text-sm'>
+                {restaurant.parsedTranslation && restaurant.parsedTranslation[lang].cuisineType.join(' ')}
             </div>
-            <div className='h-40 w-[85%] sm:w-11/12 mx-auto'>
+            <div className='flex gap-2.5'>
+                <div className='text-sm'>
+                    {restaurant.parsedTranslation && restaurant.parsedTranslation[lang].address}
+                </div>
+                <div className='text-sm'>
+                    {restaurant.workTimeStart}.00 - {restaurant.workTimeEnd}.00
+                </div>
+            </div>
+            <div className='h-40 2xl:h-52 w-[85%] sm:w-11/12 mx-auto'>
                 <Slider {...sliderSetting}>
-                    {imgs.map((el) => {
-                        return <img key={el} src={el} className='h-40 w-40 px-1 rounded-md' alt='Restaurant' />;
+                    {restaurant.images.map((img) => {
+                        return (
+                            <img
+                                key={img}
+                                src={`https://restaurants-server-2.onrender.com/${img}`}
+                                className='h-40 w-40 rounded-md 2xl:h-52 2xl:w-52'
+                                alt='Restaurant'
+                            />
+                        );
                     })}
                 </Slider>
             </div>
-            <div className='text-sm'>Average check: </div>
+            <div className='text-sm'>Average check: {restaurant.averageCheck}$</div>
             <div className='flex gap-2.5 w-full'>
                 <ButtonBlack width={'w-40'} height={'h-10'} buttonText={'Details'} />
                 <div className='w-10 h-10'>
