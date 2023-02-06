@@ -27,8 +27,8 @@ const initialState = {
         phone: 0,
         favorites: [],
     },
-    currentCity: '',
-    cities: [],
+    currentCity: 'Minsk',
+    cities: ['Minsk', 'Kazan'],
     language: '',
     theme: '',
 };
