@@ -2,7 +2,7 @@ export const content = {
     header: {
         home: {
             en: 'Home',
-            ru: 'Главня',
+            ru: 'Главная',
         },
         restaurants: {
             en: 'Restaurants',
