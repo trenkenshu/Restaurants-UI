@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import ButtonBlack from 'components/ButtonBlack';
 import ButtonFavorite from 'components/ButtonFavorite';
 
@@ -6,15 +6,19 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { IRestaurant } from 'types';
+import { content } from 'utils/content';
+import { AppContext } from 'store/store';
 
 type RestaurantItemType = {
     restaurant: IRestaurant;
 };
 
-const lang = 'en';
+// const lang = 'en';
 
 const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
+    const { state } = useContext(AppContext);
     // console.log(restaurant);
+    const lang = state.language === 'en' ? 'en' : 'ru';
 
     const sliderSetting = {
         dots: false,
@@ -72,23 +76,30 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                     {restaurant.workTimeStart}.00 - {restaurant.workTimeEnd}.00
                 </div>
             </div>
-            <div className='h-40 2xl:h-52 w-[85%] sm:w-11/12 mx-auto'>
+            <div className='h-40 w-[85%] sm:w-11/12 mx-auto'>
                 <Slider {...sliderSetting}>
                     {restaurant.images.map((img) => {
                         return (
                             <img
                                 key={img}
                                 src={`https://restaurants-server-2.onrender.com/${img}`}
-                                className='h-40 w-40 rounded-md 2xl:h-52 2xl:w-52'
+                                className='h-40 w-40 object-cover rounded-md'
                                 alt='Restaurant'
                             />
+                            // <div
+                            //     className='h-40 block bg-no-repeat bg-cover'
+                            //     key={img}
+                            //     style={{ backgroundImage: `url(https://restaurants-server-2.onrender.com/${img})` }}
+                            // ></div>
                         );
                     })}
                 </Slider>
             </div>
-            <div className='text-sm'>Average check: {restaurant.averageCheck}$</div>
+            <div className='text-sm'>
+                {content.restaurantsPage.averageCheck[lang]} : {restaurant.averageCheck}$
+            </div>
             <div className='flex gap-2.5 w-full'>
-                <ButtonBlack width={'w-40'} height={'h-10'} buttonText={'Details'} />
+                <ButtonBlack width={'w-40'} height={'h-10'} buttonText={content.common.details[lang]} />
                 <div className='w-10 h-10'>
                     <ButtonFavorite />
                 </div>

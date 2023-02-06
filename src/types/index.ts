@@ -93,5 +93,5 @@ export interface IState {
 
 export type ActionType = {
     type: string;
-    payload?: IRestaurant[];
+    payload?: IRestaurant[] | string;
 };

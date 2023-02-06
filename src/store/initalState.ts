@@ -22,8 +22,8 @@ const initialState: IState = {
     },
     currentCity: 'Minsk',
     cities: ['Minsk', 'Kazan'],
-    language: '',
-    theme: '',
+    language: 'en',
+    theme: 'light',
 };
 
 export default initialState;
