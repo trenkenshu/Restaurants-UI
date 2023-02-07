@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { IRestaurant } from 'types';
+import { IRestaurant, IUser } from 'types';
 
 const api = axios.create({
     baseURL: 'https://restaurants-server-2.onrender.com/',
@@ -33,3 +33,8 @@ export interface IUser {
     phone: string;
     password: string;
 }
+
+export const getUser = async (id: number): Promise<IUser> => {
+    const response = await api.get<IUser>(`/client/${id}`);
+    return response.data;
+};
