@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import ButtonBlack from 'components/ButtonBlack';
 import ButtonFavorite from 'components/ButtonFavorite';
 import { content } from 'utils/content';
-
-const lang = 'en';
+import { AppContext } from 'store/store';
 
 const RestaurantCard = () => {
+    const { state } = useContext(AppContext);
     return (
         <div className='flex flex-col w-full h-80 lg:h-96 border-b border-zinc-800 dark:border-corall'>
             <div className='w-full h-full bg-randomRest bg-cover bg-no-repeat bg-bottom overflow-y-hidden relative'>
@@ -20,17 +20,23 @@ const RestaurantCard = () => {
                         friendly staff, friendly service, versatile cuisine and signature drinks.
                     </p>
                     <p className='dark:text-smoke-gray'>
-                        <span className='font-semibold'>{content.restaurantCart.adress[lang]}: </span>Minsk, Gagarin
-                        str., 1961
+                        <span className='font-semibold'>{content.restaurantCart.adress[state.language]}: </span>Minsk,
+                        Gagarin str., 1961
                     </p>
                     <p className='dark:text-smoke-gray'>
-                        <span className='font-semibold'>{content.restaurantCart.cuisine[lang]}: </span>european, italian
+                        <span className='font-semibold'>{content.restaurantCart.cuisine[state.language]}: </span>
+                        european, italian
                     </p>
                     <p className='dark:text-smoke-gray mb-4'>
-                        <span className='font-semibold'>{content.restaurantCart.averageCheck[lang]}: </span> 35
+                        <span className='font-semibold'>{content.restaurantCart.averageCheck[state.language]}: </span>{' '}
+                        35
                     </p>
                     <div className='flex justify-center'>
-                        <ButtonBlack width={'w-1/2'} height={'h-10'} buttonText={content.common.details[lang]} />
+                        <ButtonBlack
+                            width={'w-1/2'}
+                            height={'h-10'}
+                            buttonText={content.common.details[state.language]}
+                        />
                     </div>
                 </div>
             </div>

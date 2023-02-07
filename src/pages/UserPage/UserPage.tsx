@@ -11,18 +11,17 @@ import { AppContext } from 'store/store';
 
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);
-    const lang = state.language === 'en' ? 'en' : 'ru';
     const [restaurants, setRestaurants] = useState([]);
 
-    useEffect(() => {
-        getRestaurants('Minsk').then((resp) => {
-            console.log('resp:::', resp);
-            resp.forEach((el: IRestaurant) => {
-                el.parsedTranslation = JSON.parse(el.translation);
-            });
-            setRestaurants(resp);
-        });
-    }, []);
+    // useEffect(() => {
+    //     getRestaurants('Minsk').then((resp) => {
+    //         console.log('resp:::', resp);
+    //         resp.forEach((el: IRestaurant) => {
+    //             el.parsedTranslation = JSON.parse(el.translation);
+    //         });
+    //         setRestaurants(resp);
+    //     });
+    // }, []);
 
     return (
         <div className='flex flex-col w-full md:w-9/12 2xl:w-9/12 mx-auto pb-10 md:py-5 gap-5'>
@@ -36,7 +35,7 @@ const UserPage = () => {
                 <div className='flex flex-col gap-3'>
                     <div className='flex items-center gap-2'>
                         <p className='text-sm md:text-base'>
-                            <span className='font-semibold'>{content.userPage.phone[lang]}:</span> +19999999995
+                            <span className='font-semibold'>{content.userPage.phone[state.language]}:</span> +19999999995
                         </p>
                         <button className='w-4 h-4 bg-edit dark:bg-editWhite bg-cover bg-center'></button>
                     </div>
@@ -50,7 +49,7 @@ const UserPage = () => {
             </div>
             <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                 <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md'>
-                    {content.userPage.bookings[lang]}
+                    {content.userPage.bookings[state.language]}
                 </h2>
                 <div className='flex flex-col flex-wrap sm:flex-row gap-5'>
                     <BookingItem />
@@ -60,7 +59,7 @@ const UserPage = () => {
             </div>
             <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                 <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md'>
-                    {content.userPage.reviews[lang]}
+                    {content.userPage.reviews[state.language]}
                 </h2>
                 <div className='flex flex-col gap-5'>
                     <ReviewItem />
@@ -70,9 +69,9 @@ const UserPage = () => {
             </div>
             <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                 <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md'>
-                    {content.userPage.favorite[lang]}
+                    {content.userPage.favorite[state.language]}
                 </h2>
-                <div className='flex flex-col gap-5'>
+                {/* <div className='flex flex-col gap-5'>
                     {restaurants.map((el, index) => {
                         if (index < 3) {
                             return (
@@ -82,10 +81,10 @@ const UserPage = () => {
                             );
                         }
                     })}
-                </div>
+                </div> */}
             </div>
             <div className='flex p-5 gap-3 items-center justify-end bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
-                <h3>{content.userPage.logout[lang]}</h3>
+                <h3>{content.userPage.logout[state.language]}</h3>
                 <div className='w-8 h-8 bg-logout dark:bg-logoutWhite bg-cover cursor-pointer hover:shadow-red-600'></div>
             </div>
         </div>

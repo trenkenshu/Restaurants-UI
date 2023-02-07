@@ -15,3 +15,21 @@ export const getRestaurant = async (id: number): Promise<IRestaurant> => {
     const response = await api.get<IRestaurant>(`/cafe/${id}`);
     return response.data;
 };
+
+export const createUser = async (body: IUser) => {
+    const response = await fetch('https://restaurants-server.onrender.com/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+    });
+    console.log(response);
+};
+
+export interface IUser {
+    login: string;
+    email: string;
+    phone: string;
+    password: string;
+}

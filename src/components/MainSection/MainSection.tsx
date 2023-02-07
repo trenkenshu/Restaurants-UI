@@ -14,8 +14,7 @@ import { useContext } from 'react';
 import { AppContext } from 'store/store';
 
 const MainSection = () => {
-    const { state, dispatch } = useContext(AppContext);
-    const lang = state.language === 'en' ? 'en' : 'ru';
+    const { state } = useContext(AppContext);
     const imgs = [jpg1, jpg2, jpg3, jpg4, jpg5, jpg6, jpg7];
 
     const sliderSetting = {
@@ -36,10 +35,10 @@ const MainSection = () => {
             <div className='flex flex-col md:flex-row mt-8 mb-5'>
                 <div className='flex flex-col md:w-5/12 md:mt-14 pr-10'>
                     <h1 className='text-2xl lg:text-3xl 2xl:text-4xl leading-6 sm:leading-8 font-bold mb-5 dark:text-smoke-gray'>
-                        {content.homePage.title[lang]}
+                        {content.homePage.title[state.language]}
                     </h1>
                     <h3 className='text-xs lg:text-sm 2xl:text-xl dark:text-smoke-gray mb-10 md:mb-0'>
-                        {content.homePage.subtitle[lang]}
+                        {content.homePage.subtitle[state.language]}
                     </h3>
                 </div>
                 <div className='md:w-7/12 h-60 md:h-96 2xl:h-136'>
@@ -51,7 +50,7 @@ const MainSection = () => {
                 </div>
             </div>
             <p className='2xl:text-xl mt-5 md:mt-0 before:content-["\2605\2605\2605\2605\2605"] before:mr-1.5 uppercase dark:before:text-corall'>
-                176 {content.homePage.reviews[lang]}
+                176 {content.homePage.reviews[state.language]}
             </p>
         </div>
     );
