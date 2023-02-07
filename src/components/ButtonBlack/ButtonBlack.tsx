@@ -10,7 +10,7 @@ interface ButtonBlackProps {
 const ButtonBlack: FC<ButtonBlackProps> = ({ width, height, fontsize, buttonText }) => {
     return (
         <button
-            className={`${width} ${height} ${fontsize} items-center bg-black text-corall hover:bg-smoke-gray hover:text-zinc-800 border border-zinc-800 rounded-full font-semibold`}
+            className={`${width} ${height} ${fontsize} items-center bg-black text-corall hover:bg-transparent hover:text-black border border-black rounded-full font-semibold`}
         >
             {buttonText}
         </button>

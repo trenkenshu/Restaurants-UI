@@ -10,10 +10,12 @@ import Slider from 'react-slick';
 
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-
-const lang = 'en';
+import { useContext } from 'react';
+import { AppContext } from 'store/store';
 
 const MainSection = () => {
+    const { state, dispatch } = useContext(AppContext);
+    const lang = state.language === 'en' ? 'en' : 'ru';
     const imgs = [jpg1, jpg2, jpg3, jpg4, jpg5, jpg6, jpg7];
 
     const sliderSetting = {
