@@ -127,6 +127,40 @@ export const content = {
             ru: 'Такой страницы не существует',
         },
     },
+    registration: {
+        signin: {
+            en: 'Sign in to your account',
+            ru: 'Войдите в ваш аккаунт',
+        },
+        or: {
+            en: 'or ',
+            ru: 'или ',
+        },
+        register: {
+            en: 'Create an account',
+            ru: 'Создайте аккаунт',
+        },
+        login: {
+            en: 'Login',
+            ru: 'Логин',
+        },
+        phone: {
+            en: 'Phone',
+            ru: 'Телефон',
+        },
+        emailadress: {
+            en: 'Email address',
+            ru: 'Email адрес',
+        },
+        password: {
+            en: 'Password',
+            ru: 'Пароль',
+        },
+        submit: {
+            en: 'Sing in',
+            ru: 'Войти',
+        },
+    },
     userPage: {
         phone: {
             en: 'Phone',

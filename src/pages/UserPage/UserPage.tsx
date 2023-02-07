@@ -24,8 +24,7 @@ const UserPage = () => {
                 <div className='flex flex-col gap-3'>
                     <div className='flex items-center gap-2'>
                         <p className='text-sm md:text-base'>
-                            <span className='font-semibold'>{content.userPage.phone[state.language]}:</span>{' '}
-                            +19999999995
+                            <span className='font-semibold'>{content.userPage.phone[state.language]}:</span>+19999999995
                         </p>
                         <button className='w-4 h-4 bg-edit dark:bg-editWhite bg-cover bg-center'></button>
                     </div>
