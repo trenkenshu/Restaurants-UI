@@ -6,10 +6,8 @@ import jpg3 from '../../assets/images/home-page/advantage-3.jpg';
 import jpg4 from '../../assets/images/home-page/advantage-4.jpg';
 import { AppContext } from '../../store/store';
 
-// const lang = 'en';
-
 const Advantages = () => {
-    const { state, dispatch } = useContext(AppContext);
+    const { state } = useContext(AppContext);
 
     const imgs = [jpg1, jpg2, jpg3, jpg4];
     return (

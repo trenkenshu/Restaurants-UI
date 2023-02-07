@@ -10,11 +10,7 @@ import { content } from 'utils/content';
 import { AppContext } from 'store/store';
 
 const UserPage = () => {
-    const { state, dispatch } = useContext(AppContext);
-
-    // useEffect(() => {
-
-    // }, []);
+    const { state } = useContext(AppContext);   
 
     return (
         <div className='flex flex-col w-full md:w-9/12 2xl:w-9/12 mx-auto pb-10 md:py-5 gap-5'>
