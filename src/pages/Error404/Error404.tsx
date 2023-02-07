@@ -1,11 +1,12 @@
 import ButtonBlack from 'components/ButtonBlack';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import { AppContext } from 'store/store';
 import { content } from '../../utils/content';
 
-const lang = 'en';
-
 const Error404 = () => {
+    const { state, dispatch } = useContext(AppContext);
+    const lang = state.language === 'en' ? 'en' : 'ru';
     return (
         <div className='flex flex-col items-center justify-center w-full h-[calc(100vh-150px)]'>
             <h1 className='text-5xl sm:text-8xl font-extrabold mb-10 drop-shadow-lg text-center'>
