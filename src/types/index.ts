@@ -61,6 +61,7 @@ export interface IUser {
     phone: number;
     favorites: IRestaurant[];
     bookings: IBooking[];
+    reviews: IReview[];
 }
 
 export interface IBooking {
@@ -82,16 +83,47 @@ export interface ITranslate {
 
 export type iCoordinate = [number, number];
 
+export type OptionType = {
+    value: string;
+    label: string;
+};
+
+export interface CityType extends Record<string, string> {
+    en: string;
+    ru: string;
+}
+// export type CityType = 'Minsk' | 'Kazan' | 'Минск' | 'Казань';
+
+export enum Cities {
+    Minsk = 'Минск',
+    Kazan = 'Казань',
+}
 export interface IState {
     restaurants: IRestaurant[];
     user: IUser;
-    currentCity: string;
-    cities: string[];
-    language: string;
+    currentCity: CityType;
+    language: 'en' | 'ru';
     theme: string;
 }
 
-export type ActionType = {
-    type: string;
-    payload?: IRestaurant[] | string;
-};
+export type ActionType =
+    | {
+          type: 'getRestaurants';
+          payload: IRestaurant[];
+      }
+    | {
+          type: 'changeCity';
+          payload: CityType;
+      }
+    | {
+          type: 'changeLang';
+          payload: 'en' | 'ru';
+      }
+    | {
+          type: 'changeTheme';
+          payload: 'light' | 'dark';
+      }
+    | {
+          type: 'updateUser';
+          payload: IUser;
+      };
