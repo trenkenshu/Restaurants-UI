@@ -10,19 +10,7 @@ import { content } from 'utils/content';
 import { AppContext } from 'store/store';
 
 const UserPage = () => {
-    const { state, dispatch } = useContext(AppContext);
-    // const lang = state.language === 'en' ? 'en' : 'ru';
-    // const [restaurants, setRestaurants] = useState([]);
-
-    useEffect(() => {
-        // getRestaurants('Minsk').then((resp) => {
-        //     console.log('resp:::', resp);
-        //     resp.forEach((el: IRestaurant) => {
-        //         el.parsedTranslation = JSON.parse(el.translation);
-        //     });
-        //     setRestaurants(resp);
-        // });
-    }, []);
+    const { state } = useContext(AppContext);   
 
     return (
         <div className='flex flex-col w-full md:w-9/12 2xl:w-9/12 mx-auto pb-10 md:py-5 gap-5'>
@@ -73,17 +61,6 @@ const UserPage = () => {
                 <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md'>
                     {content.userPage.favorite[state.language]}
                 </h2>
-                <div className='flex flex-col gap-5'>
-                    {state.restaurants.map((el, index) => {
-                        if (index < 3) {
-                            return (
-                                <div className='w-full' key={index}>
-                                    <RestaurantItem restaurant={el} />
-                                </div>
-                            );
-                        }
-                    })}
-                </div>
             </div>
             <div className='flex p-5 gap-3 items-center justify-end bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                 <h3>{content.userPage.logout[state.language]}</h3>
