@@ -5,7 +5,7 @@ import { content } from 'utils/content';
 
 const lang = 'en';
 
-const RestaurantCart = () => {
+const RestaurantCard = () => {
     return (
         <div className='flex flex-col w-full h-80 lg:h-96 border-b border-zinc-800 dark:border-corall'>
             <div className='w-full h-full bg-randomRest bg-cover bg-no-repeat bg-bottom overflow-y-hidden relative'>
@@ -38,4 +38,4 @@ const RestaurantCart = () => {
     );
 };
 
-export default RestaurantCart;
+export default RestaurantCard;
