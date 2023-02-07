@@ -1,37 +1,44 @@
 import ButtonBlack from 'components/ButtonBlack';
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useEffect } from 'react';
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
 import { AppContext } from 'store/store';
-import { IRestaurant } from 'types';
 import { content } from 'utils/content';
 
-type cityCoordsType = {
+interface cityCoordsType extends Record<string, number[]> {
     Minsk: number[];
     Kazan: number[];
-};
+}
 const cityCoords: cityCoordsType = {
     Minsk: [53.90060134067095, 27.5589730572721],
     Kazan: [55.79945218190242, 49.10599066893499],
 };
 
-// type MapType = {
-//     restaurants: IRestaurant[];
-// };
-
-// const lang = 'en';
+type CoordsType = {
+    coords: [number, number];
+};
 
 const Map: FC = () => {
     const { state } = useContext(AppContext);
-    const lang = state.language === 'en' ? 'en' : 'ru';
+
+    const MapRecenter = ({ coords }: CoordsType) => {
+        const map = useMap();
+        useEffect(() => {
+            map.setView(coords);
+        }, [state.currentCity]);
+        return null;
+    };
 
     return (
         <div id='map' className='w-full h-[500px] lg:w-3/5 lg:h-full'>
             <MapContainer
                 className='w-full h-full rounded'
-                center={[cityCoords.Minsk[0], cityCoords.Minsk[1]]}
-                zoom={15}
+                center={[cityCoords[state.currentCity['en']][0], cityCoords[state.currentCity['en']][1]]}
+                zoom={13}
                 scrollWheelZoom={true}
             >
+                <MapRecenter
+                    coords={[cityCoords[state.currentCity['en']][0], cityCoords[state.currentCity['en']][1]]}
+                />
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
                     // url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -43,12 +50,16 @@ const Map: FC = () => {
                             <p className='font-bold text-base text-center'>{restaurant.name.toUpperCase()}</p>
                             <p className='text-center'>
                                 {restaurant.parsedTranslation &&
-                                    restaurant.parsedTranslation[lang].cuisineType.join(' ')}
+                                    restaurant.parsedTranslation[state.language].cuisineType.join(' ')}
                             </p>
                             <p className='text-center'>
                                 {restaurant.workTimeStart}.00 - {restaurant.workTimeEnd}.00
                             </p>
-                            <ButtonBlack width='w-full' height='h-7' buttonText={content.common.details[lang]} />
+                            <ButtonBlack
+                                width='w-full'
+                                height='h-7'
+                                buttonText={content.common.details[state.language]}
+                            />
                         </Popup>
                     </Marker>
                 ))}
