@@ -13,12 +13,8 @@ type RestaurantItemType = {
     restaurant: IRestaurant;
 };
 
-// const lang = 'en';
-
 const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
     const { state } = useContext(AppContext);
-    // console.log(restaurant);
-    const lang = state.language === 'en' ? 'en' : 'ru';
 
     const sliderSetting = {
         dots: false,
@@ -66,11 +62,11 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                 <div className=''>N of Reviews</div>
             </div>
             <div className='text-sm'>
-                {restaurant.parsedTranslation && restaurant.parsedTranslation[lang].cuisineType.join(' ')}
+                {restaurant.parsedTranslation && restaurant.parsedTranslation[state.language].cuisineType.join(' ')}
             </div>
             <div className='flex gap-2.5'>
                 <div className='text-sm'>
-                    {restaurant.parsedTranslation && restaurant.parsedTranslation[lang].address}
+                    {restaurant.parsedTranslation && restaurant.parsedTranslation[state.language].address}
                 </div>
                 <div className='text-sm'>
                     {restaurant.workTimeStart}.00 - {restaurant.workTimeEnd}.00
@@ -96,10 +92,10 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                 </Slider>
             </div>
             <div className='text-sm'>
-                {content.restaurantsPage.averageCheck[lang]} : {restaurant.averageCheck}$
+                {content.restaurantsPage.averageCheck[state.language]} : ${restaurant.averageCheck}
             </div>
             <div className='flex gap-2.5 w-full'>
-                <ButtonBlack width={'w-40'} height={'h-10'} buttonText={content.common.details[lang]} />
+                <ButtonBlack width={'w-40'} height={'h-10'} buttonText={content.common.details[state.language]} />
                 <div className='w-10 h-10'>
                     <ButtonFavorite />
                 </div>

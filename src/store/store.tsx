@@ -15,7 +15,8 @@ type ContextStateType = {
 export const AppContext = createContext({} as ContextStateType);
 
 const StoreContext: FC<StoreContextProps> = ({ children }) => {
-    const [state, dispatch] = useReducer<React.Reducer<IState, ActionType>>(reducer, initialState);
+    const loadedState = JSON.parse(localStorage.getItem('state') || '');
+    const [state, dispatch] = useReducer<React.Reducer<IState, ActionType>>(reducer, loadedState || initialState);
 
     // const contextState: ContextStateType = useMemo(() => {
     //     return {

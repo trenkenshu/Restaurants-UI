@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Select from 'react-select';
+import Select, { SingleValue } from 'react-select';
 import { AppContext } from 'store/store';
+import { CityType } from 'types';
 import { content } from 'utils/content';
 
 const links = [
@@ -9,44 +10,41 @@ const links = [
     { id: 1, route: '/restaurants', title: content.header.restaurants },
     { id: 2, route: '/about', title: content.header.about },
 ];
-const cities = {
-    en: [
-        { value: 'minsk', label: 'Minsk' },
-        { value: 'kazan', label: 'Kazan' },
-    ],
-    ru: [
-        { value: 'minsk', label: 'Минск' },
-        { value: 'kazan', label: 'Казань' },
-    ],
-};
-// const city = {
-//     minsk: {
-//         en: {
-//             value: 'minsk',
-//             label: 'Minsk',
-//         },
-//         ru: {
-//             value: 'minsk',
-//             label: 'Минск',
+
+// const cities = [
+//     {
+//         value: 'Minsk',
+//         label: {
+//             en: 'Minsk',
+//             ru: 'Минск',
 //         },
 //     },
-//     kazan: {
-//         en: {
-//             value: 'kazan',
-//             label: 'Kazan',
-//         },
-//         ru: {
-//             value: 'kazan',
-//             label: 'Казань',
+//     {
+//         value: 'Kazan',
+//         label: {
+//             en: 'Kazan',
+//             ru: 'Казань',
 //         },
 //     },
-// };
+// ];
+const cities = [
+    {
+        label: {
+            en: 'Minsk',
+            ru: 'Минск',
+        },
+    },
+    {
+        label: {
+            en: 'Kazan',
+            ru: 'Казань',
+        },
+    },
+];
 
 const Header = () => {
     const { state, dispatch } = useContext(AppContext);
     const [isBurgerOpen, setIsBurgerOpen] = useState(false);
-    const lang = state.language === 'en' ? 'en' : 'ru';
-    // const currCity = 'minsk';
 
     useEffect(() => {
         if (isBurgerOpen) {
@@ -55,6 +53,14 @@ const Header = () => {
             document.body.classList.remove('active');
         }
     }, [isBurgerOpen]);
+
+    useEffect(() => {
+        if (state.theme === 'dark') {
+            document.querySelector('html')?.classList.add('dark');
+        } else {
+            document.querySelector('html')?.classList.remove('dark');
+        }
+    }, []);
 
     const openBurger = () => {
         setIsBurgerOpen(true);
@@ -70,9 +76,23 @@ const Header = () => {
             dispatch({ type: 'changeLang', payload: 'en' });
         }
     };
-    const changeCityHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+
+    const changeCityHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { target } = event;
-        console.log('value', target);
+        console.log('value', target.value);
+        const newCity = cities.find((el) => el.label['en'] === target.value);
+        console.log(newCity);
+        dispatch({ type: 'changeCity', payload: newCity?.label as CityType });
+    };
+
+    const changeTheme = () => {
+        if (state.theme === 'light') {
+            dispatch({ type: 'changeTheme', payload: 'dark' });
+            document.querySelector('html')?.classList.add('dark');
+        } else {
+            dispatch({ type: 'changeTheme', payload: 'light' });
+            document.querySelector('html')?.classList.remove('dark');
+        }
     };
 
     return (
@@ -124,24 +144,24 @@ const Header = () => {
                                     to={route}
                                     onClick={closeBurger}
                                 >
-                                    {title[lang]}
+                                    {title[state.language]}
                                 </Link>
                             </li>
                         ))}
                     </div>
                     <div className={`flex gap-2.5 flex-row items-center ${isBurgerOpen && 'w-full justify-center'}`}>
                         <li
-                            className={`cursor-pointer transition ease-in duration-300 z-1001 ${
+                            className={`p-2 rounded-md border-black cursor-pointer transition ease-in duration-300 z-1001 ${
                                 isBurgerOpen && 'mr-10'
                             }`}
                         >
-                            <Select
+                            {/* <Select
                                 className='text-black'
-                                defaultValue={cities[lang][0]}
-                                // value={cities[lang][0]}
+                                // defaultValue={cities[state.language][0]}
+                                value={{ value: state.currentCity, label: state.currentCity }}
                                 name='city'
-                                options={cities[lang]}
-                                // onChange={(event) => changeCityHandler(event)}
+                                options={cities[state.language]}
+                                onChange={(event) => changeCityHandler(event)}
                                 theme={(theme) => ({
                                     ...theme,
                                     colors: {
@@ -149,7 +169,22 @@ const Header = () => {
                                         primary: 'black',
                                     },
                                 })}
-                            />
+                            /> */}
+                            <select
+                                className='p-2 text-black outline-none rounded-md'
+                                defaultValue={state.currentCity['en']}
+                                onChange={changeCityHandler}
+                            >
+                                {cities.map((el, index) => (
+                                    <option
+                                        key={index}
+                                        value={el.label['en']}
+                                        // selected={state.currentCity['en'] === el.label['en']}
+                                    >
+                                        {el.label[state.language]}
+                                    </option>
+                                ))}
+                            </select>
                         </li>
                         <li
                             className={`w-8 h-8 bg-no-repeat bg-cover cursor-pointer ${
@@ -157,7 +192,10 @@ const Header = () => {
                             }`}
                             onClick={changeLang}
                         ></li>
-                        <li className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></li>
+                        <li
+                            className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'
+                            onClick={changeTheme}
+                        ></li>
                         {/* <li className='w-8 h-8'>
                             <a
                                 href=''
