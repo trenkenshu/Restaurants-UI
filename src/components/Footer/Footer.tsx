@@ -3,8 +3,7 @@ import { AppContext } from 'store/store';
 import participants from 'utils/participants';
 
 const Footer = () => {
-    const { state, dispatch } = useContext(AppContext);
-    const lang = state.language === 'en' ? 'en' : 'ru';
+    const { state } = useContext(AppContext);
 
     return (
         <footer id='footer' className='h-54 md:h-15 bg-zinc-800 dark:bg-smoke-gray'>
@@ -18,7 +17,7 @@ const Footer = () => {
                 <div className='flex flex-col sm:flex-row gap-2.5'>
                     {participants.map(({ id, name, link }) => (
                         <a key={id} className='text-center' href={link} target='_blank' rel='noreferrer'>
-                            {name[lang]}
+                            {name[state.language]}
                         </a>
                     ))}
                 </div>

@@ -87,7 +87,7 @@ export interface IState {
     user: IUser;
     currentCity: string;
     cities: string[];
-    language: string;
+    language: 'en' | 'ru';
     theme: string;
 }
 

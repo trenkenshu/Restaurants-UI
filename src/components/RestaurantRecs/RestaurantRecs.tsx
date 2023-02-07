@@ -9,8 +9,7 @@ import './RestaurantRecs.css';
 import { AppContext } from 'store/store';
 
 const RestaurantRecs = () => {
-    const { state, dispatch } = useContext(AppContext);
-    const lang = state.language === 'en' ? 'en' : 'ru';
+    const { state } = useContext(AppContext);
 
     const somearr = [0, 0, 0, 0, 0, 0];
     const sliderSetting = {
@@ -53,10 +52,10 @@ const RestaurantRecs = () => {
     return (
         <div className='w-full flex flex-col mt-6 mb-20 -pr-3'>
             <h2 className='text-2xl 2xl:text-3xl font-bold text-zinc-400 mt-8 mb-4'>
-                {content.homePage.titleSec3[lang]}
+                {content.homePage.titleSec3[state.language]}
             </h2>
             <h3 className='text-3xl 2xl:text-4xl font-semibold dark:text-smoke-gray mb-16'>
-                {content.homePage.subtitleSec3[lang]}
+                {content.homePage.subtitleSec3[state.language]}
             </h3>
             <div className='w-full h-80 lg:h-96 -pr-3'>
                 <Slider {...sliderSetting}>
