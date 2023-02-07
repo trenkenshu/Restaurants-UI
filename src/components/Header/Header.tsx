@@ -167,7 +167,7 @@ const Header = () => {
                         <li className='w-8 h-8'>
                             <Link
                                 className='block bg-login dark:bg-loginWhite w-full h-full bg-no-repeat bg-cover'
-                                to='/userpage'
+                                to='/registration'
                             ></Link>
                         </li>
                         <div
