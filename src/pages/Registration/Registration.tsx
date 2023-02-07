@@ -28,7 +28,8 @@ const Registration = () => {
         setPassword(value);
     };
 
-    const CreateNewUser = () => {
+    const CreateNewUser = (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         if (login && phone && email && password) {
             const body = {
                 login,
@@ -36,9 +37,13 @@ const Registration = () => {
                 email,
                 phone,
             };
-            createUser(body);
+            createUser(body).then(() => {
+                setLogin('');
+                setPhone('');
+                setEmail('');
+                setPassword('');
+            });
         }
-        console.log('click');
     };
 
     return (
@@ -56,8 +61,8 @@ const Registration = () => {
                         </a>
                     </p>
                 </div>
-                <form className='mt-8 space-y-6' action='#' method='POST'>
-                    <input type='hidden' name='remember' value='true'></input>
+                <form className='mt-8 space-y-6' onSubmit={CreateNewUser}>
+                    {/* <input type='hidden' name='remember' value='true'></input> */}
                     <div className='-space-y-px rounded-md shadow-sm'>
                         <div>
                             <label htmlFor='login' className='sr-only'>
@@ -69,6 +74,7 @@ const Registration = () => {
                                 type='login'
                                 autoComplete='login'
                                 required
+                                value={login}
                                 onChange={(event) => onChangeLogin(event)}
                                 className='relative block w-full appearance-none rounded-none rounded-t-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                                 placeholder={content.registration.login[state.language]}
@@ -84,6 +90,7 @@ const Registration = () => {
                                 type='number'
                                 autoComplete='phone'
                                 required
+                                value={phone}
                                 onChange={(event) => onChangePhone(event)}
                                 className='relative block w-full appearance-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                                 placeholder={content.registration.phone[state.language]}
@@ -99,6 +106,8 @@ const Registration = () => {
                                 type='email'
                                 autoComplete='email'
                                 required
+                                value={email}
+                                onChange={(event) => onChangeEmail(event)}
                                 className='relative block w-full appearance-none border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                                 placeholder={content.registration.emailadress[state.language]}
                             ></input>
@@ -113,6 +122,8 @@ const Registration = () => {
                                 type='password'
                                 autoComplete='current-password'
                                 required
+                                value={password}
+                                onChange={(event) => onChangePassword(event)}
                                 className='relative block w-full appearance-none rounded-none rounded-b-md border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                                 placeholder={content.registration.password[state.language]}
                             ></input>
@@ -122,7 +133,6 @@ const Registration = () => {
                         <button
                             type='submit'
                             className='group relative flex w-full justify-center rounded-full items-center bg-black text-corall hover:bg-transparent hover:text-black border border-black rounded-full font-semibold py-2 px-4 focus:outline-none focus:ring-2 focus:ring-corall focus:ring-corall'
-                            onClick={CreateNewUser}
                         >
                             {content.registration.submit[state.language]}
                         </button>
