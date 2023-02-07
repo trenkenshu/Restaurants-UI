@@ -81,3 +81,17 @@ export interface ITranslate {
 }
 
 export type iCoordinate = [number, number];
+
+export interface IState {
+    restaurants: IRestaurant[];
+    user: IUser;
+    currentCity: string;
+    cities: string[];
+    language: string;
+    theme: string;
+}
+
+export type ActionType = {
+    type: string;
+    payload?: IRestaurant[] | string;
+};

@@ -112,6 +112,10 @@ export const content = {
             en: 'Restaurants in ',
             ru: 'Рестораны города ',
         },
+        averageCheck: {
+            en: 'Average check',
+            ru: 'Средний чек',
+        },
     },
     errorPage: {
         title: {
@@ -123,9 +127,31 @@ export const content = {
             ru: 'Такой страницы не существует',
         },
     },
+    userPage: {
+        phone: {
+            en: 'Phone',
+            ru: 'Телефон',
+        },
+        bookings: {
+            en: 'My bookings',
+            ru: 'Мои бронирования',
+        },
+        reviews: {
+            en: 'My reviews',
+            ru: 'Мои отзывы',
+        },
+        favorite: {
+            en: 'My favorite restaurants',
+            ru: 'Избранное',
+        },
+        logout: {
+            en: 'Log out',
+            ru: 'Выйти',
+        },
+    },
 };
 
-// {
+//  {
 //     en: '',
-//     ru: ''
+//     ru: '',
 // }
