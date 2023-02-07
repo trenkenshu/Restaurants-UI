@@ -1,13 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { content } from 'utils/content';
 import jpg1 from '../../assets/images/home-page/advantage-1.jpg';
 import jpg2 from '../../assets/images/home-page/advantage-2.jpg';
 import jpg3 from '../../assets/images/home-page/advantage-3.jpg';
 import jpg4 from '../../assets/images/home-page/advantage-4.jpg';
+import { AppContext } from '../../store/store';
 
-const lang = 'en';
+// const lang = 'en';
 
 const Advantages = () => {
+    const { state, dispatch } = useContext(AppContext);
+    const lang = state.language === 'en' ? 'en' : 'ru';
+
     const imgs = [jpg1, jpg2, jpg3, jpg4];
     return (
         <div className='w-full flex flex-col md:mt-6 lg:mb-20'>

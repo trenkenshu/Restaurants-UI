@@ -1,15 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { content } from 'utils/content';
-import RestaurantCart from 'components/RestaurantCart';
+import RestaurantCard from 'components/RestaurantCard';
 
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './RestaurantRecs.css';
-
-const lang = 'en';
+import { AppContext } from 'store/store';
 
 const RestaurantRecs = () => {
+    const { state, dispatch } = useContext(AppContext);
+    const lang = state.language === 'en' ? 'en' : 'ru';
+
     const somearr = [0, 0, 0, 0, 0, 0];
     const sliderSetting = {
         dots: false,
@@ -59,7 +61,7 @@ const RestaurantRecs = () => {
             <div className='w-full h-80 lg:h-96 -pr-3'>
                 <Slider {...sliderSetting}>
                     {somearr.map((el, index) => {
-                        return <RestaurantCart key={index} />;
+                        return <RestaurantCard key={index} />;
                     })}
                 </Slider>
             </div>

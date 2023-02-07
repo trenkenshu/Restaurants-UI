@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { content } from 'utils/content';
 import ButtonBlack from 'components/ButtonBlack';
+import { AppContext } from 'store/store';
 
-const lang = 'en';
+// const lang = 'en';
 
 const RegistrationProposal = () => {
+    const { state, dispatch } = useContext(AppContext);
+    const lang = state.language === 'en' ? 'en' : 'ru';
+
     return (
         <div>
             <div className='w-9/12 mx-auto flex flex-col lg:flex-row lg:items-end'>
