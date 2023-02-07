@@ -1,14 +1,5 @@
 import { IState } from 'types';
 
-// interface IState {
-//     restaurants: IRestaurant[];
-//     user: IUser;
-//     currentCity: string;
-//     cities: string[];
-//     language: string;
-//     theme: string;
-// }
-
 const initialState: IState = {
     restaurants: [],
     user: {
@@ -19,9 +10,13 @@ const initialState: IState = {
         phone: 0,
         favorites: [],
         bookings: [],
+        reviews: [],
     },
-    currentCity: 'Minsk',
-    cities: ['Minsk', 'Kazan'],
+    // currentCity: 'Minsk',
+    currentCity: {
+        en: 'Minsk',
+        ru: 'Минск',
+    },
     language: 'en',
     theme: 'light',
 };
