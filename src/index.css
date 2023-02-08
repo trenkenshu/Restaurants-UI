@@ -31,13 +31,13 @@ body.active {
   width: auto;
   height: auto;
   left: 20px;
-  z-index: 100000;
+  z-index: 1;
 }
 .restaurant .slick-next {
   width: auto;
   height: auto;
   right: 20px;
-  z-index: 100000;
+  z-index: 1;
 }
 .restaurant .slick-prev:before {
   font-size: 40px;
@@ -56,9 +56,6 @@ body.active {
 .restaurant .slick-track {
   height: 100% !important;
 }
-/* .restaurant .img {
-  width: auto !important;
-} */
 
 .slick-prev:before,
 .slick-next:before {
@@ -84,4 +81,8 @@ input[type="number"]:hover,
 input[type="number"]:focus {
     appearance: none;
     -moz-appearance: textfield;
+}
+
+.active {
+  color: #ff5f49;
 }

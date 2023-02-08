@@ -100,6 +100,7 @@ export enum Cities {
 }
 export interface IState {
     restaurants: IRestaurant[];
+    currentRestaurant: IRestaurant;
     user: IUser;
     currentCity: CityType;
     language: 'en' | 'ru';
@@ -110,6 +111,10 @@ export type ActionType =
     | {
           type: 'getRestaurants';
           payload: IRestaurant[];
+      }
+    | {
+          type: 'getRestaurant';
+          payload: IRestaurant;
       }
     | {
           type: 'changeCity';

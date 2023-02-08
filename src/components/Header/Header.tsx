@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import Select, { SingleValue } from 'react-select';
 import { AppContext } from 'store/store';
 import { CityType } from 'types';
@@ -27,15 +27,15 @@ const links = [
 //         },
 //     },
 // ];
-const cities = [
+export const cities = [
     {
-        label: {
+        city: {
             en: 'Minsk',
             ru: 'Минск',
         },
     },
     {
-        label: {
+        city: {
             en: 'Kazan',
             ru: 'Казань',
         },
@@ -80,9 +80,9 @@ const Header = () => {
     const changeCityHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { target } = event;
         console.log('value', target.value);
-        const newCity = cities.find((el) => el.label['en'] === target.value);
+        const newCity = cities.find((el) => el.city['en'] === target.value);
         console.log(newCity);
-        dispatch({ type: 'changeCity', payload: newCity?.label as CityType });
+        dispatch({ type: 'changeCity', payload: newCity?.city as CityType });
     };
 
     const changeTheme = () => {
@@ -139,13 +139,13 @@ const Header = () => {
                     <div className={`flex gap-2.5 items-center ${isBurgerOpen ? 'w-full flex-col' : 'flex-row'}`}>
                         {links.map(({ id, route, title }) => (
                             <li key={id}>
-                                <Link
+                                <NavLink
                                     className='transition ease-in duration-300 hover:text-corall'
                                     to={route}
                                     onClick={closeBurger}
                                 >
                                     {title[state.language]}
-                                </Link>
+                                </NavLink>
                             </li>
                         ))}
                     </div>
@@ -158,7 +158,7 @@ const Header = () => {
                             {/* <Select
                                 className='text-black'
                                 // defaultValue={cities[state.language][0]}
-                                value={{ value: state.currentCity, label: state.currentCity }}
+                                value={{ value: state.currentCity, city: state.currentCity }}
                                 name='city'
                                 options={cities[state.language]}
                                 onChange={(event) => changeCityHandler(event)}
@@ -172,16 +172,16 @@ const Header = () => {
                             /> */}
                             <select
                                 className='p-2 text-black outline-none rounded-md'
-                                defaultValue={state.currentCity['en']}
+                                value={state.currentCity['en']}
                                 onChange={changeCityHandler}
                             >
                                 {cities.map((el, index) => (
                                     <option
                                         key={index}
-                                        value={el.label['en']}
-                                        // selected={state.currentCity['en'] === el.label['en']}
+                                        value={el.city['en']}
+                                        // selected={state.currentCity['en'] === el.city['en']}
                                     >
-                                        {el.label[state.language]}
+                                        {el.city[state.language]}
                                     </option>
                                 ))}
                             </select>
