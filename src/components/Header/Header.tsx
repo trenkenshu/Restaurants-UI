@@ -1,3 +1,5 @@
+import RegistrLogo from 'components/RegistrLogo';
+import UserLogo from 'components/UserLogo';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import Select, { SingleValue } from 'react-select';
@@ -196,18 +198,7 @@ const Header = () => {
                             className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'
                             onClick={changeTheme}
                         ></li>
-                        {/* <li className='w-8 h-8'>
-                            <a
-                                href=''
-                                className='block bg-login dark:bg-loginWhite w-full h-full bg-no-repeat bg-cover'
-                            ></a>
-                        </li> */}
-                        <li className='w-8 h-8'>
-                            <Link
-                                className='block bg-login dark:bg-loginWhite w-full h-full bg-no-repeat bg-cover'
-                                to='/registration'
-                            ></Link>
-                        </li>
+                        {state.user.id ? <UserLogo /> : <RegistrLogo />}
                         <div
                             className='bg-closemenu dark:bg-closemenuWhite w-8 h-8 bg-no-repeat bg-cover cursor-pointer absolute top-5 right-5 md:hidden'
                             onClick={closeBurger}

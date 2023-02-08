@@ -34,7 +34,7 @@ const reducer = (state: IState, action: ActionType): IState => {
         }
         case 'updateUser': {
             const user = action.payload;
-            const newState = { ...state, user: user };
+            const newState = { ...state, user: { ...state.user, ...user } };
             localStorage.setItem('state', JSON.stringify(newState));
             return newState;
         }

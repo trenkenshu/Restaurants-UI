@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { content } from 'utils/content';
 import ButtonBlack from 'components/ButtonBlack';
 import { AppContext } from 'store/store';
+import { Link } from 'react-router-dom';
 
 const RegistrationProposal = () => {
     const { state } = useContext(AppContext);
@@ -17,12 +18,14 @@ const RegistrationProposal = () => {
                 </h3>
             </div>
             <div className='w-9/12 mx-auto flex justify-center mt-12'>
-                <ButtonBlack
-                    width={'w-56'}
-                    height={'h-14'}
-                    fontsize={'text-xl'}
-                    buttonText={content.RegistrationProposal.join[state.language]}
-                />
+                <Link className='w-60 h-16 mx-auto' to={state.user.id > 0 ? '/restaurants' : '/registration'}>
+                    <ButtonBlack
+                        width={'w-56'}
+                        height={'h-14'}
+                        fontsize={'text-xl'}
+                        buttonText={content.RegistrationProposal.join[state.language]}
+                    />
+                </Link>
             </div>
         </div>
     );
