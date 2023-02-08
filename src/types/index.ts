@@ -55,23 +55,67 @@ export interface IReview {
 // USER //
 export interface IUser {
     id: number;
-    isAuthorized: boolean;
-    name: string;
+    login: string;
     email: string;
-    phone: number;
-    favorites: IRestaurant[];
+    phone: string;
+    favourites: IRestaurant[];
     bookings: IBooking[];
     reviews: IReview[];
+    error?: string;
+}
+
+export interface IUserReg {
+    login: string;
+    email: string;
+    phone: string;
+    password: string;
+    error?: string;
+}
+
+export interface IUserEdit {
+    id: number;
+    email?: string;
+    phone?: string;
+    password?: string;
+}
+
+export interface ILoginUser {
+    login: string;
+    password: string;
+}
+
+export interface ICreateBooking {
+    clientId: number;
+    cafeId: number;
+    tabelId: number;
+    date: Date;
+    duration: number;
 }
 
 export interface IBooking {
     id: number;
-    restaurantId: number;
     tableId: number;
-    guestId: number;
     date: Date;
-    bookingDuration: number;
+    duration: number;
 }
+
+export interface IDelBooking {
+    id: number;
+}
+
+export interface ICreateReview {
+    clientId: number;
+    cafeId: number;
+    text: string;
+    rating: number;
+}
+
+export interface IUpdateReview {
+    id: number;
+    text?: string;
+    rating?: number;
+}
+
 
 export interface ITranslate {
     name: string;
@@ -125,5 +169,5 @@ export type ActionType =
       }
     | {
           type: 'updateUser';
-          payload: IUser;
+          payload: IUser | IUserReg;
       };

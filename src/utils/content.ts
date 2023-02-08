@@ -136,9 +136,13 @@ export const content = {
             en: 'or ',
             ru: 'или ',
         },
-        register: {
+        registerForm: {
             en: 'Create an account',
             ru: 'Создайте аккаунт',
+        },
+        registerBtn: {
+            en: 'Register',
+            ru: 'Зарегистрироваться',
         },
         login: {
             en: 'Login',
@@ -158,7 +162,7 @@ export const content = {
         },
         submit: {
             en: 'Sing in',
-            ru: 'Войти',
+            ru: 'Войти ',
         },
     },
     userPage: {
@@ -174,13 +178,17 @@ export const content = {
             en: 'My reviews',
             ru: 'Мои отзывы',
         },
-        favorite: {
+        favourites: {
             en: 'My favorite restaurants',
             ru: 'Избранное',
         },
         logout: {
             en: 'Log out',
             ru: 'Выйти',
+        },
+        changePassword: {
+            en: 'Change my password',
+            ru: 'Изменить пароль',
         },
     },
 };
