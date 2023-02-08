@@ -3,6 +3,7 @@ import AboutUs from 'pages/AboutUs';
 import Error404 from 'pages/Error404';
 import HomePage from 'pages/HomePage';
 import Registration from 'pages/Registration';
+import RestaurantPage from 'pages/RestaurantPage';
 import Restaurants from 'pages/Restaurants';
 import UserPage from 'pages/UserPage';
 import React from 'react';
@@ -16,7 +17,7 @@ const App = () => {
                 <Layout>
                     <Routes>
                         <Route path='/' element={<HomePage />} />
-                        <Route path='/restaurants' element={<Restaurants />} />
+                        <Route path='/restaurants' element={<RestaurantPage />} />
                         <Route path='/about' element={<AboutUs />} />
                         {/* <Route path='/userpage' element={<UserPage />} /> */}
                         <Route path='/registration' element={<Registration />} />
