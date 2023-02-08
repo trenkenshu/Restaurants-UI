@@ -10,8 +10,20 @@ import { AppContext } from 'store/store';
 
 const RestaurantRecs = () => {
     const { state } = useContext(AppContext);
+    const somearr = [0, 1, 2, 3];
 
-    const somearr = [0, 0, 0, 0, 0, 0];
+    const checkRestaurant = (id: number) => {
+        let isInFavourites = false;
+        state.user.favourites &&
+            state.user.favourites.forEach((rest) => {
+                if (rest.id === id) isInFavourites = true;
+            });
+        return isInFavourites;
+    };
+
+    const count = state.restaurants.filter((el) => el.rating >= 4.5).length;
+    console.log('кол-во рест с рейтингом 4,5:::', count);
+
     const sliderSetting = {
         dots: false,
         infinite: true,
@@ -29,7 +41,7 @@ const RestaurantRecs = () => {
                 breakpoint: 1024,
                 settings: {
                     slidesToShow: 3,
-                    slidesToScroll: 3,
+                    slidesToScroll: 1,
                     infinite: true,
                 },
             },
@@ -37,7 +49,7 @@ const RestaurantRecs = () => {
                 breakpoint: 768,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2,
+                    slidesToScroll: 1,
                 },
             },
             {
@@ -59,9 +71,22 @@ const RestaurantRecs = () => {
             </h3>
             <div className='w-full h-80 lg:h-96 -pr-3'>
                 <Slider {...sliderSetting}>
-                    {somearr.map((el, index) => {
-                        return <RestaurantCard key={index} />;
+                    {state.restaurants.map((restaurant) => {
+                        console.log(restaurant);
+                        if (restaurant.rating >= 4.5) {
+                            return (
+                                <div className='w-64 h-80 lg:h-96' key={restaurant.id}>
+                                    <RestaurantCard
+                                        restaurant={restaurant}
+                                        isInUserFavotites={checkRestaurant(restaurant.id)}
+                                    />
+                                </div>
+                            );
+                        }
                     })}
+                    {/* {somearr.map((el, index) => {
+                        return <RestaurantCard restaurant={state.restaurants[0]} key={index} />;
+                    })} */}
                 </Slider>
             </div>
         </div>
