@@ -22,7 +22,7 @@ const Registration = () => {
     return (
         <div className='flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mx-auto'>
             <div className='w-full max-w-md space-y-8'>
-                <img className='mx-auto h-12 w-auto contrast-100' src={logoBlack}></img>
+                <img className='mx-auto h-12 w-auto rounded-full shadow-lg shadow-gray-100/30' src={logoBlack}></img>
                 <h2 className='mt-6 text-center text-3xl font-bold tracking-tight text-zinc-800 dark:text-smoke-gray'>
                     {registrationTitle
                         ? content.registration.registerForm[state.language]

@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
+import spinner from '../../assets/icons/spinner_corall.png';
 
 const LoginForm = () => {
     const { state, dispatch } = useContext(AppContext);
