@@ -1,25 +1,3 @@
-// export interface IRestaurant {
-//     id: number;
-//     name: string;
-//     description: string;
-//     address: string;
-//     coordinates: iCoordinate;
-//     phone: string;
-//     workTimeStart: number;
-//     workTimeEnd: number;
-//     rating: number;
-//     averageCheck: number;
-//     cuisineType: string[];
-//     reviews: IReview[];
-//     images: string[];
-//     menuImg: string;
-//     city: string;
-//     translation: {
-//         en: iTranslate;
-//         ru: iTranslate;
-//     };
-// }
-
 export interface IRestaurant
     extends Record<
         string,
@@ -49,8 +27,6 @@ export interface IReview {
     text: string;
     rating: number;
 }
-
-// export type TagsType = 'popular' | 'breakfast' | 'for date' | 'view' | 'fish' | 'sportbar';
 
 // USER //
 export interface IUser {
@@ -116,7 +92,6 @@ export interface IUpdateReview {
     rating?: number;
 }
 
-
 export interface ITranslate {
     name: string;
     city: string;
@@ -136,14 +111,14 @@ export interface CityType extends Record<string, string> {
     en: string;
     ru: string;
 }
-// export type CityType = 'Minsk' | 'Kazan' | 'Минск' | 'Казань';
 
-export enum Cities {
-    Minsk = 'Минск',
-    Kazan = 'Казань',
-}
+// export enum Cities {
+//     Minsk = 'Минск',
+//     Kazan = 'Казань',
+// }
 export interface IState {
     restaurants: IRestaurant[];
+    currentRestaurant: IRestaurant;
     user: IUser;
     currentCity: CityType;
     language: 'en' | 'ru';
@@ -154,6 +129,10 @@ export type ActionType =
     | {
           type: 'getRestaurants';
           payload: IRestaurant[];
+      }
+    | {
+          type: 'getRestaurant';
+          payload: IRestaurant;
       }
     | {
           type: 'changeCity';

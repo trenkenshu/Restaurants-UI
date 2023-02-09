@@ -8,6 +8,12 @@ const reducer = (state: IState, action: ActionType): IState => {
             localStorage.setItem('state', JSON.stringify(newState));
             return newState;
         }
+        case 'getRestaurant': {
+            const restaurant = action.payload;
+            const newState = { ...state, currentRestaurant: restaurant };
+            localStorage.setItem('state', JSON.stringify(newState));
+            return newState;
+        }
         case 'changeLang': {
             const language = action.payload;
             const newState = { ...state, language: language };
