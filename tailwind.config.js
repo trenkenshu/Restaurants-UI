@@ -66,6 +66,8 @@ module.exports = {
                 delete: "url('/src/assets/icons/delete.svg')",
                 // eslint-disable-next-line quotes
                 deleteWhite: "url('/src/assets/icons/delete_white.svg')",
+                location: "url('/src/assets/icons/location-icon.svg')",
+                review: "url('/src/assets/icons/review-icon.png')",
             },
             flex: {
                 100: '1 1 100%',

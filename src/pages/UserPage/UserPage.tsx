@@ -108,7 +108,7 @@ const UserPage = () => {
             </div>
             <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                 <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md'>
-                    {content.userPage.favourites[state.language]}
+                    {content.userPage.favorites[state.language]}
                 </h2>
                 <div className='flex flex-wrap sm:flex-row gap-2 min-h-fit justify-center lg:justify-start'>
                     {state.user.favourites.map((restaurant) => {
