@@ -178,7 +178,7 @@ export const content = {
             en: 'My reviews',
             ru: 'Мои отзывы',
         },
-        favourites: {
+        favorites: {
             en: 'My favorite restaurants',
             ru: 'Избранное',
         },
