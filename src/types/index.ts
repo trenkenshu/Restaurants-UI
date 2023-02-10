@@ -60,19 +60,32 @@ export interface ILoginUser {
     password: string;
 }
 
+export const emptyUser: IUser = {
+    id: 0,
+    login: '',
+    email: '',
+    phone: '',
+    favourites: [],
+    bookings: [],
+    reviews: [],
+};
+
 export interface ICreateBooking {
     clientId: number;
     cafeId: number;
-    tabelId: number;
+    tableId: number;
     date: Date;
     duration: number;
 }
 
 export interface IBooking {
     id: number;
+    cafeId: number;
     tableId: number;
-    date: Date;
+    guestId: number;
     duration: number;
+    date: Date;
+    createdAt: Date;
 }
 
 export interface IDelBooking {

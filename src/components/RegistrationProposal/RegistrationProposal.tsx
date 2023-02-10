@@ -2,10 +2,15 @@ import React, { useContext } from 'react';
 import { content } from 'utils/content';
 import ButtonBlack from 'components/ButtonBlack';
 import { AppContext } from 'store/store';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const RegistrationProposal = () => {
     const { state } = useContext(AppContext);
+    const navigate = useNavigate();
+
+    const redirect = () => {
+        state.user.id > 0 ? navigate('/restaurants') : navigate('/registration');
+    };
 
     return (
         <div>
@@ -18,14 +23,13 @@ const RegistrationProposal = () => {
                 </h3>
             </div>
             <div className='w-9/12 mx-auto flex justify-center mt-12'>
-                <Link className='w-60 h-16 mx-auto' to={state.user.id > 0 ? '/restaurants' : '/registration'}>
-                    <ButtonBlack
-                        width={'w-56'}
-                        height={'h-14'}
-                        fontsize={'text-xl'}
-                        buttonText={content.RegistrationProposal.join[state.language]}
-                    />
-                </Link>
+                <ButtonBlack
+                    width={'w-56'}
+                    height={'h-14'}
+                    fontsize={'text-xl'}
+                    buttonText={content.RegistrationProposal.join[state.language]}
+                    onClick={() => redirect()}
+                />
             </div>
         </div>
     );

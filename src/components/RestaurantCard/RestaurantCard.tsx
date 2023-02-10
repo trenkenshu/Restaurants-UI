@@ -4,6 +4,7 @@ import ButtonFavorite from 'components/ButtonFavorite';
 import { content } from 'utils/content';
 import { AppContext } from 'store/store';
 import { IRestaurant } from 'types';
+import { useNavigate } from 'react-router-dom';
 
 interface RestaurantItemProps {
     restaurant: IRestaurant;
@@ -12,6 +13,10 @@ interface RestaurantItemProps {
 
 const RestaurantCard: FC<RestaurantItemProps> = ({ restaurant, isInUserFavotites }) => {
     const { state } = useContext(AppContext);
+    const navigate = useNavigate();
+    const goToRestaurantPage = (id: number) => {
+        navigate(`/restaurants/${id}`);
+    };
     return (
         <div className='flex flex-col w-full h-80 lg:h-96 border-b border-zinc-800 dark:border-corall'>
             <div className='w-full h-full overflow-y-hidden relative'>
@@ -48,6 +53,7 @@ const RestaurantCard: FC<RestaurantItemProps> = ({ restaurant, isInUserFavotites
                             width={'w-1/2'}
                             height={'h-10'}
                             buttonText={content.common.details[state.language]}
+                            onClick={() => goToRestaurantPage(restaurant.id)}
                         />
                     </div>
                 </div>

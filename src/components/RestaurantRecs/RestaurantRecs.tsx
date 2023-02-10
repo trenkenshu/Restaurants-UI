@@ -72,7 +72,6 @@ const RestaurantRecs = () => {
             <div className='w-full h-80 lg:h-96 -pr-3'>
                 <Slider {...sliderSetting}>
                     {state.restaurants.map((restaurant) => {
-                        console.log(restaurant);
                         if (restaurant.rating >= 4.5) {
                             return (
                                 <div className='w-64 h-80 lg:h-96' key={restaurant.id}>

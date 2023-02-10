@@ -190,6 +190,14 @@ export const content = {
             en: 'Change my password',
             ru: 'Изменить пароль',
         },
+        edit: {
+            en: 'Edit',
+            ru: 'Изменить',
+        },
+        cancel: {
+            en: 'Cancel',
+            ru: 'Отмена',
+        },
     },
 };
 

@@ -3,6 +3,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
+import spinner from '../../assets/icons/spinner_corall.png';
 
 const LoginForm = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -31,7 +32,8 @@ const LoginForm = () => {
             loginUser(body).then((user) => {
                 setLoginSingIn('');
                 setPasswordSingIn('');
-                console.log(user.error);
+                console.log(user);
+
                 if (typeof user.error === 'undefined') {
                     user.favourites.forEach((rest) => {
                         rest.parsedTranslation = JSON.parse(rest.translation);
