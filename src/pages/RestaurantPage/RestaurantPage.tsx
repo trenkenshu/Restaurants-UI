@@ -94,7 +94,9 @@ const RestaurantPage = () => {
                 scrollbar-track-transparent hover:scrollbar-thumb-zinc-700 dark:scrollbar-thumb-zinc-200 dark:hover:scrollbar-thumb-zinc-400'
                 >
                     <div className='flex flex-col items-center w-full h-full gap-2 pr-0.5'>
-                        <h1 className='text-4xl'>{state.currentRestaurant.name}</h1>
+                        <h1 className='text-4xl text-corall font-semibold drop-shadow-lg uppercase py-5'>
+                            {state.currentRestaurant.name}
+                        </h1>
                         <a
                             href='#restMap'
                             className='flex items-center px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'
@@ -161,7 +163,7 @@ const RestaurantPage = () => {
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
                                 Отзывы
                             </div>
-                            <div className=''>
+                            <div className='pb-5'>
                                 <ReviewItem />
                                 <ReviewItem />
                             </div>
