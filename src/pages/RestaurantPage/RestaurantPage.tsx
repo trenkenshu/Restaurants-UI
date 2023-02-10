@@ -175,7 +175,7 @@ const RestaurantPage = () => {
                         <Slider {...sliderSetting}>
                             {state.currentRestaurant.images.map((img) => {
                                 return (
-                                    <div key={img} className='min-[480px]:px-0.5'>
+                                    <div key={img} className='min-[480px]:px-0.5 lg:px-0'>
                                         <div
                                             className='bg-cover bg-center h-44 lg:h-[calc(100vh-130px)] w-full'
                                             style={{

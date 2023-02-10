@@ -98,32 +98,6 @@ const Header = () => {
     };
 
     return (
-        // <header id='header' className='h-17 border-b border-b-gray-500 dark:border-b-corall'>
-        //     <div className='flex justify-between items-center px-5 py-2.5'>
-        //         <ul className='flex gap-3 text-lg font-medium'>
-        //             {links.map(({ id, route, title }) => (
-        //                 <li key={id}>
-        //                     <Link className='transition ease-in duration-300 hover:text-corall' to={route}>
-        //                         {title}
-        //                     </Link>
-        //                 </li>
-        //             ))}
-        //         </ul>
-        //         <div className='flex'>
-        //                 <Link className='font-logo text-5xl' to='/'>
-        //                     RaViOle
-        //                 </Link>
-        //         </div>
-        //         <div className='flex gap-2.5 items-center'>
-        //             <div className='text-lg font-medium cursor-pointer transition ease-in duration-300 hover:text-corall'>
-        //                 Minsk
-        //             </div>
-        //             <div className='bg-eng w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></div>
-        //             <div className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'></div>
-        //             <a href='' className='bg-login w-8 h-8 bg-no-repeat bg-cover'></a>
-        //         </div>
-        //     </div>
-        // </header>
         <header id='header' className='h-17 border-b border-b-gray-500 dark:border-b-corall'>
             <div className='relative flex justify-center items-center px-5 h-17'>
                 <div className='absolute top-3 left-5 md:left-1/2 md:-translate-x-2/4'>
@@ -134,9 +108,9 @@ const Header = () => {
                 <ul
                     className={` ${
                         isBurgerOpen
-                            ? 'w-full fixed flex gap-10 top-0 left-0 items-center justify-center bg-smoke-gray dark:bg-zinc-800 flex-col h-screen z-1001 text-4xl'
+                            ? 'w-full fixed flex gap-3 top-0 left-0 items-center justify-center bg-smoke-gray dark:bg-zinc-800 flex-col h-screen z-1001 text-4xl'
                             : 'w-full fixed flex top-0 left-full'
-                    } font-medium md:text-lg font-medium md:justify-between md:gap-3 md:static md:flex-row md:h-auto`}
+                    } font-medium md:text-lg font-medium md:justify-between md:static md:flex-row md:h-auto`}
                 >
                     <div className={`flex gap-2.5 items-center ${isBurgerOpen ? 'w-full flex-col' : 'flex-row'}`}>
                         {links.map(({ id, route, title }) => (
@@ -151,54 +125,41 @@ const Header = () => {
                             </li>
                         ))}
                     </div>
-                    <div className={`flex gap-2.5 flex-row items-center ${isBurgerOpen && 'w-full justify-center'}`}>
-                        <li
-                            className={`p-2 rounded-md border-black cursor-pointer transition ease-in duration-300 z-1001 ${
-                                isBurgerOpen && 'mr-10'
-                            }`}
-                        >
-                            {/* <Select
-                                className='text-black'
-                                // defaultValue={cities[state.language][0]}
-                                value={{ value: state.currentCity, city: state.currentCity }}
-                                name='city'
-                                options={cities[state.language]}
-                                onChange={(event) => changeCityHandler(event)}
-                                theme={(theme) => ({
-                                    ...theme,
-                                    colors: {
-                                        ...theme.colors,
-                                        primary: 'black',
-                                    },
-                                })}
-                            /> */}
+                    <div
+                        className={`flex flex-col-reverse md:flex-row gap-2.5 items-center ${
+                            isBurgerOpen && 'w-full justify-center'
+                        }`}
+                    >
+                        <li className='p-2 rounded-md'>
                             <select
-                                className='p-2 text-black outline-none rounded-md'
+                                className='p-2 text-black outline-none cursor-pointer rounded-md'
                                 value={state.currentCity['en']}
                                 onChange={changeCityHandler}
                             >
                                 {cities.map((el, index) => (
-                                    <option
-                                        key={index}
-                                        value={el.city['en']}
-                                        // selected={state.currentCity['en'] === el.city['en']}
-                                    >
+                                    <option key={index} value={el.city['en']}>
                                         {el.city[state.language]}
                                     </option>
                                 ))}
                             </select>
                         </li>
-                        <li
-                            className={`w-8 h-8 bg-no-repeat bg-cover cursor-pointer ${
-                                state.language === 'en' ? 'bg-eng' : 'bg-ru'
-                            }`}
-                            onClick={changeLang}
-                        ></li>
-                        <li
-                            className='bg-darkmode dark:bg-lightmode w-8 h-8 bg-no-repeat bg-cover cursor-pointer'
-                            onClick={changeTheme}
-                        ></li>
-                        {state.user.id ? <UserLogo /> : <RegistrLogo />}
+                        <div className='flex gap-2.5'>
+                            <li
+                                className={`w-10 h-10 md:w-8 md:h-8 bg-no-repeat bg-cover cursor-pointer ${
+                                    state.language === 'en' ? 'bg-eng' : 'bg-ru'
+                                }`}
+                                onClick={changeLang}
+                            ></li>
+                            <li
+                                className='w-10 h-10 md:w-8 md:h-8 bg-darkmode dark:bg-lightmode bg-no-repeat bg-cover cursor-pointer'
+                                onClick={changeTheme}
+                            ></li>
+                            {state.user.id ? (
+                                <UserLogo closeBurger={closeBurger} />
+                            ) : (
+                                <RegistrLogo closeBurger={closeBurger} />
+                            )}
+                        </div>
                         <div
                             className='bg-closemenu dark:bg-closemenuWhite w-8 h-8 bg-no-repeat bg-cover cursor-pointer absolute top-5 right-5 md:hidden'
                             onClick={closeBurger}
