@@ -11,6 +11,7 @@ import RestaurantAbout from 'components/RestaurantAbout';
 import RestaurantMenu from 'components/RestaurantMenu';
 import RestaurantMap from 'components/RestaurantMap';
 import ReviewItem from 'components/ReviewItem';
+import { content } from 'utils/content';
 
 const RestaurantPage = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -27,21 +28,14 @@ const RestaurantPage = () => {
         //     navigate('/404');
         // }
         restaurant.parsedTranslation = JSON.parse(restaurant.translation);
-        console.log('rest', restaurant);
+        // console.log('rest', restaurant);
         const updatedCity = cities.find((el) => el.city['en'] === restaurant.city);
-        console.log('upd', updatedCity);
+        // console.log('upd', updatedCity);
         updatedCity && dispatch({ type: 'changeCity', payload: updatedCity.city });
         dispatch({ type: 'getRestaurant', payload: restaurant });
     };
 
     useEffect(() => {
-        // const saveRestaurant = async () => {
-        //     const restaurant = await getRestaurant(Number(id));
-        //     restaurant.parsedTranslation = JSON.parse(restaurant.translation);
-        //     console.log('rest', restaurant);
-        //     dispatch({ type: 'getRestaurant', payload: restaurant });
-        // };
-        // saveRestaurant();
         saveRestaurant();
     }, []);
 
@@ -128,40 +122,40 @@ const RestaurantPage = () => {
                         <div className='flex items-center gap-2.5'>
                             <div className='flex flex-col items-center min-w-[100px]'>
                                 <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite'></div>
-                                <div className=''>Бронировать</div>
+                                <div className=''>{content.restaurantsPage.book[state.language]}</div>
                             </div>
                             <div className='flex flex-col items-center min-w-[100px]'>
                                 <div className='w-9 h-9'>
                                     <ButtonFavorite />
                                 </div>
-                                <div className=''>Избранное</div>
+                                <div className=''>{content.restaurantsPage.favorites[state.language]}</div>
                             </div>
                             <div className='flex flex-col items-center min-w-[100px]'>
                                 <div className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center'></div>
-                                <div className=''>Отзыв</div>
+                                <div className=''>{content.restaurantsPage.review[state.language]}</div>
                             </div>
                         </div>
                         <div id='about' className='flex flex-col w-full h-full gap-2'>
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
-                                О нас
+                                {content.restaurantsPage.about[state.language]}
                             </div>
                             <RestaurantAbout />
                         </div>
                         <div id='menu' className='flex flex-col w-full h-full gap-2'>
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
-                                Меню
+                                {content.restaurantsPage.menu[state.language]}
                             </div>
                             <RestaurantMenu />
                         </div>
                         <div id='restMap' className='flex flex-col w-full h-full gap-2'>
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
-                                Мы на карте
+                                {content.restaurantsPage.location[state.language]}
                             </div>
                             <RestaurantMap />
                         </div>
                         <div id='restReviews' className='flex flex-col w-full h-full gap-2'>
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
-                                Отзывы
+                                {content.restaurantsPage.reviews[state.language]}
                             </div>
                             <div className='pb-5'>
                                 <ReviewItem />
