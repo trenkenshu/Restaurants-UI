@@ -5,12 +5,14 @@ interface ButtonBlackProps {
     height: string;
     buttonText: string;
     fontsize?: number | string;
+    onClick?: () => void;
 }
 
-const ButtonBlack: FC<ButtonBlackProps> = ({ width, height, fontsize, buttonText }) => {
+const ButtonBlack: FC<ButtonBlackProps> = ({ width, height, fontsize, buttonText, onClick }) => {
     return (
         <button
             className={`${width} ${height} ${fontsize} items-center bg-black text-corall hover:bg-transparent hover:text-black border border-black rounded-full font-semibold`}
+            onClick={onClick}
         >
             {buttonText}
         </button>
