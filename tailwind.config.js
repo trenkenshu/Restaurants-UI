@@ -76,6 +76,8 @@ module.exports = {
                 medalSilver: "url('/src/assets/icons/medal_silver.svg')",
                 // eslint-disable-next-line quotes
                 medalGold: "url('/src/assets/icons/medal_gold.svg')",
+                booking: "url('/src/assets/icons/booking.svg')",
+                bookingWhite: "url('/src/assets/icons/booking_white.svg)",
             },
             flex: {
                 100: '1 1 100%',

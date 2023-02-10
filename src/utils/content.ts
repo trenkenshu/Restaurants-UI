@@ -113,8 +113,12 @@ export const content = {
             ru: 'Рестораны города ',
         },
         averageCheck: {
-            en: 'Average check',
-            ru: 'Средний чек',
+            en: 'Average check: ',
+            ru: 'Средний чек: ',
+        },
+        cuisineType: {
+            en: 'Cuisine: ',
+            ru: 'Кухня: ',
         },
     },
     errorPage: {

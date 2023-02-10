@@ -5,16 +5,27 @@ import 'slick-carousel/slick/slick-theme.css';
 import { AppContext } from 'store/store';
 import { getRestaurant } from 'api/api';
 import ButtonFavorite from 'components/ButtonFavorite';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { cities } from 'components/Header/Header';
+import RestaurantAbout from 'components/RestaurantAbout';
+import RestaurantMenu from 'components/RestaurantMenu';
+import RestaurantMap from 'components/RestaurantMap';
+import ReviewItem from 'components/ReviewItem';
 
 const RestaurantPage = () => {
     const { state, dispatch } = useContext(AppContext);
     const { id } = useParams();
+    const navigate = useNavigate();
     console.log('id', id);
+    console.log(state.restaurants);
 
     const saveRestaurant = async () => {
         const restaurant = await getRestaurant(Number(id));
+        // console.log(restaurant);
+        // if (restaurant) {
+        //     console.log('12412', JSON.parse(restaurant.error));
+        //     navigate('/404');
+        // }
         restaurant.parsedTranslation = JSON.parse(restaurant.translation);
         console.log('rest', restaurant);
         const updatedCity = cities.find((el) => el.city['en'] === restaurant.city);
@@ -24,7 +35,6 @@ const RestaurantPage = () => {
     };
 
     useEffect(() => {
-        console.log('UE');
         // const saveRestaurant = async () => {
         //     const restaurant = await getRestaurant(Number(id));
         //     restaurant.parsedTranslation = JSON.parse(restaurant.translation);
@@ -75,49 +85,99 @@ const RestaurantPage = () => {
             },
         ],
     };
+    // !! Если ID > существующего то сдеать переход на ERROR page
     return (
         state.currentRestaurant && (
-            <div className='restaurant flex flex-col-reverse lg:flex-row w-full h-full select-none'>
-                <div className='flex flex-col items-center w-full gap-3 p-2.5 lg:w-[55%] lg:overflow-y-auto '>
-                    <h1 className='text-4xl'>{state.currentRestaurant.name}</h1>
-                    <div className='flex items-center px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'>
-                        <div className='bg-location w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
-                        <div className=''>
-                            {state.currentRestaurant.parsedTranslation &&
-                                state.currentRestaurant.parsedTranslation[state.language].address}
-                        </div>
-                    </div>
-                    <div className='flex items-center gap-2.5'>
-                        <div className='px-2 py-1 border border-gray-400 rounded-full cursor-pointer'>
-                            {state.currentRestaurant.workTimeStart}.00 - {state.currentRestaurant.workTimeEnd}.00
-                        </div>
-                        <div className='flex gap-1.5 px-2 py-1 border border-gray-400 rounded-full cursor-pointer'>
-                            <div className='flex items-center gap-1 border-r pr-1 border-gray-400'>
-                                <div className='bg-review w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
-                                <div className=''>review</div>
+            <div className='restaurant flex flex-col-reverse w-full h-full gap-2 lg:gap-0 lg:flex-row lg:h-[calc(100vh-130px)] select-none'>
+                <div
+                    className='lg:w-[55%] lg:overflow-y-auto scrollbar scrollbar-thumb-zinc-500 
+                scrollbar-track-transparent hover:scrollbar-thumb-zinc-700 dark:scrollbar-thumb-zinc-200 dark:hover:scrollbar-thumb-zinc-400'
+                >
+                    <div className='flex flex-col items-center w-full h-full gap-2 pr-0.5'>
+                        <h1 className='text-4xl text-corall font-semibold drop-shadow-lg uppercase py-5'>
+                            {state.currentRestaurant.name}
+                        </h1>
+                        <a
+                            href='#restMap'
+                            className='flex items-center px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'
+                        >
+                            <div className='bg-location w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
+                            <div className=''>
+                                {state.currentRestaurant.parsedTranslation &&
+                                    state.currentRestaurant.parsedTranslation[state.language].address}
                             </div>
-                            <div className='flex gap-1'>
-                                <div className='bg-rating w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
-                                <div className=''>{state.currentRestaurant.rating}</div>
+                        </a>
+                        <div className='flex items-center gap-2.5'>
+                            <div className='px-2 py-1 border border-gray-400 rounded-full'>
+                                {state.currentRestaurant.workTimeStart}.00 - {state.currentRestaurant.workTimeEnd}.00
+                            </div>
+                            <div className='flex gap-1.5 px-2 py-1 border border-gray-400 rounded-full cursor-pointer'>
+                                <a
+                                    href='#restReviews'
+                                    className='flex items-center gap-1 border-r pr-1 border-gray-400'
+                                >
+                                    <div className='bg-review w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
+                                    <div className=''>review</div>
+                                </a>
+                                <div className='flex gap-1'>
+                                    <div className='bg-rating w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
+                                    <div className=''>{state.currentRestaurant.rating}</div>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div className='flex items-center gap-2.5'>
-                        <div className=''>Book</div>
-                        <div className='w-8 h-8'>
-                            <ButtonFavorite />
+                        <div className='flex items-center gap-2.5'>
+                            <div className='flex flex-col items-center min-w-[100px]'>
+                                <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite'></div>
+                                <div className=''>Бронировать</div>
+                            </div>
+                            <div className='flex flex-col items-center min-w-[100px]'>
+                                <div className='w-9 h-9'>
+                                    <ButtonFavorite />
+                                </div>
+                                <div className=''>Избранное</div>
+                            </div>
+                            <div className='flex flex-col items-center min-w-[100px]'>
+                                <div className='bg-review w-9 h-9 bg-cover bg-no-repeat bg-center'></div>
+                                <div className=''>Отзыв</div>
+                            </div>
                         </div>
-                        <div className='bg-review w-8 h-8 bg-cover bg-no-repeat bg-center'></div>
+                        <div id='about' className='flex flex-col w-full h-full gap-2'>
+                            <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
+                                О нас
+                            </div>
+                            <RestaurantAbout />
+                        </div>
+                        <div id='menu' className='flex flex-col w-full h-full gap-2'>
+                            <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
+                                Меню
+                            </div>
+                            <RestaurantMenu />
+                        </div>
+                        <div id='restMap' className='flex flex-col w-full h-full gap-2'>
+                            <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
+                                Мы на карте
+                            </div>
+                            <RestaurantMap />
+                        </div>
+                        <div id='restReviews' className='flex flex-col w-full h-full gap-2'>
+                            <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
+                                Отзывы
+                            </div>
+                            <div className='pb-5'>
+                                <ReviewItem />
+                                <ReviewItem />
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div className='flex w-full h-60 lg:w-[45%] lg:h-[calc(100vh-130px)]'>
+                <div className='flex w-full h-44 lg:w-[45%] lg:h-[calc(100vh-130px)]'>
                     <div className='h-full w-full'>
                         <Slider {...sliderSetting}>
                             {state.currentRestaurant.images.map((img) => {
                                 return (
                                     <div key={img} className='min-[480px]:px-0.5'>
                                         <div
-                                            className='bg-cover bg-center h-60 lg:h-[calc(100vh-130px)] w-full'
+                                            className='bg-cover bg-center h-44 lg:h-[calc(100vh-130px)] w-full'
                                             style={{
                                                 backgroundImage: `url(https://restaurants-server-2.onrender.com/${img})`,
                                             }}
