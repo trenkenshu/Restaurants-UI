@@ -66,8 +66,16 @@ module.exports = {
                 delete: "url('/src/assets/icons/delete.svg')",
                 // eslint-disable-next-line quotes
                 deleteWhite: "url('/src/assets/icons/delete_white.svg')",
+                // eslint-disable-next-line quotes
                 location: "url('/src/assets/icons/location-icon.svg')",
+                // eslint-disable-next-line quotes
                 review: "url('/src/assets/icons/review-icon.png')",
+                // eslint-disable-next-line quotes
+                medalBronze: "url('/src/assets/icons/medal_bronze.svg')",
+                // eslint-disable-next-line quotes
+                medalSilver: "url('/src/assets/icons/medal_silver.svg')",
+                // eslint-disable-next-line quotes
+                medalGold: "url('/src/assets/icons/medal_gold.svg')",
                 booking: "url('/src/assets/icons/booking.svg')",
                 bookingWhite: "url('/src/assets/icons/booking_white.svg)",
             },
