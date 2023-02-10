@@ -52,7 +52,7 @@ const RestaurantMenu = () => {
                             <img
                                 key={img}
                                 src={`https://restaurants-server-2.onrender.com/${img}`}
-                                className='h-[600px] w-[400px] rounded-md'
+                                className='h-[600px] w-[400px] rounded-md min-[640px]:px-0.5'
                                 alt='Restaurant'
                             />
                         );

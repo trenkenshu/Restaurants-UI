@@ -21,7 +21,7 @@ const RestaurantPage = () => {
 
     const saveRestaurant = async () => {
         const restaurant = await getRestaurant(Number(id));
-        // console.log(restaurant);
+        // console.log(JSON.parse(restaurant));
         // if (restaurant) {
         //     console.log('12412', JSON.parse(restaurant.error));
         //     navigate('/404');
@@ -99,9 +99,9 @@ const RestaurantPage = () => {
                         </h1>
                         <a
                             href='#restMap'
-                            className='flex items-center px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'
+                            className='flex items-center gap-1 px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'
                         >
-                            <div className='bg-location w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
+                            <div className='bg-location dark:bg-locationWhite w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
                             <div className=''>
                                 {state.currentRestaurant.parsedTranslation &&
                                     state.currentRestaurant.parsedTranslation[state.language].address}
@@ -116,8 +116,8 @@ const RestaurantPage = () => {
                                     href='#restReviews'
                                     className='flex items-center gap-1 border-r pr-1 border-gray-400'
                                 >
-                                    <div className='bg-review w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
-                                    <div className=''>review</div>
+                                    <div className='bg-review dark:bg-reviewWhite w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
+                                    <div className=''>reviews</div>
                                 </a>
                                 <div className='flex gap-1'>
                                     <div className='bg-rating w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
@@ -137,7 +137,7 @@ const RestaurantPage = () => {
                                 <div className=''>Избранное</div>
                             </div>
                             <div className='flex flex-col items-center min-w-[100px]'>
-                                <div className='bg-review w-9 h-9 bg-cover bg-no-repeat bg-center'></div>
+                                <div className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center'></div>
                                 <div className=''>Отзыв</div>
                             </div>
                         </div>

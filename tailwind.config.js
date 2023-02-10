@@ -68,8 +68,10 @@ module.exports = {
                 deleteWhite: "url('/src/assets/icons/delete_white.svg')",
                 // eslint-disable-next-line quotes
                 location: "url('/src/assets/icons/location-icon.svg')",
+                locationWhite: "url('/src/assets/icons/location-icon_white.svg')",
                 // eslint-disable-next-line quotes
                 review: "url('/src/assets/icons/review-icon.png')",
+                reviewWhite: "url('/src/assets/icons/review-icon_white.png')",
                 // eslint-disable-next-line quotes
                 medalBronze: "url('/src/assets/icons/medal_bronze.svg')",
                 // eslint-disable-next-line quotes
