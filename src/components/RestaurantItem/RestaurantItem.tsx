@@ -62,6 +62,7 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                 <div className=''>N of Reviews</div>
             </div>
             <div className='text-sm'>
+                {content.restaurantsPage.cuisineType[state.language]}
                 {restaurant.parsedTranslation && restaurant.parsedTranslation[state.language].cuisineType.join(' ')}
             </div>
             <div className='flex gap-2.5'>
@@ -92,7 +93,7 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                 </Slider>
             </div>
             <div className='text-sm'>
-                {content.restaurantsPage.averageCheck[state.language]} : ${restaurant.averageCheck}
+                {content.restaurantsPage.averageCheck[state.language]} ${restaurant.averageCheck}
             </div>
             <div className='flex gap-2.5 w-full'>
                 <ButtonBlack width={'w-40'} height={'h-10'} buttonText={content.common.details[state.language]} />

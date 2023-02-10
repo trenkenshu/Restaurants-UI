@@ -19,6 +19,7 @@ export interface IRestaurant
         [key: string]: ITranslate;
     };
     reviews: IReview[];
+    error?: string;
 }
 export interface IReview {
     id: number;

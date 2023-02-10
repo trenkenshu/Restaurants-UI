@@ -68,6 +68,8 @@ module.exports = {
                 deleteWhite: "url('/src/assets/icons/delete_white.svg')",
                 location: "url('/src/assets/icons/location-icon.svg')",
                 review: "url('/src/assets/icons/review-icon.png')",
+                booking: "url('/src/assets/icons/booking.svg')",
+                bookingWhite: "url('/src/assets/icons/booking_white.svg)",
             },
             flex: {
                 100: '1 1 100%',
