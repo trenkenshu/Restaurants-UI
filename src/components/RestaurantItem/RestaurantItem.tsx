@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { IRestaurant } from 'types';
 import { content } from 'utils/content';
 import { AppContext } from 'store/store';
+import { useNavigate } from 'react-router-dom';
 
 type RestaurantItemType = {
     restaurant: IRestaurant;
@@ -15,6 +16,7 @@ type RestaurantItemType = {
 
 const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
     const { state } = useContext(AppContext);
+    const navigate = useNavigate();
 
     const sliderSetting = {
         dots: false,
@@ -83,11 +85,6 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                                 className='h-40 w-40 object-cover rounded-md'
                                 alt='Restaurant'
                             />
-                            // <div
-                            //     className='h-40 block bg-no-repeat bg-cover'
-                            //     key={img}
-                            //     style={{ backgroundImage: `url(https://restaurants-server-2.onrender.com/${img})` }}
-                            // ></div>
                         );
                     })}
                 </Slider>
@@ -96,7 +93,12 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                 {content.restaurantsPage.averageCheck[state.language]} ${restaurant.averageCheck}
             </div>
             <div className='flex gap-2.5 w-full'>
-                <ButtonBlack width={'w-40'} height={'h-10'} buttonText={content.common.details[state.language]} />
+                <ButtonBlack
+                    width={'w-40'}
+                    height={'h-10'}
+                    buttonText={content.common.details[state.language]}
+                    onClick={() => navigate(`/restaurants/${restaurant.id}`)}
+                />
                 <div className='w-10 h-10'>
                     <ButtonFavorite />
                 </div>

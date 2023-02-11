@@ -16,6 +16,7 @@ const initialState: IState = {
         workTimeEnd: 0,
         translation: '',
         reviews: [],
+        bookings: [],
     },
     user: {
         id: 0,

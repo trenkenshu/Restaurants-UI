@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -11,9 +11,13 @@ import RestaurantAbout from 'components/RestaurantAbout';
 import RestaurantMenu from 'components/RestaurantMenu';
 import RestaurantMap from 'components/RestaurantMap';
 import ReviewItem from 'components/ReviewItem';
+import { content } from 'utils/content';
+import RestaurantScheme from 'components/RestaurantScheme';
+import BookingModal from 'components/BookingModal/BookingModal';
 
 const RestaurantPage = () => {
     const { state, dispatch } = useContext(AppContext);
+    const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
     console.log('id', id);
@@ -21,29 +25,31 @@ const RestaurantPage = () => {
 
     const saveRestaurant = async () => {
         const restaurant = await getRestaurant(Number(id));
-        // console.log(restaurant);
+        // console.log(JSON.parse(restaurant));
         // if (restaurant) {
         //     console.log('12412', JSON.parse(restaurant.error));
         //     navigate('/404');
         // }
         restaurant.parsedTranslation = JSON.parse(restaurant.translation);
-        console.log('rest', restaurant);
+        // console.log('rest', restaurant);
         const updatedCity = cities.find((el) => el.city['en'] === restaurant.city);
-        console.log('upd', updatedCity);
+        // console.log('upd', updatedCity);
         updatedCity && dispatch({ type: 'changeCity', payload: updatedCity.city });
         dispatch({ type: 'getRestaurant', payload: restaurant });
     };
 
     useEffect(() => {
-        // const saveRestaurant = async () => {
-        //     const restaurant = await getRestaurant(Number(id));
-        //     restaurant.parsedTranslation = JSON.parse(restaurant.translation);
-        //     console.log('rest', restaurant);
-        //     dispatch({ type: 'getRestaurant', payload: restaurant });
-        // };
-        // saveRestaurant();
         saveRestaurant();
     }, []);
+
+    const openBookingModal = () => {
+        setIsBookingModalOpen(true);
+        document.body.classList.add('active');
+    };
+    const closeBookingModal = () => {
+        setIsBookingModalOpen(false);
+        document.body.classList.remove('active');
+    };
 
     const sliderSetting = {
         dots: false,
@@ -94,14 +100,15 @@ const RestaurantPage = () => {
                 scrollbar-track-transparent hover:scrollbar-thumb-zinc-700 dark:scrollbar-thumb-zinc-200 dark:hover:scrollbar-thumb-zinc-400'
                 >
                     <div className='flex flex-col items-center w-full h-full gap-2 pr-0.5'>
+                        <BookingModal isBookingModalOpen={isBookingModalOpen} closeBookingModal={closeBookingModal} />
                         <h1 className='text-4xl text-corall font-semibold drop-shadow-lg uppercase py-5'>
                             {state.currentRestaurant.name}
                         </h1>
                         <a
                             href='#restMap'
-                            className='flex items-center px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'
+                            className='flex items-center gap-1 px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'
                         >
-                            <div className='bg-location w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
+                            <div className='bg-location dark:bg-locationWhite w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
                             <div className=''>
                                 {state.currentRestaurant.parsedTranslation &&
                                     state.currentRestaurant.parsedTranslation[state.language].address}
@@ -116,8 +123,8 @@ const RestaurantPage = () => {
                                     href='#restReviews'
                                     className='flex items-center gap-1 border-r pr-1 border-gray-400'
                                 >
-                                    <div className='bg-review w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
-                                    <div className=''>review</div>
+                                    <div className='bg-review dark:bg-reviewWhite w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
+                                    <div className=''>reviews</div>
                                 </a>
                                 <div className='flex gap-1'>
                                     <div className='bg-rating w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
@@ -126,42 +133,43 @@ const RestaurantPage = () => {
                             </div>
                         </div>
                         <div className='flex items-center gap-2.5'>
-                            <div className='flex flex-col items-center min-w-[100px]'>
+                            <div className='flex flex-col items-center min-w-[100px]' onClick={openBookingModal}>
                                 <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite'></div>
-                                <div className=''>Бронировать</div>
+                                <div className=''>{content.restaurantsPage.book[state.language]}</div>
                             </div>
                             <div className='flex flex-col items-center min-w-[100px]'>
                                 <div className='w-9 h-9'>
                                     <ButtonFavorite />
                                 </div>
-                                <div className=''>Избранное</div>
+                                <div className=''>{content.restaurantsPage.favorites[state.language]}</div>
                             </div>
                             <div className='flex flex-col items-center min-w-[100px]'>
-                                <div className='bg-review w-9 h-9 bg-cover bg-no-repeat bg-center'></div>
-                                <div className=''>Отзыв</div>
+                                <div className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center'></div>
+                                <div className=''>{content.restaurantsPage.review[state.language]}</div>
                             </div>
                         </div>
+                        {/* <RestaurantScheme /> */}
                         <div id='about' className='flex flex-col w-full h-full gap-2'>
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
-                                О нас
+                                {content.restaurantsPage.about[state.language]}
                             </div>
                             <RestaurantAbout />
                         </div>
                         <div id='menu' className='flex flex-col w-full h-full gap-2'>
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
-                                Меню
+                                {content.restaurantsPage.menu[state.language]}
                             </div>
                             <RestaurantMenu />
                         </div>
                         <div id='restMap' className='flex flex-col w-full h-full gap-2'>
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
-                                Мы на карте
+                                {content.restaurantsPage.location[state.language]}
                             </div>
                             <RestaurantMap />
                         </div>
                         <div id='restReviews' className='flex flex-col w-full h-full gap-2'>
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
-                                Отзывы
+                                {content.restaurantsPage.reviews[state.language]}
                             </div>
                             <div className='pb-5'>
                                 <ReviewItem />
@@ -175,7 +183,7 @@ const RestaurantPage = () => {
                         <Slider {...sliderSetting}>
                             {state.currentRestaurant.images.map((img) => {
                                 return (
-                                    <div key={img} className='min-[480px]:px-0.5'>
+                                    <div key={img} className='min-[480px]:px-0.5 lg:px-0'>
                                         <div
                                             className='bg-cover bg-center h-44 lg:h-[calc(100vh-130px)] w-full'
                                             style={{

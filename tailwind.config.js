@@ -68,8 +68,10 @@ module.exports = {
                 deleteWhite: "url('/src/assets/icons/delete_white.svg')",
                 // eslint-disable-next-line quotes
                 location: "url('/src/assets/icons/location-icon.svg')",
+                locationWhite: "url('/src/assets/icons/location-icon_white.svg')",
                 // eslint-disable-next-line quotes
                 review: "url('/src/assets/icons/review-icon.png')",
+                reviewWhite: "url('/src/assets/icons/review-icon_white.png')",
                 // eslint-disable-next-line quotes
                 medalBronze: "url('/src/assets/icons/medal_bronze.svg')",
                 // eslint-disable-next-line quotes
@@ -78,6 +80,11 @@ module.exports = {
                 medalGold: "url('/src/assets/icons/medal_gold.svg')",
                 booking: "url('/src/assets/icons/booking.svg')",
                 bookingWhite: "url('/src/assets/icons/booking_white.svg)",
+                tableDark: "url('/src/assets/icons/table-dark.png')",
+                tableCorall: "url('/src/assets/icons/table-corall.png')",
+                tableGray: "url('/src/assets/icons/table-lightgray.png')",
+                // schemeFloor: "url('/src/assets/icons/scheme-floor.png')",
+                schemeFloor: "url('/src/assets/icons/scheme-floor.png')",
             },
             flex: {
                 100: '1 1 100%',

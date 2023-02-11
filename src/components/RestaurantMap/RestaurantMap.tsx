@@ -1,11 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { AppContext } from 'store/store';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import ButtonBlack from 'components/ButtonBlack';
 import { content } from 'utils/content';
+import { CoordsType } from 'components/Map/Map';
 
 const RestaurantMap = () => {
     const { state } = useContext(AppContext);
+
+    const MapRecenter = ({ coords }: CoordsType) => {
+        const map = useMap();
+        useEffect(() => {
+            map.setView(coords);
+        }, [state.currentCity]);
+        return null;
+    };
 
     return (
         <div className=' w-full h-[400px]'>
@@ -16,6 +25,7 @@ const RestaurantMap = () => {
                 zoom={15}
                 scrollWheelZoom={false}
             >
+                <MapRecenter coords={state.currentRestaurant.coordinates} />
                 <TileLayer
                     attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="http://cartodb.com/attributions">CartoDB</a>'
                     // url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
