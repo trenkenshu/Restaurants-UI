@@ -50,7 +50,7 @@ const RestaurantScheme = () => {
 
     console.log('numOfTables', numOfTables.length);
     return (
-        <div className='relative w-[300px] h-[300px] min-[440px]:w-[420px] min-[440px]:h-[360px] lg:w-[500px] lg:h-[400px] grid grid-cols-6 grid-rows-4 justify-items-center items-center border border-black bg-schemeFloor rounded'>
+        <div className='relative w-[300px] h-[300px] min-[440px]:w-[420px] min-[440px]:h-[400px] lg:w-[500px] lg:h-[400px] grid grid-cols-6 grid-rows-4 justify-items-center items-center border border-black bg-schemeFloor rounded'>
             <div className='absolute top-1/2 left-1/2 text-white text-4xl min-[440px]:text-5xl lg:text-6xl -translate-x-2/4 -translate-y-2/4 font-logo'>
                 Bar
             </div>
