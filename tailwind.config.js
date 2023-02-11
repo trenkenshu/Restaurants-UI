@@ -80,6 +80,11 @@ module.exports = {
                 medalGold: "url('/src/assets/icons/medal_gold.svg')",
                 booking: "url('/src/assets/icons/booking.svg')",
                 bookingWhite: "url('/src/assets/icons/booking_white.svg)",
+                tableDark: "url('/src/assets/icons/table-dark.png')",
+                tableCorall: "url('/src/assets/icons/table-corall.png')",
+                tableGray: "url('/src/assets/icons/table-lightgray.png')",
+                // schemeFloor: "url('/src/assets/icons/scheme-floor.png')",
+                schemeFloor: "url('/src/assets/icons/scheme-floor.png')",
             },
             flex: {
                 100: '1 1 100%',

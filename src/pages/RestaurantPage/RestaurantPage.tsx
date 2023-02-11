@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -12,9 +12,12 @@ import RestaurantMenu from 'components/RestaurantMenu';
 import RestaurantMap from 'components/RestaurantMap';
 import ReviewItem from 'components/ReviewItem';
 import { content } from 'utils/content';
+import RestaurantScheme from 'components/RestaurantScheme';
+import BookingModal from 'components/BookingModal/BookingModal';
 
 const RestaurantPage = () => {
     const { state, dispatch } = useContext(AppContext);
+    const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
     const { id } = useParams();
     const navigate = useNavigate();
     console.log('id', id);
@@ -38,6 +41,15 @@ const RestaurantPage = () => {
     useEffect(() => {
         saveRestaurant();
     }, []);
+
+    const openBookingModal = () => {
+        setIsBookingModalOpen(true);
+        document.body.classList.add('active');
+    };
+    const closeBookingModal = () => {
+        setIsBookingModalOpen(false);
+        document.body.classList.remove('active');
+    };
 
     const sliderSetting = {
         dots: false,
@@ -88,6 +100,7 @@ const RestaurantPage = () => {
                 scrollbar-track-transparent hover:scrollbar-thumb-zinc-700 dark:scrollbar-thumb-zinc-200 dark:hover:scrollbar-thumb-zinc-400'
                 >
                     <div className='flex flex-col items-center w-full h-full gap-2 pr-0.5'>
+                        <BookingModal isBookingModalOpen={isBookingModalOpen} closeBookingModal={closeBookingModal} />
                         <h1 className='text-4xl text-corall font-semibold drop-shadow-lg uppercase py-5'>
                             {state.currentRestaurant.name}
                         </h1>
@@ -120,7 +133,7 @@ const RestaurantPage = () => {
                             </div>
                         </div>
                         <div className='flex items-center gap-2.5'>
-                            <div className='flex flex-col items-center min-w-[100px]'>
+                            <div className='flex flex-col items-center min-w-[100px]' onClick={openBookingModal}>
                                 <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite'></div>
                                 <div className=''>{content.restaurantsPage.book[state.language]}</div>
                             </div>
@@ -135,6 +148,7 @@ const RestaurantPage = () => {
                                 <div className=''>{content.restaurantsPage.review[state.language]}</div>
                             </div>
                         </div>
+                        {/* <RestaurantScheme /> */}
                         <div id='about' className='flex flex-col w-full h-full gap-2'>
                             <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
                                 {content.restaurantsPage.about[state.language]}

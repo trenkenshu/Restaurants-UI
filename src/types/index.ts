@@ -1,7 +1,7 @@
 export interface IRestaurant
     extends Record<
         string,
-        undefined | string | string[] | number | number[] | IReview[] | { [key: string]: ITranslate }
+        undefined | string | string[] | number | number[] | IReview[] | IBooking[] | { [key: string]: ITranslate }
     > {
     id: number;
     coordinates: iCoordinate;
@@ -19,6 +19,7 @@ export interface IRestaurant
         [key: string]: ITranslate;
     };
     reviews: IReview[];
+    bookings: IBooking[];
     error?: string;
 }
 export interface IReview {
