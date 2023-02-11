@@ -22,6 +22,7 @@ const initialState: IState = {
         login: '',
         email: '',
         phone: '',
+        password: '',
         favourites: [],
         bookings: [],
         reviews: [],

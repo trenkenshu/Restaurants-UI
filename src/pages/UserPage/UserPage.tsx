@@ -1,21 +1,19 @@
 import React, { useContext, useState } from 'react';
-import { createBooking, getUser } from 'api/api';
-import { ICreateBooking, emptyUser } from 'types';
+import { createBooking, createReview, getUser } from 'api/api';
+import { ICreateBooking, emptyUser, ICreateReview } from 'types';
 import BookingItem from 'components/BookingItem';
 import ReviewItem from 'components/ReviewItem';
 import { content } from 'utils/content';
 import { AppContext } from 'store/store';
 import { useNavigate } from 'react-router-dom';
 import RestaurantCard from 'components/RestaurantCard';
-import ButtonBlack from 'components/ButtonBlack';
-import Modal from 'components/Modal';
 import ModalUserData from 'components/ModalUserData';
 
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);
     const [isModalUserInfoOpen, setIsModalUserInfoOpen] = useState(false);
     const navigate = useNavigate();
-    // console.log('user.state:::', state.user);
+    console.log('user.state:::', state.user);
 
     const openModal = () => {
         setIsModalUserInfoOpen(true);
@@ -55,16 +53,33 @@ const UserPage = () => {
                     payload: updatedUser,
                 });
             });
-            console.log(state.user);
+        });
+    };
+
+    const bodyForReview: ICreateReview = {
+        clientId: state.user.id,
+        cafeId: 7,
+        text: 'The service was impeccable and the food was phenomenal. Bruno, the owner, went out of his way to make us feel welcome and taken care of. We’ll be adding Club A to the rotation for our upcoming visits',
+        rating: 4.7,
+    };
+
+    const makeReview = () => {
+        createReview(bodyForReview).then(() => {
+            getUser(state.user.id).then((updatedUser) => {
+                dispatch({
+                    type: 'updateUser',
+                    payload: updatedUser,
+                });
+            });
         });
     };
 
     return (
         <>
-            <div className='flex flex-col w-full md:w-9/12 2xl:w-9/12 mx-auto pb-10 md:py-5 gap-5'>
-                <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
-                    <div className='flex flex-col sm:flex-row items-center justify-center sm:justify-between'>
-                        <div className='w-full sm:w-8/12 flex flex-col items-center sm:items-start gap-5'>
+            <div className='flex flex-col w-full md:w-9/12 2xl:w-9/12 mx-auto pb-10 md:py-5 gap-5 select-none'>
+                <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg relative'>
+                    <div className='flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-between gap-5'>
+                        <div className='w-full sm:w-6/12 flex flex-col items-center sm:items-start gap-5'>
                             <div className='flex items-center gap-3'>
                                 <div className='w-10 h-10 bg-userIcon bg-cover dark:bg-userIconCorall'></div>
                                 <h1 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center drop-shadow-md'>
@@ -72,31 +87,16 @@ const UserPage = () => {
                                 </h1>
                             </div>
                             <div className='flex flex-col gap-3'>
-                                <div className='flex items-center gap-2'>
-                                    <p className='text-sm md:text-base'>
-                                        <span className='font-semibold'>
-                                            {content.userPage.phone[state.language]}:{' '}
-                                        </span>
-                                        {state.user.phone}
-                                    </p>
-                                    <button className='w-4 h-4 bg-edit dark:bg-editWhite bg-cover bg-center opacity-30'></button>
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                    <p className='text-sm md:text-base'>
-                                        <span className='font-semibold'>E-mail: </span> {state.user.email}
-                                    </p>
-                                    <button className='w-4 h-4 bg-edit dark:bg-editWhite bg-cover bg-center opacity-30'></button>
-                                </div>
-                                <div className='flex items-center gap-2'>
-                                    <p className='text-sm md:text-base'>
-                                        {content.userPage.changePassword[state.language]}
-                                    </p>
-                                    <button className='w-4 h-4 bg-edit dark:bg-editWhite bg-cover bg-center opacity-30'></button>
-                                </div>
-                                <button onClick={openModal}>Settings</button>
+                                <p className='text-sm md:text-base'>
+                                    <span className='font-semibold'>{content.userPage.phone[state.language]}: </span>
+                                    {state.user.phone}
+                                </p>
+                                <p className='text-sm md:text-base'>
+                                    <span className='font-semibold'>E-mail: </span> {state.user.email}
+                                </p>
                             </div>
                         </div>
-                        <div className='w-9/12 sm:w-4/12 flex flex-col items-center'>
+                        <div className='w-9/12 sm:w-5/12 flex flex-col items-center'>
                             <div className='w-16 h-16 bg-medalBronze bg-cover drop-shadow-md shadow-gray-900'></div>
                             <h3 className='p-1'>25 бонусов</h3>
                             <h2 className='text-xl 2xl:text-2xl text-center font-semibold dark:text-smoke-gray items-center drop-shadow-md'>
@@ -110,7 +110,20 @@ const UserPage = () => {
                             </div>
                         </div>
                     </div>
-                    <button onClick={() => makeReservation()}>Make a reservation</button>
+                    <div className='flex justify-center sm:justify-start'>
+                        <button
+                            className='h-8 sm:w-8 w-24 sm:bg-sets bg-cover sm:dark:bg-setsWhite sm:text-transparent border-2 sm:border-none border-gray-800 rounded-full opacity-50 hover:opacity-100 transition'
+                            onClick={openModal}
+                        >
+                            Settings
+                        </button>
+                    </div>
+                    <button className='mt-10 border' onClick={() => makeReservation()}>
+                        Button for test: Make a reservation
+                    </button>
+                    <button className='mt-10 border' onClick={() => makeReview()}>
+                        Button for test: Create a review
+                    </button>
                 </div>
                 <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                     <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md text-center sm:text-start py-2'>
@@ -163,14 +176,6 @@ const UserPage = () => {
                     isModalUserInfoOpen={isModalUserInfoOpen}
                 />
             )}
-            {/* <Modal>
-                <h4>Modal window</h4>
-                <input className='w-9/12' type='text'></input>
-                <div className='flex flex-col sm:flex-row w-full gap-5 justify-center items-center'>
-                    <ButtonBlack width={'w-32'} height={'h-8'} buttonText={content.userPage.cancel[state.language]} />
-                    <ButtonBlack width={'w-32'} height={'h-8'} buttonText={content.userPage.edit[state.language]} />
-                </div>
-            </Modal> */}
         </>
     );
 };

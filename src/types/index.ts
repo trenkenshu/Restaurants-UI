@@ -35,6 +35,7 @@ export interface IUser {
     login: string;
     email: string;
     phone: string;
+    password: string;
     favourites: IRestaurant[];
     bookings: IBooking[];
     reviews: IReview[];
@@ -54,6 +55,7 @@ export interface IUserEdit {
     email?: string;
     phone?: string;
     password?: string;
+    error?: string;
 }
 
 export interface ILoginUser {
@@ -66,8 +68,25 @@ export const emptyUser: IUser = {
     login: '',
     email: '',
     phone: '',
+    password: '',
     favourites: [],
     bookings: [],
+    reviews: [],
+};
+
+export const emptyRestaurant: IRestaurant = {
+    id: 0,
+    coordinates: [0, 0],
+    city: '',
+    name: '',
+    phone: '',
+    rating: 0,
+    averageCheck: 0,
+    images: [],
+    menuImg: [],
+    workTimeStart: 0,
+    workTimeEnd: 0,
+    translation: '',
     reviews: [],
 };
 

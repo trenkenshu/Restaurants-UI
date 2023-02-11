@@ -194,13 +194,23 @@ export const content = {
             en: 'Change my password',
             ru: 'Изменить пароль',
         },
-        edit: {
-            en: 'Edit',
-            ru: 'Изменить',
+        save: {
+            en: 'Save',
+            ru: 'Сохранить',
         },
         cancel: {
             en: 'Cancel',
             ru: 'Отмена',
+        },
+    },
+    booking: {
+        duration: {
+            en: 'Duration',
+            ru: 'Длительность',
+        },
+        hours: {
+            en: 'h',
+            ru: 'ч',
         },
     },
 };
