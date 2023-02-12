@@ -196,6 +196,14 @@ export const content = {
             en: 'Sing in',
             ru: 'Войти ',
         },
+        errormessage: {
+            en: 'wrong username or password',
+            ru: 'неверное имя пользователя или пароль',
+        },
+        userExsist: {
+            en: 'login or email is already taken',
+            ru: 'логин или email уже зарегистрирован',
+        },
     },
     userPage: {
         phone: {
@@ -222,13 +230,23 @@ export const content = {
             en: 'Change my password',
             ru: 'Изменить пароль',
         },
-        edit: {
-            en: 'Edit',
-            ru: 'Изменить',
+        save: {
+            en: 'Save',
+            ru: 'Сохранить',
         },
         cancel: {
             en: 'Cancel',
             ru: 'Отмена',
+        },
+    },
+    booking: {
+        duration: {
+            en: 'Duration',
+            ru: 'Длительность',
+        },
+        hours: {
+            en: 'h',
+            ru: 'ч',
         },
     },
 };

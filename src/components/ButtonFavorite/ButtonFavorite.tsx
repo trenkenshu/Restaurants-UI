@@ -6,7 +6,7 @@ interface ButtonFavoriteProps {
 
 const ButtonFavorite: FC<ButtonFavoriteProps> = ({ filled }) => {
     const bg = filled ? 'bg-favoriteFilled' : 'bg-favorite';
-    return <button className={`w-full h-full ${bg} bg-cover hover:bg-favoriteFilled`}></button>;
+    return <button className={`w-full h-full ${bg} bg-cover hover:scale-125 transition`}></button>;
 };
 
 export default ButtonFavorite;

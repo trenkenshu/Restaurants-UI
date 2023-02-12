@@ -34,7 +34,7 @@ export const createUser = async (body: IUserReg) => {
 };
 
 export const updateUser = async (body: IUserEdit) => {
-    const response = await api.patch<IUserEdit>('/client/edit', body);
+    const response = await api.patch('/client/edit', body);
     console.log('userEdit:', response);
     return response;
 };
