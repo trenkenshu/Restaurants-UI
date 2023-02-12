@@ -1,6 +1,7 @@
 import ButtonBlack from 'components/ButtonBlack';
 import React, { FC, useContext, useEffect } from 'react';
 import { MapContainer, TileLayer, useMap, Marker, Popup } from 'react-leaflet';
+import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
 
@@ -13,12 +14,13 @@ const cityCoords: cityCoordsType = {
     Kazan: [55.79945218190242, 49.10599066893499],
 };
 
-type CoordsType = {
+export type CoordsType = {
     coords: [number, number];
 };
 
 const Map: FC = () => {
     const { state } = useContext(AppContext);
+    const navigate = useNavigate();
 
     const MapRecenter = ({ coords }: CoordsType) => {
         const map = useMap();
@@ -59,6 +61,7 @@ const Map: FC = () => {
                                 width='w-full'
                                 height='h-7'
                                 buttonText={content.common.details[state.language]}
+                                onClick={() => navigate(`/restaurants/${restaurant.id}`)}
                             />
                         </Popup>
                     </Marker>

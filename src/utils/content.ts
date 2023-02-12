@@ -120,6 +120,34 @@ export const content = {
             en: 'Cuisine: ',
             ru: 'Кухня: ',
         },
+        book: {
+            en: 'Book',
+            ru: 'Бронировать',
+        },
+        favorites: {
+            en: 'Favorites',
+            ru: 'Избранное ',
+        },
+        review: {
+            en: 'Review',
+            ru: 'Отзыв',
+        },
+        about: {
+            en: 'About us',
+            ru: 'О нас ',
+        },
+        menu: {
+            en: 'Menu',
+            ru: 'Меню',
+        },
+        location: {
+            en: 'Location',
+            ru: 'Местоположение',
+        },
+        reviews: {
+            en: 'Reviews',
+            ru: 'Отзывы',
+        },
     },
     errorPage: {
         title: {
@@ -167,6 +195,14 @@ export const content = {
         submit: {
             en: 'Sing in',
             ru: 'Войти ',
+        },
+        errormessage: {
+            en: 'wrong username or password',
+            ru: 'неверное имя пользователя или пароль',
+        },
+        userExsist: {
+            en: 'login or email is already taken',
+            ru: 'логин или email уже зарегистрирован',
         },
     },
     userPage: {

@@ -39,10 +39,10 @@ const UserPage = () => {
 
     const bodyForReservation: ICreateBooking = {
         clientId: state.user.id,
-        cafeId: 4,
+        cafeId: 13,
         tableId: 1,
         date: new Date(),
-        duration: 30,
+        duration: 7.5,
     };
 
     const makeReservation = () => {

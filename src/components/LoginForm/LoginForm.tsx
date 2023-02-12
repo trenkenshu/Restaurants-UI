@@ -3,13 +3,14 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
-import spinner from '../../assets/icons/spinner_corall.png';
+import spinner from '../../assets/icons/spinner.png';
 
 const LoginForm = () => {
     const { state, dispatch } = useContext(AppContext);
-
     const [loginSingIn, setLoginSingIn] = useState('');
     const [passwordSingIn, setPasswordSingIn] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [submitBtnClass, setSubmitBtnClass] = useState('hidden');
 
     const onChangeLoginSingIn = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value;
@@ -24,17 +25,19 @@ const LoginForm = () => {
 
     const SetUser = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setSubmitBtnClass('');
         if (loginSingIn && passwordSingIn) {
             const body = {
                 login: loginSingIn,
                 password: passwordSingIn,
             };
             loginUser(body).then((user) => {
-                setLoginSingIn('');
-                setPasswordSingIn('');
-                console.log(user);
+                if (typeof user === 'object') {
+                    setLoginSingIn('');
+                    setPasswordSingIn('');
+                    setErrorMessage('');
+                    setSubmitBtnClass('hidden');
 
-                if (typeof user.error === 'undefined') {
                     user.favourites.forEach((rest) => {
                         rest.parsedTranslation = JSON.parse(rest.translation);
                     });
@@ -43,6 +46,11 @@ const LoginForm = () => {
                         payload: user,
                     });
                     navigate('/userpage');
+                } else {
+                    console.log(user);
+                    // setErrorMessage(JSON.parse(JSON.stringify(user)).slice(10, -2));
+                    setErrorMessage(content.registration.errormessage[state.language]);
+                    setSubmitBtnClass('hidden');
                 }
             });
         }
@@ -52,6 +60,7 @@ const LoginForm = () => {
         <div>
             <form className='mt-8 space-y-6' onSubmit={SetUser}>
                 {/* <input type='hidden' name='remember' value='true'></input> */}
+                <p className='text-corall text-center font-semibold uppercase'>{errorMessage}</p>
                 <div className='-space-y-px rounded-md shadow-sm'>
                     <div>
                         <label htmlFor='login' className='sr-only'>
@@ -89,8 +98,9 @@ const LoginForm = () => {
                 <div>
                     <button
                         type='submit'
-                        className='group relative flex w-full justify-center rounded-full items-center bg-black text-corall hover:bg-transparent hover:text-black border border-black rounded-full font-semibold py-2 px-4 focus:outline-none focus:ring-2 focus:ring-corall focus:ring-corall'
+                        className='group relative flex gap-3 w-full justify-center rounded-full items-center bg-black text-corall hover:bg-transparent hover:text-black border border-black rounded-full font-semibold py-2 px-4 focus:outline-none'
                     >
+                        <img className={`${submitBtnClass} animate-spin h-4 w-4`} src={spinner}></img>
                         {content.registration.submit[state.language]}
                     </button>
                 </div>

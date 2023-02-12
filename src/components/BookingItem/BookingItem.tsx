@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import ButtonBlack from 'components/ButtonBlack';
 import { emptyRestaurant, IBooking } from 'types';
 import { AppContext } from 'store/store';
@@ -13,13 +13,14 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
     const { state, dispatch } = useContext(AppContext);
     const [userRestaurant, setUserRestaurant] = useState(emptyRestaurant);
 
-    const bookingDate = new Date(booking.date).toLocaleString(state.language, {
+    const bookingDate = new Date(booking.date);
+    const date = bookingDate.toLocaleString(state.language, {
         year: 'numeric',
         month: 'long',
         day: 'numeric',
     });
-    const hours = new Date(booking.date).getHours().toString().padStart(2, '0');
-    const minutes = new Date(booking.date).getMinutes().toString().padStart(2, '0');
+    const hours = bookingDate.getHours().toString().padStart(2, '0');
+    const minutes = bookingDate.getMinutes().toString().padStart(2, '0');
 
     const getUserRestaurant = async () => {
         await getRestaurant(booking.cafeId).then((rest) => {
@@ -27,7 +28,9 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
             setUserRestaurant(rest);
         });
     };
-    getUserRestaurant();
+    useEffect(() => {
+        getUserRestaurant();
+    }, []);
 
     const editUserBooking = () => {
         console.log('click');
@@ -36,9 +39,8 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
     const deleteUserBooking = async () => {
         await deleteBooking(booking.id).then(() => {
             console.log('click delete');
-            const updatedBookings = state.user.bookings.filter((reserv) => reserv.id !== booking.id);
             const updatedUser = state.user;
-            updatedUser.bookings = updatedBookings;
+            updatedUser.bookings = state.user.bookings.filter((reserv) => reserv.id !== booking.id);
             dispatch({
                 type: 'updateUser',
                 payload: updatedUser,
@@ -61,7 +63,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                             {userRestaurant.parsedTranslation && userRestaurant.parsedTranslation[state.language].name}
                         </a>
                     </h2>
-                    <p className='text-sm leading-3 italic font-bold text-black drop-shadow-md'>
+                    <p className='text-sm leading-3 italic font-bold text-black drop-shadow-md py-0.5'>
                         {userRestaurant.parsedTranslation && userRestaurant.parsedTranslation[state.language].city}
                     </p>
                     <p className='h-6 text-sm leading-3 italic text-black drop-shadow-md'>
@@ -75,9 +77,9 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                             content.booking.hours[state.language]
                         }`}
                     </p>
-                    <p className='font-semibold text-end text-black  drop-shadow-md'>{bookingDate}</p>
+                    <p className='font-semibold text-end text-black  drop-shadow-md'>{date}</p>
                 </div>
-                <div className='flex justify-center gap-3 mt-2'>
+                <div className='flex justify-center gap-3'>
                     <ButtonBlack width='w-24' height='h-7' buttonText='Edit' onClick={editUserBooking} />
                     <ButtonBlack width='w-24' height='h-7' buttonText='Cancel' onClick={deleteUserBooking} />
                 </div>

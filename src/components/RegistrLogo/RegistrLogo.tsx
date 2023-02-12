@@ -1,9 +1,13 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-const RegistrLogo = () => {
+type RegistrLogoType = {
+    closeBurger: () => void;
+};
+
+const RegistrLogo: FC<RegistrLogoType> = ({ closeBurger }) => {
     return (
-        <li className='w-8 h-8 login'>
+        <li className='w-10 h-10 md:w-8 md:h-8 login' onClick={closeBurger}>
             <Link
                 className='block bg-login dark:bg-loginWhite w-full h-full bg-no-repeat bg-cover registrLogo'
                 to='/registration'
