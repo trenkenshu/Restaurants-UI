@@ -22,7 +22,7 @@ const RestaurantMap = () => {
             <MapContainer
                 className='w-full h-full rounded'
                 center={state.currentRestaurant.coordinates}
-                zoom={15}
+                zoom={17}
                 scrollWheelZoom={false}
             >
                 <MapRecenter coords={state.currentRestaurant.coordinates} />

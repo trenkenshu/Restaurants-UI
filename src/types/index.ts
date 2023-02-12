@@ -88,6 +88,9 @@ export interface IBooking {
     duration: number;
     date: Date;
     createdAt: Date;
+    // guestNumber: number;
+    // name: string;
+    // phone: string;
 }
 
 export interface IDelBooking {
