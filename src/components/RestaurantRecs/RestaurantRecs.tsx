@@ -7,22 +7,12 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './RestaurantRecs.css';
 import { AppContext } from 'store/store';
+import checkFavorites from 'utils/functions/checkFavorites';
 
 const RestaurantRecs = () => {
     const { state } = useContext(AppContext);
-    const somearr = [0, 1, 2, 3];
 
-    const checkRestaurant = (id: number) => {
-        let isInFavourites = false;
-        state.user.favourites &&
-            state.user.favourites.forEach((rest) => {
-                if (rest.id === id) isInFavourites = true;
-            });
-        return isInFavourites;
-    };
-
-    const count = state.restaurants.filter((el) => el.rating >= 4.5).length;
-    console.log('кол-во рест с рейтингом 4,5:::', count);
+    const filteredByRating = state.restaurants.filter((el) => el.rating > 4.4);
 
     const sliderSetting = {
         dots: false,
@@ -71,21 +61,16 @@ const RestaurantRecs = () => {
             </h3>
             <div className='w-full h-80 lg:h-96 -pr-3'>
                 <Slider {...sliderSetting}>
-                    {state.restaurants.map((restaurant) => {
-                        if (restaurant.rating >= 4.5) {
-                            return (
-                                <div className='w-64 h-80 lg:h-96' key={restaurant.id}>
-                                    <RestaurantCard
-                                        restaurant={restaurant}
-                                        isInUserFavotites={checkRestaurant(restaurant.id)}
-                                    />
-                                </div>
-                            );
-                        }
+                    {filteredByRating.map((restaurant) => {
+                        return (
+                            <div className='w-64 h-80 lg:h-96' key={restaurant.id}>
+                                <RestaurantCard
+                                    restaurant={restaurant}
+                                    isInUserFavotites={checkFavorites(restaurant.id, state)}
+                                />
+                            </div>
+                        );
                     })}
-                    {/* {somearr.map((el, index) => {
-                        return <RestaurantCard restaurant={state.restaurants[0]} key={index} />;
-                    })} */}
                 </Slider>
             </div>
         </div>
