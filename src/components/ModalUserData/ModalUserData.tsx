@@ -31,7 +31,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
         if (value.match(/^\+\d{9,}/g)) {
             setErrorMsgPhone('');
         } else {
-            setErrorMsgPhone('Incorrect phone number');
+            setErrorMsgPhone(content.error.wrongPhone[state.language]);
         }
         setPhone(value);
     };
@@ -43,7 +43,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
         if (String(value).toLowerCase().match(emailRegexp)) {
             setErrorMsgEmail('');
         } else {
-            setErrorMsgEmail('Incorrect email');
+            setErrorMsgEmail(content.error.wrongEmail[state.language]);
         }
         setEmail(value);
     };
@@ -62,7 +62,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
         if (value.length > 5 || value === '') {
             setErrorMsgNewPassword('');
         } else {
-            setErrorMsgNewPassword('Password should contain 6 characters or more');
+            setErrorMsgNewPassword(content.error.shortPassword[state.language]);
         }
         console.log(value);
         setNewPassword(value);
@@ -89,6 +89,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                         type: 'updateUser',
                         payload: updatedUser.data,
                     });
+                    setIsModalUserInfoOpen(false);
                     setErrorMessage('');
                     setErrorMsgPrevPassword('');
                     setSubmitBtnClass('hidden');
@@ -99,7 +100,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
             });
         } else {
             setSubmitBtnClass('hidden');
-            setErrorMsgPrevPassword('Incorrect previous password');
+            setErrorMsgPrevPassword(content.error.wrongPassword[state.language]);
         }
     };
 

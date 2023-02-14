@@ -25,10 +25,17 @@ export interface IRestaurant
 export interface IReview {
     id: number;
     // cafe: IRestaurant;
-    authorId: number;
+    clientId: number;
     text: string;
     rating: number;
     cafeId: number;
+}
+
+export interface ICreateReview {
+    clientId: number;
+    cafeId: number;
+    text: string;
+    rating: number;
 }
 
 // USER //
@@ -113,13 +120,6 @@ export interface IBooking {
 
 export interface IDelBooking {
     id: number;
-}
-
-export interface ICreateReview {
-    clientId: number;
-    cafeId: number;
-    text: string;
-    rating: number;
 }
 
 export interface IUpdateReview {

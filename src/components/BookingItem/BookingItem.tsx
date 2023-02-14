@@ -54,7 +54,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
         <div className='h-72 w-72 sm:w-72 sm:h-72 gap-2 relative drop-shadow-lg'>
             <img
                 className='w-full h-full rounded'
-                src={`https://restaurants-server-2.onrender.com/${userRestaurant.images[1]}`}
+                src={`https://restaurants-server-3.onrender.com/${userRestaurant.images[1]}`}
                 alt='Restaurant Photo'
             ></img>
             <div className='w-4/5 h-4/5 sm:w-3/4 sm:h-3/4 absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 backdrop-blur-sm bg-white/30 rounded'>
@@ -68,15 +68,14 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                     <p className='h-6 text-sm leading-3 italic text-black drop-shadow-md'>
                         {userRestaurant.parsedTranslation && userRestaurant.parsedTranslation[state.language].address}
                     </p>
-                    <p className='text-3xl -mt-2 font-semibold text-black text-end drop-shadow-md'>
+                    <p className='text-3xl -mt-3 font-semibold text-black text-end drop-shadow-md'>
                         {hours}:{minutes}
                     </p>
-                    <p className='font-semibold text-end text-black  drop-shadow-md'>
-                        {`${content.booking.duration[state.language]}: ${booking.duration} ${
-                            content.booking.hours[state.language]
-                        }`}
+                    <p className='font-bold text-end text-black -mt-2 drop-shadow-md'>{date}</p>
+                    <p className='text-sm text-end text-black drop-shadow-md leading-4'>
+                        {`Table №${booking.tableId} for ${booking.guestId} guests
+                        for ${booking.duration} ${content.booking.hours[state.language]}`}
                     </p>
-                    <p className='font-semibold text-end text-black -mt-2 drop-shadow-md'>{date}</p>
                 </div>
                 <div className='flex justify-center gap-3'>
                     <ButtonBlack

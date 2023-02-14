@@ -190,7 +190,7 @@ const RestaurantPage = () => {
                                         <div
                                             className='bg-cover bg-center h-44 lg:h-[calc(100vh-130px)] w-full'
                                             style={{
-                                                backgroundImage: `url(https://restaurants-server-2.onrender.com/${img})`,
+                                                backgroundImage: `url(https://restaurants-server-3.onrender.com/${img})`,
                                             }}
                                         ></div>
                                     </div>

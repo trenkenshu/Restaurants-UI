@@ -8,11 +8,12 @@ import { AppContext } from 'store/store';
 import { useNavigate } from 'react-router-dom';
 import RestaurantCard from 'components/RestaurantCard';
 import ModalUserData from 'components/ModalUserData';
-import ProgressStepsBarUX from 'components/ProgressStepsBarUX';
+import ModalReview from 'components/ModalReview';
 
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);
     const [isModalUserInfoOpen, setIsModalUserInfoOpen] = useState(false);
+
     const navigate = useNavigate();
 
     console.log('state:::', state);
@@ -60,26 +61,12 @@ const UserPage = () => {
 
     const bodyForReview: ICreateReview = {
         clientId: state.user.id,
-        cafeId: 5,
-        text: 'Just had one of the most incredible meals of my life at Jungsik. I ate at the bar and had that selection. I expected it to be good but it far exceeded our expectations. The depth of flavours and selections played well with each other . The chef made sure to create food that fit in with some of my restrictions due to medical problems. The servers are very welcoming, spent the time to explain the menu and gave wonderful suggestions. Service impeccable. The desserts are works of art in looks and taste. Cocktail suggestions were spot on and a delight.',
-        rating: 3,
+        cafeId: 13,
+        text: 'We came in and ordered 2 iced lattes which were amazing (Nutella & Mocha) and then they saw my daughter and gave her a complimentary cake pop and served her their ice cream! 20 out of 10!! Great family vibes',
+        rating: 5,
     };
-    // const bodyForReviewToState = {
-    //     id: 3,
-    //     restaurant: state.restaurants[3],
-    //     author: 'oleg2',
-    //     text: 'The service ..... was impeccable and the food was phenomenal. Bruno, the owner, went out of his way to make us feel welcome and taken care of. We’ll be adding Club A to the rotation for our upcoming visits',
-    //     rating: 3.5,
-    // };
 
     const makeReview = () => {
-        // state.user.reviews.push(bodyForReviewToState);
-        // state.restaurants[0].reviews = [bodyForReviewToState];
-        // const updatedUser = state.user;
-        // dispatch({
-        //     type: 'updateUser',
-        //     payload: updatedUser,
-        // });
         createReview(bodyForReview).then(() => {
             getUser(state.user.id).then((updatedUser) => {
                 dispatch({
@@ -198,7 +185,7 @@ const UserPage = () => {
                         onClick={() => logOut()}
                     ></button>
                 </div>
-                <ProgressStepsBarUX />
+                {/* <ProgressStepsBarUX /> */}
             </div>
             {isModalUserInfoOpen && (
                 <ModalUserData

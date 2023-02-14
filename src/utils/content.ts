@@ -212,14 +212,6 @@ export const content = {
             en: 'Sing in',
             ru: 'Войти ',
         },
-        errormessage: {
-            en: 'wrong username or password',
-            ru: 'неверное имя пользователя или пароль',
-        },
-        userExsist: {
-            en: 'login or email is already taken',
-            ru: 'логин или email уже зарегистрирован',
-        },
     },
     userPage: {
         phone: {
@@ -281,9 +273,58 @@ export const content = {
             ru: 'ч',
         },
     },
+    error: {
+        wrongloginOrEmail: {
+            en: 'Wrong username or password',
+            ru: 'Неверное имя пользователя или пароль',
+        },
+        userExsist: {
+            en: 'Login or email is already taken',
+            ru: 'Логин или email уже зарегистрирован',
+        },
+        shortLogin: {
+            en: 'Login should contain 3 characters or more',
+            ru: 'Логин должен содержать минимум 3 символа',
+        },
+        wrongPhone: {
+            en: 'Phone should start with "+" and contain minimum 9 numbers',
+            ru: 'Телефон должен начинаться с "+" и состоять минимум из 9 цифр',
+        },
+        wrongEmail: {
+            en: 'Incorrect email adress',
+            ru: 'Некорректный email адрес',
+        },
+        shortPassword: {
+            en: 'Password should contain minimum 6 characters',
+            ru: 'Пароль должен содержать минимум 6 символов',
+        },
+        wrongPassword: {
+            en: 'Incorrect previous password',
+            ru: 'Неверный пароль',
+        },
+    },
 };
 
 //  {
 //     en: '',
 //     ru: '',
-// }
+// },
+// {
+//     en: '',
+//     ru: '',
+// },
+// ,
+// {
+//     en: '',
+//     ru: '',
+// },
+// ,
+// {
+//     en: '',
+//     ru: '',
+// },
+// ,
+// {
+//     en: '',
+//     ru: '',
+// },

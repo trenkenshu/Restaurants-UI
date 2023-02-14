@@ -10,6 +10,7 @@ const RegistrationProposal = () => {
 
     const redirect = () => {
         state.user.id > 0 ? navigate('/restaurants') : navigate('/registration');
+        window.scrollTo(0, 0);
     };
 
     return (

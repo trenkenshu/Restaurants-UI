@@ -12,12 +12,13 @@ import {
 } from 'types';
 
 const api = axios.create({
-    baseURL: 'https://restaurants-server-2.onrender.com/',
+    baseURL: 'https://restaurants-server-3.onrender.com',
 });
 
 export const getRestaurants = async (city: string): Promise<IRestaurant[]> => {
     // : Promise<AxiosResponse<any, any>>
     const response = await api.get<IRestaurant[]>(`/cafe/city/${city}`);
+    console.log('getRestaurants:::', response.data);
     return response.data;
 };
 
@@ -31,9 +32,9 @@ export const createUser = async (body: IUserReg) => {
     console.log(response);
     return response;
 };
-
+// https://restaurants-server-3.onrender.com/client/edit
 export const updateUser = async (body: IUserEdit) => {
-    const response = await api.post('/client/edit', body);
+    const response = await api.patch('/client/edit', body);
     console.log('userEdit:', response.data);
     return response;
 };
