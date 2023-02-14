@@ -128,13 +128,13 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                     <ButtonBlack
                         width={'w-32'}
                         height={'h-8'}
-                        buttonText={content.userPage.cancel[state.language]}
+                        buttonText={content.common.cancel[state.language]}
                         onClick={closeModal}
                     />
                     <ButtonBlack
                         width={'w-32'}
                         height={'h-8'}
-                        buttonText={content.userPage.save[state.language]}
+                        buttonText={content.common.save[state.language]}
                         // onClick={() => saveUpdatedUserData}
                         type='submit'
                     />

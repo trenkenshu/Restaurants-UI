@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { IUser } from 'types';
 import { content } from 'utils/content';
-import spinner from '../../assets/icons/spinner.png';
+import spinner from '../../assets/icons/spinner_corall.png';
 
 const RegistrationForm = () => {
     const { state, dispatch } = useContext(AppContext);

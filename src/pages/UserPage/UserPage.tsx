@@ -13,7 +13,8 @@ const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);
     const [isModalUserInfoOpen, setIsModalUserInfoOpen] = useState(false);
     const navigate = useNavigate();
-    console.log('user.state:::', state.user);
+
+    console.log('state:::', state);
 
     const openModal = () => {
         setIsModalUserInfoOpen(true);
@@ -42,7 +43,7 @@ const UserPage = () => {
         cafeId: 13,
         tableId: 1,
         date: new Date(),
-        duration: 7.5,
+        duration: 7,
     };
 
     const makeReservation = () => {
@@ -58,12 +59,26 @@ const UserPage = () => {
 
     const bodyForReview: ICreateReview = {
         clientId: state.user.id,
-        cafeId: 7,
-        text: 'The service was impeccable and the food was phenomenal. Bruno, the owner, went out of his way to make us feel welcome and taken care of. We’ll be adding Club A to the rotation for our upcoming visits',
-        rating: 4.7,
+        cafeId: 5,
+        text: 'Just had one of the most incredible meals of my life at Jungsik. I ate at the bar and had that selection. I expected it to be good but it far exceeded our expectations. The depth of flavours and selections played well with each other . The chef made sure to create food that fit in with some of my restrictions due to medical problems. The servers are very welcoming, spent the time to explain the menu and gave wonderful suggestions. Service impeccable. The desserts are works of art in looks and taste. Cocktail suggestions were spot on and a delight.',
+        rating: 3,
     };
+    // const bodyForReviewToState = {
+    //     id: 3,
+    //     restaurant: state.restaurants[3],
+    //     author: 'oleg2',
+    //     text: 'The service ..... was impeccable and the food was phenomenal. Bruno, the owner, went out of his way to make us feel welcome and taken care of. We’ll be adding Club A to the rotation for our upcoming visits',
+    //     rating: 3.5,
+    // };
 
     const makeReview = () => {
+        // state.user.reviews.push(bodyForReviewToState);
+        // state.restaurants[0].reviews = [bodyForReviewToState];
+        // const updatedUser = state.user;
+        // dispatch({
+        //     type: 'updateUser',
+        //     payload: updatedUser,
+        // });
         createReview(bodyForReview).then(() => {
             getUser(state.user.id).then((updatedUser) => {
                 dispatch({
@@ -73,6 +88,10 @@ const UserPage = () => {
             });
         });
     };
+
+    const bonus = 35;
+    // const width = `w-[${(bonus / 102) * 100}%]`;
+    const width = 'w-1/4';
 
     return (
         <>
@@ -97,21 +116,24 @@ const UserPage = () => {
                             </div>
                         </div>
                         <div className='w-9/12 sm:w-5/12 flex flex-col items-center'>
-                            <div className='w-16 h-16 bg-medalBronze bg-cover drop-shadow-md shadow-gray-900'></div>
-                            <h3 className='p-1'>25 бонусов</h3>
+                            <div className='w-16 h-16 bg-medalSilver bg-cover drop-shadow-md shadow-gray-900'></div>
+                            <h3 className='p-1'>{`${bonus} бонусов`}</h3>
                             <h2 className='text-xl 2xl:text-2xl text-center font-semibold dark:text-smoke-gray items-center drop-shadow-md'>
                                 Ваш уровень: <b>любитель</b>
                             </h2>
                             <div className='w-full'>
-                                <div className='flex items-center gap-1 w-full h-4 my-5 bg-gradient-to-r from-lime-600 via-yellow-400 to-red-500 rounded'>
-                                    <div className='w-1/4 h-8 border-r-4 border-black'></div>
+                                <div className='flex items-center gap-1 w-full h-4 my-5 bg-gradient-to-r from-zinc-300 via-corall to-black rounded drop-shadow-md'>
+                                    <div className={`${width} h-8 border-r-4 border-black`}></div>
                                 </div>
-                                <p className='w-4/12 flex justify-end text-sm font-bold -pr-4'>25 / 100</p>
+                                <p className={`${width} flex justify-end text-sm font-bold text-black`}>
+                                    <span className='w-full text-end -mr-2'>{bonus}</span>
+                                </p>
                             </div>
                         </div>
                     </div>
                     <div className='flex justify-center sm:justify-start'>
                         <button
+                            title={content.userPage.settings[state.language]}
                             className='h-8 sm:w-8 w-24 sm:bg-sets bg-cover sm:dark:bg-setsWhite sm:text-transparent border-2 sm:border-none border-gray-800 rounded-full opacity-50 hover:opacity-100 transition'
                             onClick={openModal}
                         >
@@ -130,36 +152,42 @@ const UserPage = () => {
                         {content.userPage.bookings[state.language]}
                     </h2>
                     <div className='flex flex-col flex-wrap sm:flex-row items-center sm:items-start gap-5'>
-                        {state.user.bookings.map((booking) => {
-                            return <BookingItem booking={booking} key={booking.id} />;
-                        })}
+                        {state.user.bookings.length > 0
+                            ? state.user.bookings.map((booking) => {
+                                  return <BookingItem booking={booking} key={booking.id} />;
+                              })
+                            : `${content.userPage.nobookings[state.language]}`}
                     </div>
                 </div>
                 <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                     <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md text-center sm:text-start py-2'>
                         {content.userPage.reviews[state.language]}
                     </h2>
-                    <div className='flex flex-col gap-5'>
-                        <ReviewItem />
-                        <ReviewItem />
-                        <ReviewItem />
+                    <div className='flex flex-col gap-5 justify-center text-center sm:justify-start sm:text-start'>
+                        {state.user.reviews.length > 0
+                            ? state.user.reviews.map((review) => {
+                                  return <ReviewItem review={review} key={review.id} isOnRestaurantPage={false} />;
+                              })
+                            : `${content.userPage.noreviews[state.language]}`}
                     </div>
                 </div>
                 <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                     <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md text-center sm:text-start py-2'>
                         {content.userPage.favorites[state.language]}
                     </h2>
-                    <div className='flex flex-wrap sm:flex-row gap-2 min-h-fit justify-center lg:justify-start'>
-                        {state.user.favourites.map((restaurant) => {
-                            return (
-                                <div className='w-64 h-80 lg:h-96' key={restaurant.id}>
-                                    <RestaurantCard
-                                        restaurant={restaurant}
-                                        isInUserFavotites={checkRestaurant(restaurant.id)}
-                                    />
-                                </div>
-                            );
-                        })}
+                    <div className='flex flex-wrap sm:flex-row gap-2 min-h-fit justify-center sm:justify-start'>
+                        {state.user.favourites.length > 0
+                            ? state.user.favourites.map((restaurant) => {
+                                  return (
+                                      <div className='w-64 h-80 lg:h-96' key={restaurant.id}>
+                                          <RestaurantCard
+                                              restaurant={restaurant}
+                                              isInUserFavotites={checkRestaurant(restaurant.id)}
+                                          />
+                                      </div>
+                                  );
+                              })
+                            : `${content.userPage.nofavourites[state.language]}`}
                     </div>
                 </div>
                 <div className='flex p-5 gap-3 items-center justify-end bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>

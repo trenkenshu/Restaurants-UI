@@ -91,6 +91,8 @@ const RestaurantPage = () => {
             },
         ],
     };
+
+    console.log(state.currentRestaurant);
     // !! Если ID > существующего то сдеать переход на ERROR page
     return (
         state.currentRestaurant && (
@@ -172,8 +174,9 @@ const RestaurantPage = () => {
                                 {content.restaurantsPage.reviews[state.language]}
                             </div>
                             <div className='pb-5'>
-                                <ReviewItem />
-                                <ReviewItem />
+                                {state.currentRestaurant.reviews.map((review) => {
+                                    return <ReviewItem review={review} key={review.id} isOnRestaurantPage={true} />;
+                                })}
                             </div>
                         </div>
                     </div>

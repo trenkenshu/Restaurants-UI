@@ -18,6 +18,22 @@ export const content = {
             en: 'Details',
             ru: 'Подробнее',
         },
+        edit: {
+            en: 'Edit',
+            ru: 'Изменить',
+        },
+        save: {
+            en: 'Save',
+            ru: 'Сохранить',
+        },
+        delete: {
+            en: 'Delete',
+            ru: 'Удалить',
+        },
+        cancel: {
+            en: 'Cancel',
+            ru: 'Отменить',
+        },
     },
     homePage: {
         title: {
@@ -230,13 +246,21 @@ export const content = {
             en: 'Change my password',
             ru: 'Изменить пароль',
         },
-        save: {
-            en: 'Save',
-            ru: 'Сохранить',
+        settings: {
+            en: 'Settings',
+            ru: 'Настройки',
         },
-        cancel: {
-            en: 'Cancel',
-            ru: 'Отмена',
+        nobookings: {
+            en: 'You have no booking yet',
+            ru: 'У вас еще нет бронирований',
+        },
+        noreviews: {
+            en: 'You have no reviews yet',
+            ru: 'Вы еще не оставляли отзывы',
+        },
+        nofavourites: {
+            en: 'You have no favourites restaurants yet',
+            ru: 'Вы еще не добавляли рестораны в избранное',
         },
     },
     booking: {

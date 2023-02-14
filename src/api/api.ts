@@ -3,7 +3,6 @@ import {
     IBooking,
     ICreateBooking,
     ICreateReview,
-    IDelBooking,
     ILoginUser,
     IRestaurant,
     IUpdateReview,
@@ -34,8 +33,8 @@ export const createUser = async (body: IUserReg) => {
 };
 
 export const updateUser = async (body: IUserEdit) => {
-    const response = await api.patch('/client/edit', body);
-    console.log('userEdit:', response);
+    const response = await api.post('/client/edit', body);
+    console.log('userEdit:', response.data);
     return response;
 };
 
@@ -63,8 +62,8 @@ export const updateBooking = async (body: IBooking) => {
 };
 
 export const deleteBooking = async (id: number) => {
-    const response = await api.delete(`/bookings/${id}`);
-    console.log('delete booking:', response.data);
+    const response = await api.get(`/bookings/${id}`);
+    console.log('delete booking:');
     return response.data;
 };
 
