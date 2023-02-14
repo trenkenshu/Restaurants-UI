@@ -62,7 +62,7 @@ export const updateBooking = async (body: IBooking) => {
 };
 
 export const deleteBooking = async (id: number) => {
-    const response = await api.get(`/bookings/${id}`);
+    const response = await api.delete(`/bookings/${id}`);
     console.log('delete booking:');
     return response.data;
 };

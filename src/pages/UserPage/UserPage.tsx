@@ -8,6 +8,7 @@ import { AppContext } from 'store/store';
 import { useNavigate } from 'react-router-dom';
 import RestaurantCard from 'components/RestaurantCard';
 import ModalUserData from 'components/ModalUserData';
+import ProgressStepsBarUX from 'components/ProgressStepsBarUX';
 
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -197,6 +198,7 @@ const UserPage = () => {
                         onClick={() => logOut()}
                     ></button>
                 </div>
+                <ProgressStepsBarUX />
             </div>
             {isModalUserInfoOpen && (
                 <ModalUserData

@@ -242,9 +242,9 @@ export const content = {
             en: 'Log out',
             ru: 'Выйти',
         },
-        changePassword: {
-            en: 'Change my password',
-            ru: 'Изменить пароль',
+        changeInfo: {
+            en: 'Change personal information',
+            ru: 'Изменение данных пользователя',
         },
         settings: {
             en: 'Settings',
@@ -261,6 +261,14 @@ export const content = {
         nofavourites: {
             en: 'You have no favourites restaurants yet',
             ru: 'Вы еще не добавляли рестораны в избранное',
+        },
+        prevPassword: {
+            en: 'Current password',
+            ru: 'Текущий пароль',
+        },
+        newPassword: {
+            en: 'New password',
+            ru: 'Новый пароль',
         },
     },
     booking: {
