@@ -157,9 +157,9 @@ const UserPage = () => {
                     <button className='mt-10 border' onClick={() => makeReservation()}>
                         Button for test: Make a reservation
                     </button>
-                    <button className='mt-10 border' onClick={() => makeReview()}>
+                    {/* <button className='mt-10 border' onClick={() => makeReview()}>
                         Button for test: Create a review
-                    </button>
+                    </button> */}
                 </div>
                 <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                     <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md text-center sm:text-start py-2'>

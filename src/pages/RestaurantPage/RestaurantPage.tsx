@@ -16,6 +16,7 @@ import BookingModal from 'components/BookingModal/BookingModal';
 import Error404 from 'pages/Error404';
 import { emptyRestaurant } from 'types';
 import ModalReview from 'components/ModalReview';
+import checkFavorites from 'utils/functions/checkFavorites';
 
 const sliderSetting = {
     dots: false,
@@ -167,7 +168,10 @@ const RestaurantPage = () => {
                                 </div>
                                 <div className='flex flex-col items-center min-w-[100px]'>
                                     <div className='w-9 h-9'>
-                                        <ButtonFavorite />
+                                        <ButtonFavorite
+                                            restaurant={restaurant}
+                                            filled={checkFavorites(restaurant.id, state)}
+                                        />
                                     </div>
                                     <div className=''>{content.restaurantsPage.favorites[state.language]}</div>
                                 </div>

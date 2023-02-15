@@ -47,7 +47,7 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
         review.split(' ').length < 5
             ? setErrorMessageReview('Review should contain more than 5 words')
             : setErrorMessageReview('');
-        rating === '0' ? setErrorMessageRating('Rating should be more than 0') : setErrorMessageRating('');
+        rating === '' ? setErrorMessageRating('Rating should be more than 0') : setErrorMessageRating('');
     };
 
     const updateUserState = () => {
