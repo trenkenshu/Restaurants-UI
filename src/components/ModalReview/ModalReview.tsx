@@ -1,12 +1,13 @@
-import { createReview, getRestaurant, getRestaurants, getUser, updateReview, updateUser } from 'api/api';
+import { createReview, getRestaurant, getUser, updateReview } from 'api/api';
 import ButtonBlack from 'components/ButtonBlack';
 import Modal from 'components/Modal';
-import { FC, useContext, useEffect, useState } from 'react';
+import { FC, useContext, useState } from 'react';
 import { Rating } from 'react-rainbow-components';
 import { AppContext } from 'store/store';
 import { IRestaurant, IReview } from 'types';
 import { content } from 'utils/content';
 import spinner from '../../assets/icons/spinner_corall.png';
+import './ModalReview.css';
 
 interface ModalReviewProps {
     setIsModalReviewOpen: (data: boolean) => void;
@@ -30,6 +31,7 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
     const onChangeRating = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = Number(event.target.value);
         setRating(value);
+        console.log('onChange rating:::', rating);
         if (value === 0) {
             setErrorMessage('Rating should be more than 0');
         } else {
@@ -41,12 +43,13 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
     const [review, setReview] = useState(currentReview);
     const onChangeReview = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
+        setReview(value);
+        // console.log('onChangeReview:::', review);
         if (value.split(' ').length < 5) {
             setErrorMessage('Review should contain more than 5 words');
         } else {
             setErrorMessage('');
         }
-        setReview(value);
     };
 
     const saveRaview = (event: React.FormEvent<HTMLFormElement>) => {
@@ -57,14 +60,14 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
             clientId: state.user.id,
             cafeId: restaurant.id,
             rating: rating,
-            text: currentReview,
+            text: review,
         };
 
         if (rating > 0) {
             setSubmitBtnClass('');
 
             if (userReview) {
-                updateReview({ id: userReview.id, rating: rating, text: currentReview }).then((data) => {
+                updateReview({ id: userReview.id, rating: rating, text: review }).then((data) => {
                     if (typeof data === 'object') {
                         getUser(state.user.id).then((updatedUser) => {
                             dispatch({
@@ -124,7 +127,7 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
                         value={review}
                         required
                         onChange={(event) => onChangeReview(event)}
-                        className='w-full h-44 wrap overfloy-y-auto relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                        className='w-full h-60 wrap overfloy-y-auto relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                     ></textarea>
                 </div>
 

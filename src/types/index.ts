@@ -25,7 +25,7 @@ export interface IRestaurant
 export interface IReview {
     id: number;
     // cafe: IRestaurant;
-    clientId: number;
+    authorId: number;
     text: string;
     rating: number;
     cafeId: number;
@@ -98,6 +98,14 @@ export const emptyRestaurant: IRestaurant = {
     translation: '',
     reviews: [],
     bookings: [],
+};
+
+export const emptyReview: IReview = {
+    id: 0,
+    authorId: 0,
+    text: '',
+    rating: 0,
+    cafeId: 0,
 };
 
 export interface ICreateBooking {

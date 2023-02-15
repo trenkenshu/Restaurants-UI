@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
-import { createBooking, createReview, getUser } from 'api/api';
-import { ICreateBooking, emptyUser, ICreateReview } from 'types';
+import { createBooking, createReview, deleteReview, getRestaurant, getUser } from 'api/api';
+import { ICreateBooking, emptyUser, ICreateReview, emptyReview, emptyRestaurant } from 'types';
 import BookingItem from 'components/BookingItem';
 import ReviewItem from 'components/ReviewItem';
 import { content } from 'utils/content';
@@ -13,6 +13,9 @@ import ModalReview from 'components/ModalReview';
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);
     const [isModalUserInfoOpen, setIsModalUserInfoOpen] = useState(false);
+    const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
+    const [currentReview, setCurrentReview] = useState(emptyReview);
+    const [currentRest, setCurrentRest] = useState(emptyRestaurant);
 
     const navigate = useNavigate();
 
@@ -21,6 +24,18 @@ const UserPage = () => {
     const openModal = () => {
         setIsModalUserInfoOpen(true);
         document.body.classList.add('active');
+    };
+
+    const openModalReview = async (id: number) => {
+        setIsModalReviewOpen(true);
+        document.body.classList.add('active');
+
+        const currentReview = state.user.reviews.filter((rev) => rev.id === id)[0];
+        setCurrentReview(currentReview);
+
+        await getRestaurant(currentReview.cafeId).then((rest) => {
+            setCurrentRest(rest);
+        });
     };
 
     const logOut = () => {
@@ -73,6 +88,17 @@ const UserPage = () => {
                     type: 'updateUser',
                     payload: updatedUser,
                 });
+            });
+        });
+    };
+
+    const deleteUserReview = (id: number) => {
+        deleteReview(id).then(() => {
+            const updatedUser = state.user;
+            updatedUser.reviews = state.user.reviews.filter((rev) => rev.id !== id);
+            dispatch({
+                type: 'updateUser',
+                payload: updatedUser,
             });
         });
     };
@@ -154,7 +180,23 @@ const UserPage = () => {
                     <div className='flex flex-col gap-5 justify-center text-center sm:justify-start sm:text-start'>
                         {state.user.reviews.length > 0
                             ? state.user.reviews.map((review) => {
-                                  return <ReviewItem review={review} key={review.id} isOnRestaurantPage={false} />;
+                                  return (
+                                      <div className='' key={review.id}>
+                                          <div className='-mb-8 w-15 flex items-center justify-end w-full gap-2 z-index-50'>
+                                              <button
+                                                  title={content.common.edit[state.language]}
+                                                  className='w-4 h-4 bg-edit dark:bg-editWhite bg-cover'
+                                                  onClick={() => openModalReview(review.id)}
+                                              ></button>
+                                              <button
+                                                  title={content.common.delete[state.language]}
+                                                  className='w-4 h-4 mt-1 bg-delete dark:bg-deleteWhite bg-cover'
+                                                  onClick={() => deleteUserReview(review.id)}
+                                              ></button>
+                                          </div>
+                                          <ReviewItem review={review} isOnRestaurantPage={false} />
+                                      </div>
+                                  );
                               })
                             : `${content.userPage.noreviews[state.language]}`}
                     </div>
@@ -191,6 +233,14 @@ const UserPage = () => {
                 <ModalUserData
                     setIsModalUserInfoOpen={setIsModalUserInfoOpen}
                     isModalUserInfoOpen={isModalUserInfoOpen}
+                />
+            )}
+            {isModalReviewOpen && (
+                <ModalReview
+                    setIsModalReviewOpen={setIsModalReviewOpen}
+                    isModalReviewOpen={isModalReviewOpen}
+                    restaurant={currentRest}
+                    userReview={currentReview}
                 />
             )}
         </>
