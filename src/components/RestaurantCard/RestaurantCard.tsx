@@ -5,6 +5,7 @@ import { content } from 'utils/content';
 import { AppContext } from 'store/store';
 import { IRestaurant } from 'types';
 import { useNavigate } from 'react-router-dom';
+import { baseURL } from 'utils/constants';
 
 interface RestaurantItemProps {
     restaurant: IRestaurant;
@@ -22,7 +23,7 @@ const RestaurantCard: FC<RestaurantItemProps> = ({ restaurant, isInUserFavotites
             <div className='w-full h-full overflow-y-hidden relative'>
                 <img
                     className='w-full h-full absolute top-0 left-0'
-                    src={`https://restaurants-server-3.onrender.com/${restaurant.images[0]}`}
+                    src={`${baseURL}/${restaurant.images[0]}`}
                     alt={`${restaurant.name} restaurant photo`}
                 ></img>
                 <div className='w-8 h-8 absolute right-2 top-2'>

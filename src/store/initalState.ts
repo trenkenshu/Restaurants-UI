@@ -27,6 +27,7 @@ const initialState: IState = {
         favourites: [],
         bookings: [],
         reviews: [],
+        bonusPoints: 0,
     },
     // currentCity: 'Minsk',
     currentCity: {
