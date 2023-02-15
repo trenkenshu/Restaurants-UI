@@ -53,7 +53,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
         <div className='h-72 w-72 sm:w-80 sm:h-80 gap-2 relative drop-shadow-lg'>
             <img
                 className='w-full h-full rounded'
-                src={`https://restaurants-server-2.onrender.com/${userRestaurant.images[1]}`}
+                src={`https://restaurants-server-3.onrender.com/${userRestaurant.images[1]}`}
                 alt='Restaurant Photo'
             ></img>
             <div className='w-4/5 h-4/5 sm:w-3/4 sm:h-3/4 absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 backdrop-blur-sm bg-white/30 rounded'>

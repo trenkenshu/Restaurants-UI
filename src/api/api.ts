@@ -13,7 +13,7 @@ import {
 } from 'types';
 
 const api = axios.create({
-    baseURL: 'https://restaurants-server-2.onrender.com/',
+    baseURL: 'https://restaurants-server-3.onrender.com/',
 });
 
 export const getRestaurants = async (city: string): Promise<IRestaurant[]> => {
@@ -26,6 +26,10 @@ export const getRestaurant = async (id: number): Promise<IRestaurant> => {
     const response = await api.get<IRestaurant>(`/cafe/${id}`);
     return response.data;
 };
+// export const getRestaurant = async (id: number) => {
+//     const response = await api.get<IRestaurant>(`/cafe/${id}`);
+//     return response;
+// };
 
 export const createUser = async (body: IUserReg) => {
     const response = await api.post<IUserReg>('/register', body);

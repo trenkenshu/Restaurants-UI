@@ -30,6 +30,9 @@ html {
 body.active {
   overflow: hidden;
 }
+#innerScroll.active {
+  overflow: hidden;
+}
 .restaurant .slick-prev {
   width: auto;
   height: auto;
@@ -74,18 +77,31 @@ body.active {
   margin: 0;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-input[type='number'],
-input[type="number"]:hover,
-input[type="number"]:focus {
-    appearance: none;
-    -moz-appearance: textfield;
-}
-
-.active {
+header .active {
   color: #ff5f49;
+}
+
+
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+  color: #ff5f49 !important;
+}
+.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
+  color: black !important;
+}
+.dark .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
+  color: #F0F0F0 !important;
+}
+.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
+  color: #ff5f49 !important;
+  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+}
+.css-1hv8oq8-MuiStepLabel-label.MuiStepLabel-alternativeLabel {
+  margin-top: 5px !important;
+}
+.dark .css-1hv8oq8-MuiStepLabel-label.MuiStepLabel-alternativeLabel {
+  color: #F0F0F0 !important;
+}
+
+.timeblock.active {
+  background-color: #ff5f49;
 }
