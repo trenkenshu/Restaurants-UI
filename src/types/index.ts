@@ -27,7 +27,7 @@ export interface IReview {
     // cafe: IRestaurant;
     authorId: number;
     text: string;
-    rating: number;
+    rating: number | string;
     cafeId: number;
 }
 
@@ -35,7 +35,7 @@ export interface ICreateReview {
     clientId: number;
     cafeId: number;
     text: string;
-    rating: number;
+    rating: number | string;
 }
 
 // USER //
@@ -124,6 +124,10 @@ export interface IBooking {
     duration: number;
     date: Date;
     createdAt: Date;
+    // guestsAmount: number;
+    // guestName: string;
+    // guestPhone: string;
+    // status: 'active' | 'deleted' | 'archived';
 }
 
 export interface IDelBooking {
@@ -133,7 +137,7 @@ export interface IDelBooking {
 export interface IUpdateReview {
     id: number;
     text?: string;
-    rating?: number;
+    rating?: number | string;
 }
 
 export interface ITranslate {
@@ -162,7 +166,7 @@ export interface CityType extends Record<string, string> {
 // }
 export interface IState {
     restaurants: IRestaurant[];
-    currentRestaurant: IRestaurant;
+    // currentRestaurant: IRestaurant;
     user: IUser;
     currentCity: CityType;
     language: 'en' | 'ru';

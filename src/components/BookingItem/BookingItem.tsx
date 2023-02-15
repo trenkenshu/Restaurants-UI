@@ -4,6 +4,7 @@ import { emptyRestaurant, IBooking } from 'types';
 import { AppContext } from 'store/store';
 import { deleteBooking, getRestaurant } from 'api/api';
 import { content } from 'utils/content';
+import { useNavigate } from 'react-router-dom';
 
 interface BookingItemProps {
     booking: IBooking;
@@ -50,6 +51,12 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
         });
     };
 
+    const navigate = useNavigate();
+    const goToRestaurantPage = (id: number) => {
+        navigate(`/restaurants/${id}`);
+        window.scrollTo(0, 0);
+    };
+
     return (
         <div className='h-72 w-72 sm:w-72 sm:h-72 gap-2 relative drop-shadow-lg'>
             <img
@@ -59,9 +66,12 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
             ></img>
             <div className='w-4/5 h-4/5 sm:w-3/4 sm:h-3/4 absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 backdrop-blur-sm bg-white/30 rounded'>
                 <div className='flex flex-col py-2 px-2.5'>
-                    <h2 className='text-xl font-bold leading-5 h-12 text-black drop-shadow-md flex items-center cursor-pointer'>
-                        <a>{userRestaurant.name}</a>
-                    </h2>
+                    <button
+                        className='text-xl font-bold leading-5 h-12 text-black drop-shadow-md flex items-center cursor-pointer'
+                        onClick={() => goToRestaurantPage(booking.cafeId)}
+                    >
+                        {userRestaurant.name}
+                    </button>
                     <p className='text-sm leading-3 italic font-bold text-black drop-shadow-md py-0.5'>
                         {userRestaurant.parsedTranslation && userRestaurant.parsedTranslation[state.language].city}
                     </p>
@@ -72,9 +82,13 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                         {hours}:{minutes}
                     </p>
                     <p className='font-bold text-end text-black -mt-2 drop-shadow-md'>{date}</p>
-                    <p className='text-sm text-end text-black drop-shadow-md leading-4'>
-                        {`Table №${booking.tableId} for ${booking.guestId} guests
-                        for ${booking.duration} ${content.booking.hours[state.language]}`}
+                    <p className='text-sm text-end text-black leading-4'>
+                        {`${content.booking.table[state.language]} №${booking.tableId} ${
+                            content.booking.forPersons[state.language]
+                        } ${booking.guestId} ${content.booking.person[state.language]} ${
+                            content.booking.forDuration[state.language]
+                        }
+                         ${booking.duration} ${content.booking.hours[state.language]}`}
                     </p>
                 </div>
                 <div className='flex justify-center gap-3'>

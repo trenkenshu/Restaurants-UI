@@ -272,6 +272,22 @@ export const content = {
             en: 'h',
             ru: 'ч',
         },
+        forPersons: {
+            en: 'for',
+            ru: 'для',
+        },
+        forDuration: {
+            en: 'for',
+            ru: 'на',
+        },
+        person: {
+            en: 'person',
+            ru: 'чел.',
+        },
+        table: {
+            en: 'Table',
+            ru: 'Столик',
+        },
     },
     error: {
         wrongloginOrEmail: {
@@ -303,28 +319,62 @@ export const content = {
             ru: 'Неверный пароль',
         },
     },
+    bookingModal: {
+        btnNext: {
+            en: 'Next',
+            ru: 'Дальше',
+        },
+        btnPrev: {
+            en: 'Back',
+            ru: 'Назад',
+        },
+        btnBook: {
+            en: 'Book',
+            ru: 'Забронировать',
+        },
+        selectedDate: {
+            en: 'Selected date',
+            ru: 'Выбранная дата',
+        },
+        bookingTime: {
+            en: 'Booking time: 1 hour',
+            ru: 'Время бронирования: 1 час',
+        },
+        guestsNumber: {
+            en: 'Guests number:',
+            ru: 'Количество гостей:',
+        },
+        name: {
+            en: 'Name',
+            ru: 'Имя',
+        },
+        phone: {
+            en: 'Phone',
+            ru: 'Телефон',
+        },
+        comment: {
+            en: 'Comment',
+            ru: 'Комментарий',
+        },
+        date: {
+            en: 'Date',
+            ru: 'Дата',
+        },
+        time: {
+            en: 'Time',
+            ru: 'Время',
+        },
+        table: {
+            en: 'Table',
+            ru: 'Стол',
+        },
+        finishBooking: {
+            en: 'Your booking has been accepted 👌',
+            ru: 'Ваша бронь принята 👌',
+        },
+        guestsPerTable: {
+            en: '*max: 4 guests per table',
+            ru: '*макс: 4 гостя за столом',
+        },
+    },
 };
-
-//  {
-//     en: '',
-//     ru: '',
-// },
-// {
-//     en: '',
-//     ru: '',
-// },
-// ,
-// {
-//     en: '',
-//     ru: '',
-// },
-// ,
-// {
-//     en: '',
-//     ru: '',
-// },
-// ,
-// {
-//     en: '',
-//     ru: '',
-// },

@@ -105,93 +105,95 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
     };
 
     return (
-        <Modal isModalOpen={isModalUserInfoOpen}>
-            <h4 className='font-semibold text-xl drop-shadow-md'>{content.userPage.changeInfo[state.language]}</h4>
-            <form onSubmit={saveUpdatedUserData} className='flex flex-col gap-4 w-96'>
-                <div>
-                    <label htmlFor='phone' className='w-full h-14 text-start'>
-                        {content.registration.phone[state.language]}
-                    </label>
-                    <p className='text-corall drop-shadow-md'>{errorMsgPhone}</p>
-                    <input
-                        name='phone'
-                        type='text'
-                        autoComplete='phone'
-                        value={phone}
-                        onChange={(event) => onChangePhone(event)}
-                        className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
-                    ></input>
-                </div>
+        <Modal isModalOpen={isModalUserInfoOpen} closeModal={closeModal} width={'w-[32rem]'} height={'h-fit'}>
+            <div className='w-full p-8 flex flex-col items-center'>
+                <h4 className='font-semibold text-xl drop-shadow-md'>{content.userPage.changeInfo[state.language]}</h4>
+                <form onSubmit={saveUpdatedUserData} className='flex flex-col gap-4 w-96'>
+                    <div>
+                        <label htmlFor='phone' className='w-full h-14 text-start'>
+                            {content.registration.phone[state.language]}
+                        </label>
+                        <p className='text-corall drop-shadow-md'>{errorMsgPhone}</p>
+                        <input
+                            name='phone'
+                            type='text'
+                            autoComplete='phone'
+                            value={phone}
+                            onChange={(event) => onChangePhone(event)}
+                            className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                        ></input>
+                    </div>
 
-                <div>
-                    <label htmlFor='email' className='w-full text-start'>
-                        {content.registration.emailadress[state.language]}
-                    </label>
-                    <p className='text-corall drop-shadow-md'>{errorMsgEmail}</p>
-                    <input
-                        name='email'
-                        type='email'
-                        autoComplete='email'
-                        value={email}
-                        onChange={(event) => onChangeEmail(event)}
-                        className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
-                    ></input>
-                </div>
+                    <div>
+                        <label htmlFor='email' className='w-full text-start'>
+                            {content.registration.emailadress[state.language]}
+                        </label>
+                        <p className='text-corall drop-shadow-md'>{errorMsgEmail}</p>
+                        <input
+                            name='email'
+                            type='email'
+                            autoComplete='email'
+                            value={email}
+                            onChange={(event) => onChangeEmail(event)}
+                            className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                        ></input>
+                    </div>
 
-                <div>
-                    <label htmlFor='newPassword' className='w-full text-start'>
-                        {content.userPage.newPassword[state.language]}
-                    </label>
-                    <p className='text-corall drop-shadow-md'>{errorMsgNewPassword}</p>
-                    <input
-                        name='newPassword'
-                        type='password'
-                        autoComplete='password'
-                        value={newPassword}
-                        placeholder={content.userPage.newPassword[state.language]}
-                        onChange={(event) => onChangePassword(event)}
-                        className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
-                    ></input>
-                </div>
+                    <div>
+                        <label htmlFor='newPassword' className='w-full text-start'>
+                            {content.userPage.newPassword[state.language]}
+                        </label>
+                        <p className='text-corall drop-shadow-md'>{errorMsgNewPassword}</p>
+                        <input
+                            name='newPassword'
+                            type='password'
+                            autoComplete='password'
+                            value={newPassword}
+                            placeholder={content.userPage.newPassword[state.language]}
+                            onChange={(event) => onChangePassword(event)}
+                            className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                        ></input>
+                    </div>
 
-                <div>
-                    <label htmlFor='prevPassword' className='w-full text-start'>
-                        {`${content.userPage.prevPassword[state.language]} *`}
-                    </label>
-                    <p className='text-corall drop-shadow-md'>{errorMsgPrevPassword}</p>
-                    <input
-                        name='prevPassword'
-                        type='password'
-                        autoComplete='password'
-                        required
-                        defaultValue=''
-                        placeholder={content.userPage.prevPassword[state.language]}
-                        onChange={(event) => CheckPrevPassword(event)}
-                        className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
-                    ></input>
-                </div>
+                    <div>
+                        <label htmlFor='prevPassword' className='w-full text-start'>
+                            {`${content.userPage.prevPassword[state.language]} *`}
+                        </label>
+                        <p className='text-corall drop-shadow-md'>{errorMsgPrevPassword}</p>
+                        <input
+                            name='prevPassword'
+                            type='password'
+                            autoComplete='password'
+                            required
+                            defaultValue=''
+                            placeholder={content.userPage.prevPassword[state.language]}
+                            onChange={(event) => CheckPrevPassword(event)}
+                            className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                        ></input>
+                    </div>
 
-                <p className='text-corall text-center flex justify-center drop-shadow-md'>
-                    <img className={`${submitBtnClass} animate-spin h-10 w-10 drop-shadow-md`} src={spinner}></img>
-                    {errorMessage}
-                </p>
+                    <p className='text-corall text-center flex justify-center drop-shadow-md'>
+                        <img className={`${submitBtnClass} animate-spin h-10 w-10 drop-shadow-md`} src={spinner}></img>
+                        {errorMessage}
+                    </p>
 
-                <div className='flex flex-col sm:flex-row w-full gap-5 mt-3 justify-center items-center'>
-                    <ButtonBlack
-                        width={'w-32'}
-                        height={'h-8'}
-                        buttonText={content.common.cancel[state.language]}
-                        onClick={closeModal}
-                    />
-                    <ButtonBlack
-                        width={'w-32'}
-                        height={'h-8'}
-                        buttonText={content.common.save[state.language]}
-                        // onClick={() => saveUpdatedUserData}
-                        type='submit'
-                    />
-                </div>
-            </form>
+                    <div className='flex flex-col sm:flex-row w-full gap-5 mt-3 justify-center items-center'>
+                        <ButtonBlack
+                            width={'w-32'}
+                            height={'h-8'}
+                            buttonText={content.common.cancel[state.language]}
+                            onClick={closeModal}
+                        />
+                        <ButtonBlack
+                            width={'w-32'}
+                            height={'h-8'}
+                            buttonText={content.common.save[state.language]}
+                            // onClick={() => saveUpdatedUserData}
+                            type='submit'
+                        />
+                    </div>
+                </form>
+            </div>
         </Modal>
     );
 };

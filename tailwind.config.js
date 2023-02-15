@@ -21,6 +21,7 @@ module.exports = {
                 burgermenuWhite: "url('/src/assets/icons/burger-menu_white.svg')",
                 closemenu: "url('/src/assets/icons/close_menu.svg')",
                 closemenuWhite: "url('/src/assets/icons/close_menu_white.svg')",
+                closemenuCorall: "url('/src/assets/icons/close_menu_corall.svg')",
                 randomRest: "url('/src/assets/images/home-page/random-restaurant.jpg')",
                 arrowNext: "url('/src/assets/icons/arrow_forward.svg')",
                 arrowBack: "url('/src/assets/icons/arrow_back.svg')",
