@@ -47,7 +47,7 @@ const BookingModal: FC<BookingModalProps> = (props) => {
         <Modal
             isModalOpen={isBookingModalOpen}
             closeModal={closeBookingModal}
-            width={'w-[90%] md:w-[650px] lg:w-[700px]'}
+            width={'w-[95%] sm:w-[90%] md:w-[650px] lg:w-[700px]'}
             height={'h-fit'}
         >
             <div className='flex flex-col h-full justify-between items-center'>

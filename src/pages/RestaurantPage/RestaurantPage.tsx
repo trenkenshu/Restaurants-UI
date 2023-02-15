@@ -92,11 +92,13 @@ const RestaurantPage = () => {
     const openBookingModal = () => {
         setIsBookingModalOpen(true);
         document.body.classList.add('active');
+        document.getElementById('innerScroll')?.classList.add('active');
     };
 
     const closeBookingModal = () => {
         setIsBookingModalOpen(false);
         document.body.classList.remove('active');
+        document.getElementById('innerScroll')?.classList.remove('active');
     };
 
     // !! Если ID > существующего то сдеать переход на ERROR page

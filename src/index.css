@@ -30,6 +30,9 @@ html {
 body.active {
   overflow: hidden;
 }
+#innerScroll.active {
+  overflow: hidden;
+}
 .restaurant .slick-prev {
   width: auto;
   height: auto;
