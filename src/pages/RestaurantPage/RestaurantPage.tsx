@@ -62,6 +62,7 @@ const sliderSetting = {
 const RestaurantPage = () => {
     const { state, dispatch } = useContext(AppContext);
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+    const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
     const [idError, setIdError] = useState(false);
     const [restaurant, setRestaurant] = useState(emptyRestaurant);
     const { id } = useParams();
@@ -103,7 +104,6 @@ const RestaurantPage = () => {
         document.getElementById('innerScroll')?.classList.remove('active');
     };
 
-    const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
     const createReview = () => {
         console.log('click');
         setIsModalReviewOpen(true);

@@ -85,11 +85,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
         if (activeStep === steps[state.language].length - 1) {
             console.log('Завершили бронь');
             // обнуляем данные.
-            setDate(new Date());
-            setTime('');
-            setPhone('');
-            setGuestAmount(1);
-            setTableId('');
             setTimeout(() => {
                 console.log('close modal');
                 closeBookingModal();
@@ -105,6 +100,11 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
 
     const handleReset = () => {
         setActiveStep(0);
+        setDate(new Date());
+        setTime('');
+        setPhone('');
+        setGuestAmount(1);
+        setTableId('');
     };
     // const chooseDate = () => {
     //     setDate;
@@ -112,7 +112,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     const chooseTime = (event: React.MouseEvent<HTMLDivElement>) => {
         const target = event.currentTarget;
         console.log(target.dataset.time);
-        target.classList.toggle('active');
+        document.querySelectorAll('.timeblock').forEach((el) => el.classList.remove('active'));
+        target.classList.add('active');
         target.dataset.time && setTime(target.dataset.time);
         setIsStepEnd(true);
     };
@@ -148,7 +149,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 </div>
                 <div className='flex flex-col gap-2 justify-between items-center min-h-full'>
                     {activeStep === 0 && (
-                        <div className='flex flex-col gap-4 items-center'>
+                        <div className='flex flex-col gap-4 items-center text-zinc-800'>
                             <Calendar
                                 value={date}
                                 onChange={setDate}
