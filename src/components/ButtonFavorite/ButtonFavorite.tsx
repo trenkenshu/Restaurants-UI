@@ -1,5 +1,5 @@
 import { updateUser } from 'api/api';
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useContext } from 'react';
 import { AppContext } from 'store/store';
 import { IRestaurant } from 'types';
 

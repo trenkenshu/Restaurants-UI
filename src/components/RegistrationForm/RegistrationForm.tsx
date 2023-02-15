@@ -4,6 +4,7 @@ import { AppContext } from 'store/store';
 import { content } from 'utils/content';
 import { createUser } from 'api/api';
 import spinner from '../../assets/icons/spinner_corall.png';
+import { emailRegexp, phoneRegexp } from 'utils/constants';
 
 const RegistrationForm = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -43,9 +44,6 @@ const RegistrationForm = () => {
     };
 
     const checkAllInputs = () => {
-        const emailRegexp =
-            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
         if (login.length > 2) {
             setIsLoginValid(true);
             setErrorMsgLogin('');
@@ -54,10 +52,9 @@ const RegistrationForm = () => {
             setErrorMsgLogin(content.error.shortLogin[state.language]);
         }
 
-        if (phone.match(/^\+\d{9,}/g)) {
+        if (phone.match(phoneRegexp)) {
             setIsPhoneValid(true);
             setErrorMsgPhone('');
-            console.log('isPhoneValid:::', isPhoneValid);
         } else {
             setIsPhoneValid(false);
             setErrorMsgPhone(content.error.wrongPhone[state.language]);

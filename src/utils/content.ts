@@ -110,17 +110,29 @@ export const content = {
         },
     },
     RegistrationProposal: {
-        title: {
+        titleForGuest: {
             en: 'Sync up with RaViOle.',
             ru: 'Создайте аккаунт на RaViOle.',
         },
-        subtitle: {
+        subtitleForGuest: {
             en: 'Join our community and make your first online reservation',
             ru: 'Присоединяйтесь к нашему сообществу и сделайте свое первое онлайн-бронирование',
         },
         join: {
-            en: 'JOIN',
-            ru: 'Создать аккаунт',
+            en: 'Join',
+            ru: 'Присоединяйтесь',
+        },
+        titleForUser: {
+            en: 'Hello',
+            ru: 'Приветствуем',
+        },
+        subtitleForUser: {
+            en: 'Click the button below and start booking table in your favorite restaurant',
+            ru: 'Нажмите на кнопку ниже и бронируйте столик в любимом ресторане',
+        },
+        getStarted: {
+            en: 'Get started',
+            ru: 'К ресторанам',
         },
     },
     restaurantsPage: {

@@ -10,10 +10,10 @@ import {
     IUserEdit,
     IUserReg,
 } from 'types';
+import { baseURL } from 'utils/constants';
 
 const api = axios.create({
-    baseURL: 'https://restaurants-server-3.onrender.com',
-    // baseURL: 'https://restaurants-server-3.onrender.com/',
+    baseURL: baseURL,
 });
 
 export const getRestaurants = async (city: string): Promise<IRestaurant[]> => {
@@ -25,6 +25,7 @@ export const getRestaurants = async (city: string): Promise<IRestaurant[]> => {
 
 export const getRestaurant = async (id: number): Promise<IRestaurant> => {
     const response = await api.get<IRestaurant>(`/cafe/${id}`);
+    console.log('get Restaurant:::', response.data);
     return response.data;
 };
 // export const getRestaurant = async (id: number) => {
@@ -46,6 +47,7 @@ export const updateUser = async (body: IUserEdit) => {
 
 export const getUser = async (id: number): Promise<IUser> => {
     const response = await api.get<IUser>(`/client/${id}`);
+    console.log('getUser:', response.data);
     return response.data;
 };
 
