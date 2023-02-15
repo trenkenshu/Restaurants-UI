@@ -9,6 +9,7 @@ import { IRestaurant } from 'types';
 import { content } from 'utils/content';
 import { AppContext } from 'store/store';
 import { useNavigate } from 'react-router-dom';
+import checkFavorites from 'utils/functions/checkFavorites';
 
 type RestaurantItemType = {
     restaurant: IRestaurant;
@@ -100,7 +101,7 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                     onClick={() => navigate(`/restaurants/${restaurant.id}`)}
                 />
                 <div className='w-10 h-10'>
-                    <ButtonFavorite />
+                    <ButtonFavorite restaurant={restaurant} filled={checkFavorites(restaurant.id, state)} />
                 </div>
             </div>
         </div>

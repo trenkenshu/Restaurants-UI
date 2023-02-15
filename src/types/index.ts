@@ -24,10 +24,18 @@ export interface IRestaurant
 }
 export interface IReview {
     id: number;
-    restaurant: IRestaurant;
-    author: string;
+    // cafe: IRestaurant;
+    authorId: number;
     text: string;
-    rating: number;
+    rating: number | string;
+    cafeId: number;
+}
+
+export interface ICreateReview {
+    clientId: number;
+    cafeId: number;
+    text: string;
+    rating: number | string;
 }
 
 // USER //
@@ -92,6 +100,14 @@ export const emptyRestaurant: IRestaurant = {
     bookings: [],
 };
 
+export const emptyReview: IReview = {
+    id: 0,
+    authorId: 0,
+    text: '',
+    rating: 0,
+    cafeId: 0,
+};
+
 export interface ICreateBooking {
     clientId: number;
     cafeId: number;
@@ -118,17 +134,10 @@ export interface IDelBooking {
     id: number;
 }
 
-export interface ICreateReview {
-    clientId: number;
-    cafeId: number;
-    text: string;
-    rating: number;
-}
-
 export interface IUpdateReview {
     id: number;
     text?: string;
-    rating?: number;
+    rating?: number | string;
 }
 
 export interface ITranslate {

@@ -18,6 +18,22 @@ export const content = {
             en: 'Details',
             ru: 'Подробнее',
         },
+        edit: {
+            en: 'Edit',
+            ru: 'Изменить',
+        },
+        save: {
+            en: 'Save',
+            ru: 'Сохранить',
+        },
+        delete: {
+            en: 'Delete',
+            ru: 'Удалить',
+        },
+        cancel: {
+            en: 'Cancel',
+            ru: 'Отменить',
+        },
     },
     homePage: {
         title: {
@@ -196,14 +212,6 @@ export const content = {
             en: 'Sing in',
             ru: 'Войти ',
         },
-        errormessage: {
-            en: 'wrong username or password',
-            ru: 'неверное имя пользователя или пароль',
-        },
-        userExsist: {
-            en: 'login or email is already taken',
-            ru: 'логин или email уже зарегистрирован',
-        },
     },
     userPage: {
         phone: {
@@ -226,17 +234,33 @@ export const content = {
             en: 'Log out',
             ru: 'Выйти',
         },
-        changePassword: {
-            en: 'Change my password',
-            ru: 'Изменить пароль',
+        changeInfo: {
+            en: 'Change personal information',
+            ru: 'Изменение данных пользователя',
         },
-        save: {
-            en: 'Save',
-            ru: 'Сохранить',
+        settings: {
+            en: 'Settings',
+            ru: 'Настройки',
         },
-        cancel: {
-            en: 'Cancel',
-            ru: 'Отмена',
+        nobookings: {
+            en: 'You have no booking yet',
+            ru: 'У вас еще нет бронирований',
+        },
+        noreviews: {
+            en: 'You have no reviews yet',
+            ru: 'Вы еще не оставляли отзывы',
+        },
+        nofavourites: {
+            en: 'You have no favourites restaurants yet',
+            ru: 'Вы еще не добавляли рестораны в избранное',
+        },
+        prevPassword: {
+            en: 'Current password',
+            ru: 'Текущий пароль',
+        },
+        newPassword: {
+            en: 'New password',
+            ru: 'Новый пароль',
         },
     },
     booking: {
@@ -247,6 +271,52 @@ export const content = {
         hours: {
             en: 'h',
             ru: 'ч',
+        },
+        forPersons: {
+            en: 'for',
+            ru: 'для',
+        },
+        forDuration: {
+            en: 'for',
+            ru: 'на',
+        },
+        person: {
+            en: 'person',
+            ru: 'чел.',
+        },
+        table: {
+            en: 'Table',
+            ru: 'Столик',
+        },
+    },
+    error: {
+        wrongloginOrEmail: {
+            en: 'Wrong username or password',
+            ru: 'Неверное имя пользователя или пароль',
+        },
+        userExsist: {
+            en: 'Login or email is already taken',
+            ru: 'Логин или email уже зарегистрирован',
+        },
+        shortLogin: {
+            en: 'Login should contain 3 characters or more',
+            ru: 'Логин должен содержать минимум 3 символа',
+        },
+        wrongPhone: {
+            en: 'Phone should start with "+" and contain minimum 9 numbers',
+            ru: 'Телефон должен начинаться с "+" и состоять минимум из 9 цифр',
+        },
+        wrongEmail: {
+            en: 'Incorrect email adress',
+            ru: 'Некорректный email адрес',
+        },
+        shortPassword: {
+            en: 'Password should contain minimum 6 characters',
+            ru: 'Пароль должен содержать минимум 6 символов',
+        },
+        wrongPassword: {
+            en: 'Incorrect previous password',
+            ru: 'Неверный пароль',
         },
     },
     bookingModal: {
@@ -308,8 +378,3 @@ export const content = {
         },
     },
 };
-
-//  {
-//     en: '',
-//     ru: '',
-// }

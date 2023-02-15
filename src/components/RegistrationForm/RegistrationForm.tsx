@@ -1,10 +1,9 @@
-import { createUser } from 'api/api';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
-import { IUser } from 'types';
 import { content } from 'utils/content';
-import spinner from '../../assets/icons/spinner.png';
+import { createUser } from 'api/api';
+import spinner from '../../assets/icons/spinner_corall.png';
 
 const RegistrationForm = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -15,39 +14,90 @@ const RegistrationForm = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [submitBtnClass, setSubmitBtnClass] = useState('hidden');
 
+    const [isLoginValid, setIsLoginValid] = useState(false);
+    const [isPhoneValid, setIsPhoneValid] = useState(false);
+    const [isEmailValid, setIsEmailValid] = useState(false);
+    const [isPasswordValid, setIsPasswordValid] = useState(false);
+
+    const [errorMsgLogin, setErrorMsgLogin] = useState('');
+    const [errorMsgPhone, setErrorMsgPhone] = useState('');
+    const [errorMsgEmail, setErrorMsgEmail] = useState('');
+    const [errorMsgPassword, setErrorMsgPassword] = useState('');
+
     const onChangeLogin = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setLogin(value.replaceAll(' ', ''));
+        const value = event.target.value.replaceAll(' ', '');
+        setLogin(value.toString());
     };
     const onChangePhone = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
+        const value = event.target.value.toString().replaceAll(' ', '');
         setPhone(value);
+        console.log(phone);
     };
     const onChangeEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
+        const value = event.target.value.replaceAll(' ', '');
         setEmail(value);
     };
     const onChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
+        const value = event.target.value.replaceAll(' ', '');
         setPassword(value);
+    };
+
+    const checkAllInputs = () => {
+        const emailRegexp =
+            /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+        if (login.length > 2) {
+            setIsLoginValid(true);
+            setErrorMsgLogin('');
+        } else {
+            setIsLoginValid(false);
+            setErrorMsgLogin(content.error.shortLogin[state.language]);
+        }
+
+        if (phone.match(/^\+\d{9,}/g)) {
+            setIsPhoneValid(true);
+            setErrorMsgPhone('');
+            console.log('isPhoneValid:::', isPhoneValid);
+        } else {
+            setIsPhoneValid(false);
+            setErrorMsgPhone(content.error.wrongPhone[state.language]);
+        }
+
+        if (email.match(emailRegexp)) {
+            setIsEmailValid(true);
+            setErrorMsgEmail('');
+        } else {
+            setIsEmailValid(false);
+            setErrorMsgEmail(content.error.wrongEmail[state.language]);
+        }
+
+        if (password.length > 5) {
+            setIsPasswordValid(true);
+            setErrorMsgPassword('');
+        } else {
+            setIsPasswordValid(false);
+            setErrorMsgPassword(content.error.shortPassword[state.language]);
+        }
     };
 
     const navigate = useNavigate();
 
     const CreateNewUser = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        checkAllInputs();
         setSubmitBtnClass('');
-        if (login && phone && email && password) {
+        if (isLoginValid && isPhoneValid && isEmailValid && isPasswordValid) {
             const body = {
                 login,
                 password,
                 email,
                 phone,
             };
+            console.log(body);
             createUser(body).then((user) => {
                 console.log(user);
                 if (typeof user.data === 'object') {
-                    setErrorMessage('hidden');
+                    setErrorMessage('');
                     setLogin('');
                     setPhone('');
                     setEmail('');
@@ -61,17 +111,24 @@ const RegistrationForm = () => {
                 } else {
                     setSubmitBtnClass('hidden');
                     // setErrorMessage(JSON.parse(JSON.stringify(user.data)).slice(10, -2));
-                    setErrorMessage(content.registration.userExsist[state.language]);
+                    setErrorMessage(content.error.userExsist[state.language]);
                 }
             });
+        } else {
+            setSubmitBtnClass('hidden');
         }
     };
 
     return (
         <div>
-            <form className='mt-8 space-y-6' onSubmit={CreateNewUser}>
-                {/* <input type='hidden' name='remember' value='true'></input> */}
-                <p className='text-corall text-center font-bold drop-shadow-md uppercase'>{errorMessage}</p>
+            <form className='mt-8 space-y-6 w-80' onSubmit={CreateNewUser}>
+                <div>
+                    <p className='text-corall text-center font-semibold drop-shadow-md uppercase'>{errorMessage}</p>
+                    <p className='text-sm text-corall drop-shadow-md'>{errorMsgLogin}</p>
+                    <p className='text-sm text-corall drop-shadow-md'>{errorMsgPhone}</p>
+                    <p className='text-sm text-corall drop-shadow-md'>{errorMsgEmail}</p>
+                    <p className='text-sm text-corall drop-shadow-md'>{errorMsgPassword}</p>
+                </div>
                 <div className='-space-y-px rounded-md shadow-sm'>
                     <div>
                         <label htmlFor='login' className='sr-only'>
@@ -96,7 +153,7 @@ const RegistrationForm = () => {
                         <input
                             id='phone'
                             name='phone'
-                            type='number'
+                            type='text'
                             autoComplete='phone'
                             required
                             value={phone}

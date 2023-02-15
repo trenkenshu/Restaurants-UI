@@ -3,7 +3,7 @@ import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
-import spinner from '../../assets/icons/spinner.png';
+import spinner from '../../assets/icons/spinner_corall.png';
 
 const LoginForm = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -49,7 +49,7 @@ const LoginForm = () => {
                 } else {
                     console.log(user);
                     // setErrorMessage(JSON.parse(JSON.stringify(user)).slice(10, -2));
-                    setErrorMessage(content.registration.errormessage[state.language]);
+                    setErrorMessage(content.error.wrongloginOrEmail[state.language]);
                     setSubmitBtnClass('hidden');
                 }
             });
@@ -59,7 +59,6 @@ const LoginForm = () => {
     return (
         <div>
             <form className='mt-8 space-y-6' onSubmit={SetUser}>
-                {/* <input type='hidden' name='remember' value='true'></input> */}
                 <p className='text-corall text-center font-semibold uppercase'>{errorMessage}</p>
                 <div className='-space-y-px rounded-md shadow-sm'>
                     <div>

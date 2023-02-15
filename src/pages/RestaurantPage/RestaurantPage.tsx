@@ -15,6 +15,8 @@ import { content } from 'utils/content';
 import BookingModal from 'components/BookingModal/BookingModal';
 import Error404 from 'pages/Error404';
 import { emptyRestaurant } from 'types';
+import ModalReview from 'components/ModalReview';
+import checkFavorites from 'utils/functions/checkFavorites';
 
 const sliderSetting = {
     dots: false,
@@ -101,6 +103,13 @@ const RestaurantPage = () => {
         document.getElementById('innerScroll')?.classList.remove('active');
     };
 
+    const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
+    const createReview = () => {
+        console.log('click');
+        setIsModalReviewOpen(true);
+        document.body.classList.add('active');
+    };
+
     // !! Если ID > существующего то сдеать переход на ERROR page
     return (
         <>
@@ -154,17 +163,23 @@ const RestaurantPage = () => {
                             </div>
                             <div className='flex items-center gap-2.5'>
                                 <div className='flex flex-col items-center min-w-[100px]' onClick={openBookingModal}>
-                                    <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite'></div>
+                                    <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite cursor-pointer'></div>
                                     <div className=''>{content.restaurantsPage.book[state.language]}</div>
                                 </div>
                                 <div className='flex flex-col items-center min-w-[100px]'>
                                     <div className='w-9 h-9'>
-                                        <ButtonFavorite />
+                                        <ButtonFavorite
+                                            restaurant={restaurant}
+                                            filled={checkFavorites(restaurant.id, state)}
+                                        />
                                     </div>
                                     <div className=''>{content.restaurantsPage.favorites[state.language]}</div>
                                 </div>
                                 <div className='flex flex-col items-center min-w-[100px]'>
-                                    <div className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center'></div>
+                                    <button
+                                        className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center cursor-pointer'
+                                        onClick={createReview}
+                                    ></button>
                                     <div className=''>{content.restaurantsPage.review[state.language]}</div>
                                 </div>
                             </div>
@@ -192,8 +207,9 @@ const RestaurantPage = () => {
                                     {content.restaurantsPage.reviews[state.language]}
                                 </div>
                                 <div className='pb-5'>
-                                    <ReviewItem />
-                                    <ReviewItem />
+                                    {restaurant.reviews.map((review) => {
+                                        return <ReviewItem review={review} key={review.id} isOnRestaurantPage={true} />;
+                                    })}
                                 </div>
                             </div>
                         </div>
@@ -217,6 +233,13 @@ const RestaurantPage = () => {
                         </div>
                     </div>
                 </div>
+            )}
+            {isModalReviewOpen && (
+                <ModalReview
+                    setIsModalReviewOpen={setIsModalReviewOpen}
+                    isModalReviewOpen={isModalReviewOpen}
+                    restaurant={restaurant}
+                />
             )}
         </>
     );
