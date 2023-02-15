@@ -1,0 +1,242 @@
+import React, { FC, useContext, useState } from 'react';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import RestaurantScheme from 'components/RestaurantScheme';
+import Calendar from 'react-calendar';
+import './Calendar.css';
+import { AppContext } from 'store/store';
+import ButtonBlack from 'components/ButtonBlack';
+import getCalendarDate from 'utils/functions/getCalendarDate';
+import setTimeIntervals from 'utils/functions/setTimeIntervals';
+import { IRestaurant } from 'types';
+import { isConstructorDeclaration } from 'typescript';
+
+const steps = ['Select date', 'Select time', 'Select table', 'Guest info', 'Finish booking'];
+
+type BookingStepperProps = {
+    restaurant: IRestaurant;
+    closeBookingModal: () => void;
+    // date: Date;
+    // setDate: (data: Date) => void;
+    // setTableId: (data: string) => void;
+};
+
+const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal }) => {
+    const { state } = useContext(AppContext);
+    const [activeStep, setActiveStep] = useState(0);
+
+    // states
+    const [date, setDate] = useState(new Date());
+    const [time, setTime] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [guestAmount, setGuestAmount] = useState(1);
+    const [tableId, setTableId] = useState('');
+
+    const timeIntervals = setTimeIntervals(restaurant.workTimeStart, restaurant.workTimeEnd - 2);
+    // console.log('time', timeIntervals);
+
+    const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { target } = event;
+        console.log('name', target.value);
+        setName(target.value);
+    };
+    const phoneHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { target } = event;
+        console.log('phone', target.value);
+        setPhone(target.value);
+    };
+    const guestAmountHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const { target } = event;
+        console.log('guestAmount', target.value);
+        setGuestAmount(Number(target.value));
+    };
+
+    const handleNext = () => {
+        if (activeStep >= 0 && activeStep < steps.length) {
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        }
+        console.log(activeStep);
+        if (activeStep === steps.length - 1) {
+            console.log('12412412');
+            setTimeout(() => {
+                console.log('close modal');
+                closeBookingModal();
+                handleReset();
+            }, 2000);
+        }
+    };
+
+    const handleBack = () => {
+        console.log(activeStep);
+        setActiveStep((prevActiveStep) => prevActiveStep - 1);
+    };
+
+    const handleReset = () => {
+        setActiveStep(0);
+    };
+    // const changeDate = (event) => {
+    //     const { target } = event;
+    //     console.log(target.value);
+    // };
+    const chooseTime = (event: React.MouseEvent<HTMLDivElement>) => {
+        const target = event.currentTarget;
+        console.log(target.dataset.time);
+        target.classList.toggle('active');
+        target.dataset.time && setTime(target.dataset.time);
+    };
+
+    return {
+        ...(activeStep === steps.length ? (
+            <div className='py-6 text-4xl'>Your booking has been accepted 👌</div>
+        ) : (
+            <div className='flex flex-col w-full min-h-[560px] min-[400px]:min-h-[640px] justify-between p-2'>
+                <div className=''>
+                    <div className='text-center text-4xl mb-4'>
+                        {activeStep === 0 && steps[0]}
+                        {activeStep === 1 && steps[1]}
+                        {activeStep === 2 && steps[2]}
+                        {activeStep === 3 && steps[3]}
+                        {activeStep === 4 && steps[4]}
+                    </div>
+                    <Stepper activeStep={activeStep} alternativeLabel sx={{ marginBottom: '10px' }}>
+                        {steps.map((label) => {
+                            return (
+                                <Step key={label}>
+                                    <StepLabel>{label}</StepLabel>
+                                </Step>
+                            );
+                        })}
+                    </Stepper>
+                </div>
+                <div className='flex flex-col gap-2 justify-between items-center min-h-full'>
+                    {activeStep === 0 && (
+                        <div className='flex flex-col gap-4 items-center'>
+                            <Calendar value={date} onChange={setDate} minDate={new Date()} />
+                            <div className='flex flex-col min-[400px]:flex-row gap-1 text-center'>
+                                <p className='font-bold'>Selected date:</p>
+                                <p>{getCalendarDate(date, state.language)}</p>
+                            </div>
+                        </div>
+                    )}
+                    {activeStep === 1 && (
+                        <div className='flex flex-col items-center gap-3'>
+                            <div className='font-bold'>Booking time: 1 hour</div>
+                            <div className='flex gap-1 justify-center flex-wrap w-full min-[480px]:w-10/12 sm:w-8/12'>
+                                {timeIntervals.map((el, index) => (
+                                    <div
+                                        className='timeblock w-16 h-16 min-[400px]:w-20 min-[400px]:h-20 min-[680px]:w-24  min-[680px]:h-24 rounded bg-gray-400 flex items-center justify-center cursor-pointer'
+                                        key={index}
+                                        data-time={`${el}.00`}
+                                        onClick={chooseTime}
+                                    >
+                                        {el}.00
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    )}
+                    {activeStep === 2 && (
+                        <>
+                            <div className=''>
+                                <div className='flex gap-1'>
+                                    <label className='whitespace-nowrap' htmlFor='guestsNum'>
+                                        Number of guests
+                                    </label>
+                                    <input
+                                        className='w-10 text-center border border-zinc-800 rounded'
+                                        type='number'
+                                        id='guestsNum'
+                                        min={1}
+                                        max={4}
+                                        maxLength={9}
+                                        onChange={guestAmountHandler}
+                                    />
+                                </div>
+                                <p className='text-zinc-400 text-sm'>*max: 4 guests per table</p>
+                            </div>
+                            <RestaurantScheme setTableId={setTableId} />
+                        </>
+                    )}
+                    {activeStep === 3 && (
+                        <div className='flex w-8/12 flex-col gap-3'>
+                            <div className='flex flex-col'>
+                                <p className='font-semibold'>Name</p>
+                                <input
+                                    className='w-full pl-1 border border-zinc-800 rounded'
+                                    type='text'
+                                    onChange={nameHandler}
+                                />
+                            </div>
+                            <div className='flex flex-col'>
+                                <p className='font-semibold'>Phone number</p>
+                                <input
+                                    className='w-full pl-1 border border-zinc-800 rounded'
+                                    type='text'
+                                    onChange={phoneHandler}
+                                />
+                            </div>
+                            <div className='flex flex-col'>
+                                <p className='font-semibold'>Comment</p>
+                                <textarea
+                                    className='border border-zinc-800 dark:border-smoke-gray rounded pl-1'
+                                    name='textarea'
+                                    id='comment'
+                                    defaultValue={''}
+                                    cols={10}
+                                    rows={8}
+                                ></textarea>
+                            </div>
+                        </div>
+                    )}
+                    {activeStep === 4 && (
+                        <div className='flex flex-col w-8/12 gap-3'>
+                            <div className='w-full flex justify-between text-2xl'>
+                                <p className=''>Name:</p>
+                                <p className='font-semibold'>{name}</p>
+                            </div>
+                            <div className='w-full flex justify-between text-2xl'>
+                                <p className=''>Phone number: </p>
+                                <p className='font-semibold'>{phone}</p>
+                            </div>
+                            <div className='w-full flex justify-between text-2xl'>
+                                <p className=''>Date:</p>
+                                <p className='font-semibold'>{getCalendarDate(date, state.language)}</p>
+                            </div>
+                            <div className='w-full flex justify-between text-2xl'>
+                                <p className=''>Time:</p>
+                                <p className='font-semibold'>{time}</p>
+                            </div>
+                            <div className='w-full flex justify-between text-2xl'>
+                                <p className=''>Table:</p>
+                                <p className='font-semibold'>{tableId}</p>
+                            </div>
+                            <div className='w-full flex justify-between text-2xl'>
+                                <p className=''>Guests number:</p>
+                                <p className='font-semibold'>{guestAmount}</p>
+                            </div>
+                        </div>
+                    )}
+                </div>
+                <div className='flex justify-center gap-3 p-2'>
+                    <button
+                        className='py-1 px-2 border border-zinc-800 dark:border-corall rounded disabled:bg-gray-400 hover:disabled:bg-gray-400 hover:disabled:text-zinc-800 transition hover:bg-corall hover:text-white'
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                    >
+                        Back
+                    </button>
+                    <button
+                        className='py-1 px-2 border border-zinc-800 dark:border-corall rounded hover:bg-corall hover:text-white transition'
+                        onClick={handleNext}
+                    >
+                        {activeStep === steps.length - 1 ? 'Book' : 'Next'}
+                    </button>
+                </div>
+            </div>
+        )),
+    };
+};
+
+export default BookingStepper;

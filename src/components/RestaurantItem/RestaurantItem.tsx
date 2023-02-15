@@ -81,7 +81,7 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                         return (
                             <img
                                 key={img}
-                                src={`https://restaurants-server-2.onrender.com/${img}`}
+                                src={`https://restaurants-server-3.onrender.com/${img}`}
                                 className='h-40 w-40 object-cover rounded-md'
                                 alt='Restaurant'
                             />

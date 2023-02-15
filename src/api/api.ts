@@ -13,7 +13,7 @@ import {
 } from 'types';
 
 const api = axios.create({
-    baseURL: 'https://restaurants-server-2.onrender.com/',
+    baseURL: 'https://restaurants-server-3.onrender.com/',
 });
 
 export const getRestaurants = async (city: string): Promise<IRestaurant[]> => {

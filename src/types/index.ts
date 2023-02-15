@@ -108,9 +108,10 @@ export interface IBooking {
     duration: number;
     date: Date;
     createdAt: Date;
-    // guestNumber: number;
-    // name: string;
-    // phone: string;
+    // guestsAmount: number;
+    // guestName: string;
+    // guestPhone: string;
+    // status: 'active' | 'deleted' | 'archived';
 }
 
 export interface IDelBooking {
@@ -156,7 +157,7 @@ export interface CityType extends Record<string, string> {
 // }
 export interface IState {
     restaurants: IRestaurant[];
-    currentRestaurant: IRestaurant;
+    // currentRestaurant: IRestaurant;
     user: IUser;
     currentCity: CityType;
     language: 'en' | 'ru';

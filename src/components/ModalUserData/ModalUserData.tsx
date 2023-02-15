@@ -70,7 +70,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
     };
 
     return (
-        <Modal isModalOpen={isModalUserInfoOpen}>
+        <Modal isModalOpen={isModalUserInfoOpen} closeModal={closeModal} width={'w-96 '} height={'h-fit'}>
             <h4 className='font-semibold text-xl drop-shadow-md'>Change personal information</h4>
             <form onSubmit={saveUpdatedUserData} className='flex flex-col gap-4'>
                 <label className='w-full h-14 text-start'>
