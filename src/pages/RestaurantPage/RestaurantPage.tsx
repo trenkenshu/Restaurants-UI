@@ -14,9 +14,9 @@ import ReviewItem from 'components/ReviewItem';
 import { content } from 'utils/content';
 import BookingModal from 'components/BookingModal/BookingModal';
 import Error404 from 'pages/Error404';
-import { emptyRestaurant } from 'types';
 import ModalReview from 'components/ModalReview';
 import checkFavorites from 'utils/functions/checkFavorites';
+import { baseURL, emptyRestaurant } from 'utils/constants';
 
 const sliderSetting = {
     dots: false,
@@ -223,7 +223,7 @@ const RestaurantPage = () => {
                                             <div
                                                 className='bg-cover bg-center h-44 lg:h-[calc(100vh-130px)] w-full'
                                                 style={{
-                                                    backgroundImage: `url(https://restaurants-server-3.onrender.com/${img})`,
+                                                    backgroundImage: `url(${baseURL}/${img})`,
                                                 }}
                                             ></div>
                                         </div>

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { createBooking, createReview, deleteReview, getRestaurant, getUser } from 'api/api';
-import { ICreateBooking, emptyUser, ICreateReview, emptyReview, emptyRestaurant } from 'types';
+import { ICreateBooking, ICreateReview } from 'types';
 import BookingItem from 'components/BookingItem';
 import ReviewItem from 'components/ReviewItem';
 import { content } from 'utils/content';
@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import RestaurantCard from 'components/RestaurantCard';
 import ModalUserData from 'components/ModalUserData';
 import ModalReview from 'components/ModalReview';
+import { emptyRestaurant, emptyReview, emptyUser } from 'utils/constants';
 
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);

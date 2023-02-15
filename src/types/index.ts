@@ -26,9 +26,11 @@ export interface IReview {
     id: number;
     // cafe: IRestaurant;
     authorId: number;
+    author: IUser;
     text: string;
     rating: number | string;
     cafeId: number;
+    cafe: IRestaurant;
 }
 
 export interface ICreateReview {
@@ -48,7 +50,7 @@ export interface IUser {
     favourites: IRestaurant[];
     bookings: IBooking[];
     reviews: IReview[];
-    error?: string;
+    bonusPoints: number;
 }
 
 export interface IUserReg {
@@ -72,42 +74,6 @@ export interface ILoginUser {
     password: string;
 }
 
-export const emptyUser: IUser = {
-    id: 0,
-    login: '',
-    email: '',
-    phone: '',
-    password: '',
-    favourites: [],
-    bookings: [],
-    reviews: [],
-};
-
-export const emptyRestaurant: IRestaurant = {
-    id: 0,
-    coordinates: [0, 0],
-    city: '',
-    name: '',
-    phone: '',
-    rating: 0,
-    averageCheck: 0,
-    images: [],
-    menuImg: [],
-    workTimeStart: 0,
-    workTimeEnd: 0,
-    translation: '',
-    reviews: [],
-    bookings: [],
-};
-
-export const emptyReview: IReview = {
-    id: 0,
-    authorId: 0,
-    text: '',
-    rating: 0,
-    cafeId: 0,
-};
-
 export interface ICreateBooking {
     clientId: number;
     cafeId: number;
@@ -119,15 +85,16 @@ export interface ICreateBooking {
 export interface IBooking {
     id: number;
     cafeId: number;
+    cafe: IRestaurant;
     tableId: number;
     guestId: number;
     duration: number;
     date: Date;
     createdAt: Date;
-    // guestsAmount: number;
-    // guestName: string;
-    // guestPhone: string;
-    // status: 'active' | 'deleted' | 'archived';
+    guestsAmount: number;
+    guestName: string;
+    guestPhone: string;
+    status: 'active' | 'deleted' | 'archived';
 }
 
 export interface IDelBooking {
@@ -160,10 +127,6 @@ export interface CityType extends Record<string, string> {
     ru: string;
 }
 
-// export enum Cities {
-//     Minsk = 'Минск',
-//     Kazan = 'Казань',
-// }
 export interface IState {
     restaurants: IRestaurant[];
     // currentRestaurant: IRestaurant;

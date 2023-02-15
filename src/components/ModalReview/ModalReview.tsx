@@ -29,11 +29,11 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
 
     const currentRating = userReview ? Number(userReview.rating) : '';
     const [rating, setRating] = useState(currentRating);
-    const onChangeRating = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const value = event.target.value;
-        setRating(value);
-        console.log('onChange rating:::', rating);
-    };
+    // const onChangeRating = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     const value = event.target.value;
+    //     setRating(value);
+    //     console.log('onChange rating:::', rating);
+    // };
 
     const currentReview = userReview ? userReview.text : '';
     const [review, setReview] = useState(currentReview);
@@ -100,9 +100,15 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
                     }
                 });
             }
+            closeModal();
         } else {
             setSubmitBtnClass('hidden');
         }
+    };
+
+    const setStars = (event: React.ChangeEvent<HTMLElement>) => {
+        const target = event.target as HTMLInputElement;
+        setRating(target.value);
     };
 
     return (
@@ -110,18 +116,8 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
             <div className='w-full p-8 flex flex-col items-center'>
                 <h4 className='font-semibold text-xl drop-shadow-md py-4'>{`Review about restaurant "${restaurant.name}"`}</h4>
                 <form onSubmit={saveRaview} className='flex flex-col gap-4 w-96'>
-                    <div className='flex gap-5 items-center'>
-                        <input
-                            type='number'
-                            max='5'
-                            min='0'
-                            step='0.5'
-                            value={rating}
-                            required
-                            onChange={(event) => onChangeRating(event)}
-                            className='w-20 h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
-                        ></input>
-                        <Rating value={rating} />
+                    <div className='flex w-full gap-5 items-center justify-center'>
+                        <Rating value={rating} onChange={setStars} required />
                     </div>
 
                     <div>
