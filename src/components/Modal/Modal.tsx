@@ -13,7 +13,7 @@ const Modal: FC<ModalProps> = ({ children, isModalOpen, width, height, closeModa
         <div
             className={`${
                 isModalOpen ? 'visible opacity-100' : 'invisible opacity-0'
-            } flex fixed top-0 left-0 w-full h-full bg-zinc-800/90 z-[1500] justify-center items-center transition ease-in-out duration-300`}
+            } flex fixed top-0 left-0 w-full h-full bg-zinc-800/90 z-[1500] justify-center items-center transition ease-in-out duration-500`}
             onClick={closeModal}
         >
             <div

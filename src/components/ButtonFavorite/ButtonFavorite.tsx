@@ -13,6 +13,7 @@ const ButtonFavorite: FC<ButtonFavoriteProps> = ({ filled, restaurant }) => {
     const bg = filled ? 'bg-favoriteFilled' : 'bg-favorite';
 
     const updateFavorites = async (id: number, filled: boolean) => {
+        if (state.user.id === 0) return;
         filled
             ? (state.user.favourites = state.user.favourites.filter((rest) => rest.id !== id))
             : state.user.favourites && state.user.favourites.push(restaurant);

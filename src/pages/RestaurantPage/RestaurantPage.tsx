@@ -17,6 +17,7 @@ import Error404 from 'pages/Error404';
 import ModalReview from 'components/ModalReview';
 import checkFavorites from 'utils/functions/checkFavorites';
 import { baseURL, emptyRestaurant } from 'utils/constants';
+import checkWorkTime from 'utils/functions/checkWorkTime';
 
 const sliderSetting = {
     dots: false,
@@ -62,27 +63,23 @@ const sliderSetting = {
 const RestaurantPage = () => {
     const { state, dispatch } = useContext(AppContext);
     const [isBookingModalOpen, setIsBookingModalOpen] = useState(false);
+    const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
     const [idError, setIdError] = useState(false);
     const [restaurant, setRestaurant] = useState(emptyRestaurant);
     const { id } = useParams();
     // console.log('rest id', id);
     // console.log(state.restaurants);
-    // rest scheme
     // const [tableId, setTableId] = useState('');
 
     const saveRestaurant = async () => {
         const restaurant = await getRestaurant(Number(id));
         console.log(restaurant);
-        // console.log(JSON.parse(restaurant));
         if (typeof restaurant === 'string') {
             setIdError(true);
         } else {
             restaurant.parsedTranslation = JSON.parse(restaurant.translation);
-            // console.log('rest', restaurant);
             const updatedCity = cities.find((el) => el.city['en'] === restaurant.city);
-            // console.log('upd', updatedCity);
             updatedCity && dispatch({ type: 'changeCity', payload: updatedCity.city });
-            // dispatch({ type: 'getRestaurant', payload: restaurant });
             setRestaurant(restaurant);
         }
     };
@@ -103,7 +100,6 @@ const RestaurantPage = () => {
         document.getElementById('innerScroll')?.classList.remove('active');
     };
 
-    const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
     const createReview = () => {
         console.log('click');
         setIsModalReviewOpen(true);
@@ -142,10 +138,26 @@ const RestaurantPage = () => {
                                         restaurant.parsedTranslation[state.language].address}
                                 </div>
                             </a>
-                            <div className='flex items-center gap-2.5'>
-                                <div className='px-2 py-1 border border-gray-400 rounded-full'>
-                                    {restaurant.workTimeStart}.00 - {restaurant.workTimeEnd}
-                                    .00
+                            <div className='flex  flex-col sm:flex-row items-center gap-2.5'>
+                                <div className='flex gap-1 px-2 py-1 border border-gray-400 rounded-full'>
+                                    <div className='border-r pr-1 border-gray-400'>
+                                        {restaurant.workTimeStart}.00 - {restaurant.workTimeEnd}
+                                        .00
+                                    </div>
+                                    <div className='flex gap-1'>
+                                        <div
+                                            className={`w-6 h-6 bg-no-repeat bg-cover cursor-pointer ${
+                                                checkWorkTime(restaurant.workTimeStart, restaurant.workTimeEnd)
+                                                    ? 'bg-workGreen'
+                                                    : 'bg-workRed'
+                                            }`}
+                                        ></div>
+                                        <div className=''>
+                                            {checkWorkTime(restaurant.workTimeStart, restaurant.workTimeEnd)
+                                                ? content.restaurantsPage.titleOpen[state.language]
+                                                : content.restaurantsPage.titleClose[state.language]}
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className='flex gap-1.5 px-2 py-1 border border-gray-400 rounded-full cursor-pointer'>
                                     <a
@@ -153,7 +165,7 @@ const RestaurantPage = () => {
                                         className='flex items-center gap-1 border-r pr-1 border-gray-400'
                                     >
                                         <div className='bg-review dark:bg-reviewWhite w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
-                                        <div className=''>reviews</div>
+                                        <div className=''>99</div>
                                     </a>
                                     <div className='flex gap-1'>
                                         <div className='bg-rating w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
@@ -234,13 +246,11 @@ const RestaurantPage = () => {
                     </div>
                 </div>
             )}
-            {isModalReviewOpen && (
-                <ModalReview
-                    setIsModalReviewOpen={setIsModalReviewOpen}
-                    isModalReviewOpen={isModalReviewOpen}
-                    restaurant={restaurant}
-                />
-            )}
+            <ModalReview
+                setIsModalReviewOpen={setIsModalReviewOpen}
+                isModalReviewOpen={isModalReviewOpen}
+                restaurant={restaurant}
+            />
         </>
     );
 };

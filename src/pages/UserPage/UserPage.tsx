@@ -56,43 +56,6 @@ const UserPage = () => {
         return isInFavourites;
     };
 
-    const bodyForReservation: ICreateBooking = {
-        clientId: state.user.id,
-        cafeId: 13,
-        tableId: 1,
-        date: new Date(),
-        duration: 7,
-    };
-
-    const makeReservation = () => {
-        createBooking(bodyForReservation).then(() => {
-            getUser(state.user.id).then((updatedUser) => {
-                dispatch({
-                    type: 'updateUser',
-                    payload: updatedUser,
-                });
-            });
-        });
-    };
-
-    const bodyForReview: ICreateReview = {
-        clientId: state.user.id,
-        cafeId: 13,
-        text: 'We came in and ordered 2 iced lattes which were amazing (Nutella & Mocha) and then they saw my daughter and gave her a complimentary cake pop and served her their ice cream! 20 out of 10!! Great family vibes',
-        rating: 5,
-    };
-
-    const makeReview = () => {
-        createReview(bodyForReview).then(() => {
-            getUser(state.user.id).then((updatedUser) => {
-                dispatch({
-                    type: 'updateUser',
-                    payload: updatedUser,
-                });
-            });
-        });
-    };
-
     const deleteUserReview = (id: number) => {
         deleteReview(id).then(() => {
             const updatedUser = state.user;
@@ -155,12 +118,6 @@ const UserPage = () => {
                             Settings
                         </button>
                     </div>
-                    <button className='mt-10 border' onClick={() => makeReservation()}>
-                        Button for test: Make a reservation
-                    </button>
-                    {/* <button className='mt-10 border' onClick={() => makeReview()}>
-                        Button for test: Create a review
-                    </button> */}
                 </div>
                 <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg'>
                     <h2 className='text-2xl 2xl:text-3xl font-semibold dark:text-corall items-center w-full drop-shadow-md text-center sm:text-start py-2'>

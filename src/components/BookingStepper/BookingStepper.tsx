@@ -9,9 +9,10 @@ import { AppContext } from 'store/store';
 import ButtonBlack from 'components/ButtonBlack';
 import getCalendarDate from 'utils/functions/getCalendarDate';
 import setTimeIntervals from 'utils/functions/setTimeIntervals';
-import { IRestaurant } from 'types';
+import { ICreateBooking, IRestaurant } from 'types';
 import { isConstructorDeclaration } from 'typescript';
 import { content } from 'utils/content';
+import { createBooking, getUser } from 'api/api';
 
 const steps = {
     en: ['Select date', 'Select time', 'Select table', 'Guest info', 'Finish booking'],
@@ -27,7 +28,7 @@ type BookingStepperProps = {
 };
 
 const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal }) => {
-    const { state } = useContext(AppContext);
+    const { state, dispatch } = useContext(AppContext);
     const [activeStep, setActiveStep] = useState(0);
     const [isStepEnd, setIsStepEnd] = useState(false);
 
@@ -84,12 +85,18 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
         console.log(activeStep);
         if (activeStep === steps[state.language].length - 1) {
             console.log('Завершили бронь');
+            const dateOfBooking = new Date(`${date.toDateString()} ${time}:00:00`);
+            console.log(dateOfBooking);
+            const bookingBody = {
+                clientId: state.user.id,
+                cafeId: restaurant.id,
+                tableId: Number(tableId),
+                date: dateOfBooking,
+                duration: 1,
+            };
+            console.log(bookingBody);
+            makeReservation(bookingBody);
             // обнуляем данные.
-            setDate(new Date());
-            setTime('');
-            setPhone('');
-            setGuestAmount(1);
-            setTableId('');
             setTimeout(() => {
                 console.log('close modal');
                 closeBookingModal();
@@ -105,6 +112,11 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
 
     const handleReset = () => {
         setActiveStep(0);
+        setDate(new Date());
+        setTime('');
+        setPhone('');
+        setGuestAmount(1);
+        setTableId('');
     };
     // const chooseDate = () => {
     //     setDate;
@@ -112,7 +124,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     const chooseTime = (event: React.MouseEvent<HTMLDivElement>) => {
         const target = event.currentTarget;
         console.log(target.dataset.time);
-        target.classList.toggle('active');
+        document.querySelectorAll('.timeblock').forEach((el) => el.classList.remove('active'));
+        target.classList.add('active');
         target.dataset.time && setTime(target.dataset.time);
         setIsStepEnd(true);
     };
@@ -122,6 +135,16 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     //         setIsStepEnd(true);
     //     }
     // };
+    const makeReservation = (body: ICreateBooking) => {
+        createBooking(body).then(() => {
+            getUser(state.user.id).then((updatedUser) => {
+                dispatch({
+                    type: 'updateUser',
+                    payload: updatedUser,
+                });
+            });
+        });
+    };
 
     return {
         ...(activeStep === steps[state.language].length ? (
@@ -148,7 +171,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 </div>
                 <div className='flex flex-col gap-2 justify-between items-center min-h-full'>
                     {activeStep === 0 && (
-                        <div className='flex flex-col gap-4 items-center'>
+                        <div className='flex flex-col gap-4 items-center text-zinc-800'>
                             <Calendar
                                 value={date}
                                 onChange={setDate}
@@ -170,7 +193,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                     <div
                                         className='timeblock w-16 h-16 min-[400px]:w-20 min-[400px]:h-20 min-[680px]:w-24  min-[680px]:h-24 rounded bg-gray-400 flex items-center justify-center cursor-pointer'
                                         key={index}
-                                        data-time={`${el}.00`}
+                                        data-time={el}
                                         onClick={chooseTime}
                                     >
                                         {el}.00
@@ -187,7 +210,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                         {content.bookingModal.guestsNumber[state.language]}
                                     </label>
                                     <input
-                                        className='w-10 text-center border border-zinc-800 rounded'
+                                        className='w-10 text-center text-zinc-800 border border-zinc-800 rounded focus:border-corall focus:outline-none'
                                         type='number'
                                         id='guestsNum'
                                         value={guestAmount}
@@ -209,25 +232,28 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                             <div className='flex flex-col'>
                                 <p className='font-semibold'>{content.bookingModal.name[state.language]}</p>
                                 <input
-                                    className='w-full pl-1 border border-zinc-800 rounded'
+                                    className='w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:border-corall focus:outline-none'
                                     type='text'
+                                    placeholder={content.bookingModal.namePlaceholder[state.language]}
                                     onChange={nameHandler}
                                 />
                             </div>
                             <div className='flex flex-col'>
                                 <p className='font-semibold'>{content.bookingModal.phone[state.language]}</p>
                                 <input
-                                    className='w-full pl-1 border border-zinc-800 rounded'
+                                    className='w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:border-corall focus:outline-none'
                                     type='text'
+                                    placeholder={content.bookingModal.phonePlaceholder[state.language]}
                                     onChange={phoneHandler}
                                 />
                             </div>
                             <div className='flex flex-col'>
                                 <p className='font-semibold'>{content.bookingModal.comment[state.language]}</p>
                                 <textarea
-                                    className='border border-zinc-800 dark:border-smoke-gray rounded pl-1'
+                                    className='text-zinc-800 border border-zinc-800 dark:border-smoke-gray rounded pl-1 focus:border-corall focus:outline-none resize-none '
                                     name='textarea'
                                     id='comment'
+                                    placeholder={content.bookingModal.commentPlaceholder[state.language]}
                                     defaultValue={''}
                                     cols={10}
                                     rows={8}
@@ -267,7 +293,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     )}
                 </div>
                 <div className='flex justify-center gap-3 p-2'>
-                    <button
+                    {/* <button
                         className='py-1 px-2 text-xl border border-zinc-800 dark:border-corall rounded disabled:bg-gray-400 hover:disabled:bg-gray-400 hover:disabled:text-zinc-800 transition hover:bg-corall hover:text-white'
                         disabled={activeStep === 0}
                         onClick={handleBack}
@@ -282,7 +308,25 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                         {activeStep === steps[state.language].length - 1
                             ? content.bookingModal.btnBook[state.language]
                             : content.bookingModal.btnNext[state.language]}
-                    </button>
+                    </button> */}
+                    <ButtonBlack
+                        width='w-32'
+                        height='h-8'
+                        buttonText={content.bookingModal.btnPrev[state.language]}
+                        disabled={activeStep === 0}
+                        onClick={handleBack}
+                    />
+                    <ButtonBlack
+                        width='w-32'
+                        height='h-8'
+                        disabled={!isStepEnd}
+                        onClick={handleNext}
+                        buttonText={
+                            activeStep === steps[state.language].length - 1
+                                ? content.bookingModal.btnBook[state.language]
+                                : content.bookingModal.btnNext[state.language]
+                        }
+                    />
                 </div>
             </div>
         )),
