@@ -1,5 +1,6 @@
 import RestaurantTable from 'components/RestaurantTable';
-import { FC, useState } from 'react';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { IRestaurant, IStepper } from 'types';
 
 const tableScheme = [
     ['table', 'empty', 'table', 'table', 'empty', 'table'],
@@ -7,22 +8,19 @@ const tableScheme = [
     ['table', 'empty', 'bar', 'bar', 'empty', 'table'],
     ['table', 'empty', 'table', 'table', 'empty', 'table'],
 ];
-// const tableScheme2 = [
-//     ['table', 'empty', 'table', 'table', 'empty', 'table'],
-//     ['table', 'empty', 'table', 'table', 'empty', 'table'],
-//     ['bar', 'bar', 'empty', 'table', 'empty', 'table'],
-//     ['bar', 'bar', 'empty', 'table', 'empty', 'table'],
-// ];
+
 type RestaurantSchemeType = {
     // getTableId: (event: React.MouseEvent<HTMLDivElement>) => void;
-    setTableId: (data: string) => void;
+    restaurant: IRestaurant;
+    stepperState: IStepper;
+    setStepperState: Dispatch<SetStateAction<IStepper>>;
 };
-const RestaurantScheme: FC<RestaurantSchemeType> = ({ setTableId }) => {
+const RestaurantScheme: FC<RestaurantSchemeType> = ({ stepperState, setStepperState, restaurant }) => {
     const [seats, setSeats] = useState(tableScheme.flatMap((seat) => seat));
     // const [tableId, setTableId] = useState(0);
     // const scheme = tableScheme.flatMap((seat) => seat);
     // console.log(scheme.flatMap((seat) => seat));
-    const numOfTables = seats.filter((el) => el === 'table');
+    // const numOfTables = seats.filter((el) => el === 'table');
     const autoIncrement = () => {
         let n = 0;
         return function () {
@@ -30,7 +28,8 @@ const RestaurantScheme: FC<RestaurantSchemeType> = ({ setTableId }) => {
             return n;
         };
     };
-    const increment = autoIncrement();
+    const tableIdIncrement = autoIncrement();
+    const idIncrement = autoIncrement();
 
     // console.log('numOfTables', numOfTables.length);
     return (
@@ -40,7 +39,16 @@ const RestaurantScheme: FC<RestaurantSchemeType> = ({ setTableId }) => {
             </div>
             {seats.map((seat, index) => {
                 if (seat === 'table') {
-                    return <RestaurantTable dataId={increment()} setTableId={setTableId} key={index} />;
+                    return (
+                        <RestaurantTable
+                            dataId={tableIdIncrement()}
+                            id={idIncrement()}
+                            restaurant={restaurant}
+                            stepperState={stepperState}
+                            setStepperState={setStepperState}
+                            key={index}
+                        />
+                    );
                 }
                 if (seat === 'bar') {
                     return <div className='w-full h-full bg-zinc-800' key={index}></div>;

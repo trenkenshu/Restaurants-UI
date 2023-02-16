@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse, Method } from 'axios';
 import {
     IBooking,
     ICreateBooking,
@@ -76,7 +76,7 @@ export const deleteBooking = async (id: number) => {
 };
 
 export const createReview = async (body: ICreateReview) => {
-    const response = await api.post<ICreateReview>('/reviews', body);
+    const response = await api.post<IRestaurant>('/reviews', body);
     console.log('review:', response.data);
     return response.data;
 };
@@ -91,4 +91,17 @@ export const deleteReview = async (id: number) => {
     const response = await api.delete(`/reviews/${id}`);
     console.log('delete review:', response.data);
     return response.data;
+};
+
+export const addRemoveFavourites = async (method: 'post' | 'delete', clientId: number, cafeId: number) => {
+    if (method === 'post') {
+        const response = await api.post<IUser>(`/favourites/${clientId}/${cafeId}`);
+        console.log(response);
+        return response;
+    }
+    if (method === 'delete') {
+        const response = await api.delete<IUser>(`/favourites/${clientId}/${cafeId}`);
+        console.log(response);
+        return response;
+    }
 };

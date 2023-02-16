@@ -17,15 +17,29 @@ interface ModalReviewProps {
     closeModalReveiw: () => void;
     isModalReviewOpen: boolean;
     restaurant: IRestaurant;
+    setRestaurant: (data: IRestaurant) => void;
     userReview?: IReview;
 }
 
-const ModalReview: FC<ModalReviewProps> = ({ closeModalReveiw, isModalReviewOpen, restaurant, userReview }) => {
+const ModalReview: FC<ModalReviewProps> = ({
+    closeModalReveiw,
+    isModalReviewOpen,
+    restaurant,
+    setRestaurant,
+    userReview,
+}) => {
     const { state, dispatch } = useContext(AppContext);
     const [errorMessageRating, setErrorMessageRating] = useState('');
     const [errorMessageReview, setErrorMessageReview] = useState('');
     const [submitBtnClass, setSubmitBtnClass] = useState('hidden');
     const navigate = useNavigate();
+    const hasUserBooking = state.user.bookings.some((el) => el.cafeId === restaurant.id);
+    // const hasUserBooking = restaurant.bookings.map((el) => {
+    //     if (el.guestId === state.user.id) {
+    //         return el;
+    //     }
+    // });
+    // console.log('hasUserBooking', hasUserBooking);
 
     // const closeModal = () => {
     //     setIsModalReviewOpen(false);
@@ -68,7 +82,7 @@ const ModalReview: FC<ModalReviewProps> = ({ closeModalReveiw, isModalReviewOpen
         });
     };
 
-    const saveRaview = (event: React.FormEvent<HTMLFormElement>) => {
+    const saveReview = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setSubmitBtnClass('');
         checkInputs();
@@ -80,7 +94,7 @@ const ModalReview: FC<ModalReviewProps> = ({ closeModalReveiw, isModalReviewOpen
             text: review,
         };
 
-        if (rating > 0 && review.split(' ').length > 5) {
+        if (rating > 0 && review.split(' ').length >= 3) {
             setSubmitBtnClass('');
 
             if (userReview) {
@@ -95,13 +109,20 @@ const ModalReview: FC<ModalReviewProps> = ({ closeModalReveiw, isModalReviewOpen
                 });
             } else {
                 createReview(createReviewBody).then((data) => {
+                    console.log('Create review', data);
+                    data.parsedTranslation = JSON.parse(data.translation);
+                    // setRestaurant(data);
                     if (typeof data === 'object') {
-                        getRestaurant(restaurant.id).then((updatedRestaurant) => {
-                            dispatch({
-                                type: 'getRestaurant',
-                                payload: updatedRestaurant,
-                            });
-                        });
+                        setRestaurant(data);
+                        setSubmitBtnClass('hidden');
+                        setRating(0);
+                        setReview('');
+                        // getRestaurant(restaurant.id).then((updatedRestaurant) => {
+                        //     dispatch({
+                        //         type: 'getRestaurant',
+                        //         payload: updatedRestaurant,
+                        //     });
+                        // });
                         updateUserState();
                         // setIsModalReviewOpen(false);
                         closeModalReveiw();
@@ -128,12 +149,12 @@ const ModalReview: FC<ModalReviewProps> = ({ closeModalReveiw, isModalReviewOpen
             width={'w-[95%] sm:w-[90%] md:w-[650px] lg:w-[700px]'}
             height={'h-fit'}
         >
-            {state.user.id > 0 ? (
+            {state.user.id > 0 && hasUserBooking ? (
                 <div className='w-full p-8 flex flex-col items-center'>
                     <h4 className='font-semibold text-xl drop-shadow-md py-4'>{`${
                         content.reviewModal.title[state.language]
                     } "${restaurant.name}"`}</h4>
-                    <form onSubmit={saveRaview} className='flex flex-col gap-4 w-96'>
+                    <form onSubmit={saveReview} className='flex flex-col gap-4 w-96'>
                         <div className='flex w-full gap-5 items-center justify-center'>
                             <Rating value={rating} onChange={setStars} required />
                         </div>
@@ -162,20 +183,37 @@ const ModalReview: FC<ModalReviewProps> = ({ closeModalReveiw, isModalReviewOpen
 
                         <div className='flex flex-col sm:flex-row w-full gap-5 mt-3 justify-center items-center'>
                             <ButtonBlack
-                                width={'w-32'}
-                                height={'h-8'}
+                                width='w-32'
+                                height='h-10'
+                                fontsize='text-lg'
                                 buttonText={content.common.cancel[state.language]}
                                 onClick={closeModalReveiw}
                             />
                             <ButtonBlack
-                                width={'w-32'}
-                                height={'h-8'}
+                                width='w-32'
+                                height='h-10'
+                                fontsize='text-lg'
                                 buttonText={content.common.save[state.language]}
                                 // onClick={() => saveUpdatedUserData}
                                 type='submit'
                             />
                         </div>
                     </form>
+                </div>
+            ) : state.user.id > 0 && !hasUserBooking ? (
+                <div className='flex flex-col gap-6 items-center p-5'>
+                    <img className='dark:hidden mx-auto h-14 w-auto rounded-full shadow-lg' src={logoBlack}></img>
+                    <img className='hidden dark:block mx-auto h-14 w-auto rounded-full shadow-lg' src={logoWhite}></img>
+                    <p className='text-3xl sm:text-4xl text-center'>
+                        {content.reviewModal.noBookingRedirect[state.language]}
+                    </p>
+                    <ButtonBlack
+                        width='w-48'
+                        height='h-12'
+                        fontsize='text-lg'
+                        buttonText={content.reviewModal.noBookingBtnText[state.language]}
+                        onClick={closeModalReveiw}
+                    />
                 </div>
             ) : (
                 <div className='flex flex-col gap-6 items-center p-5'>
@@ -185,6 +223,7 @@ const ModalReview: FC<ModalReviewProps> = ({ closeModalReveiw, isModalReviewOpen
                     <ButtonBlack
                         width='w-48'
                         height='h-12'
+                        fontsize='text-lg'
                         buttonText={content.bookingModal.guestBtnText[state.language]}
                         onClick={() => navigate('/registration')}
                     />

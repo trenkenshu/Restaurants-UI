@@ -1,4 +1,4 @@
-import { IBooking, IRestaurant, IReview, IUser } from 'types';
+import { IBooking, IRestaurant, IReview, IStepper, IUser } from 'types';
 
 export const baseURL = 'https://restaurants-server-3.onrender.com';
 
@@ -61,8 +61,10 @@ export const emptyBooking: IBooking = {
     status: 'active',
 };
 
-export const emptyStepper = {
+export const emptyStepper: IStepper = {
     stepsFinished: [false, false, false, false, false],
+    reservedTables: [],
+    selectedTable: '',
     stepOne: new Date(),
     stepTwo: '',
     stepThree: { guestNumber: 1, tableId: '' },

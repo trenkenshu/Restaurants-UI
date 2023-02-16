@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { createBooking, createReview, deleteReview, getRestaurant, getUser } from 'api/api';
-import { ICreateBooking, ICreateReview } from 'types';
+import { ICreateBooking, ICreateReview, IUser } from 'types';
 import BookingItem from 'components/BookingItem';
 import ReviewItem from 'components/ReviewItem';
 import { content } from 'utils/content';
@@ -17,6 +17,10 @@ const UserPage = () => {
     const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
     const [currentReview, setCurrentReview] = useState(emptyReview);
     const [currentRest, setCurrentRest] = useState(emptyRestaurant);
+
+    useEffect(() => {
+        getUser(state.user.id).then((user: IUser) => dispatch({ type: 'updateUser', payload: user }));
+    }, []);
 
     const navigate = useNavigate();
 
@@ -203,6 +207,7 @@ const UserPage = () => {
                     isModalReviewOpen={isModalReviewOpen}
                     restaurant={currentRest}
                     userReview={currentReview}
+                    setRestaurant={setCurrentRest}
                 />
             )}
         </>

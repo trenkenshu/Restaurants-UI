@@ -410,7 +410,7 @@ export const content = {
         },
         guestText: {
             en: 'Please login or create an account',
-            ru: 'Пожалуйста зарегистрируйтесь или создайте аккаунт',
+            ru: 'Пожалуйста, зарегистрируйтесь или войдите в аккаунт',
         },
         guestBtnText: {
             en: 'Registration',
@@ -433,6 +433,14 @@ export const content = {
         errorMsgRating: {
             en: 'Rating should be more than 0',
             ru: 'Рейтинг должен быть больше 0',
+        },
+        noBookingRedirect: {
+            en: 'If you want to leave a review, you need to reserve a table in this restaurant',
+            ru: 'Если Вы хотите оставить отзыв, сначала следуюет забронировать столик в этом ресторане',
+        },
+        noBookingBtnText: {
+            en: 'To book a table',
+            ru: 'К бронированию столика',
         },
     },
 };

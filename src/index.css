@@ -8,13 +8,13 @@
 html {
   scroll-behavior: smooth;
 }
-/* html {
-  height: 100%;
-  width: 100%;
-}
-#root {
-  height: 100vh;
+/* #restReviews ~ html {
+  overflow: hidden;
 } */
+html:has(#restReviews) {
+  overflow: hidden;
+}
+
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     width: 10px;

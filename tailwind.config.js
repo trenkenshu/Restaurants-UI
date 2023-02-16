@@ -57,6 +57,7 @@ module.exports = {
                 schemeFloor: "url('/src/assets/icons/scheme-floor.png')",
                 workRed: "url('/src/assets/icons/work-red.svg')",
                 workGreen: "url('/src/assets/icons/work-green.svg')",
+                userReserved: "url('/src/assets/icons/user-reserved.svg')",
             },
             flex: {
                 100: '1 1 100%',
