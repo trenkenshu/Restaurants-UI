@@ -37,7 +37,7 @@ const Restaurants = () => {
     return (
         <div className='flex flex-col w-full gap-2.5 select-none py-2.5 px-5'>
             {/* in upper div items-center */}
-            <h1 id='mainTitle' className='text-4xl text-center'>
+            <h1 id='mainTitle' className='text-4xl text-center drop-shadow-lg'>
                 {content.restaurantsPage.title[state.language]}
                 {<span className='text-corall'> {state.currentCity[state.language]}</span>}
             </h1>

@@ -13,7 +13,9 @@ interface ButtonBlackProps {
 const ButtonBlack: FC<ButtonBlackProps> = ({ width, height, fontsize, buttonText, onClick, type, disabled }) => {
     return (
         <button
-            className={`${width} ${height} ${fontsize} items-center bg-black text-corall hover:bg-transparent hover:text-black border border-black rounded-full font-semibold transition`}
+            className={`${width} ${height} ${fontsize} items-center bg-black text-corall border-2 border-black rounded-full font-semibold transition
+            hover:bg-transparent hover:text-black dark:hover:border-smoke-gray dark:hover:text-smoke-gray
+            disabled:bg-zinc-800 disabled:text-black disabled:border-black hover:disabled:bg-zinc-800 hover:disabled:text-black hover:disabled:border-black dark:hover:disabled:text-black dark:hover:disabled:border-black`}
             onClick={onClick}
             type={type}
             disabled={disabled}

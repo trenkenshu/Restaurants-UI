@@ -55,6 +55,8 @@ module.exports = {
                 tableCorall: "url('/src/assets/icons/table-corall.png')",
                 tableGray: "url('/src/assets/icons/table-lightgray.png')",
                 schemeFloor: "url('/src/assets/icons/scheme-floor.png')",
+                workRed: "url('/src/assets/icons/work-red.svg')",
+                workGreen: "url('/src/assets/icons/work-green.svg')",
             },
             flex: {
                 100: '1 1 100%',

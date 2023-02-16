@@ -176,6 +176,14 @@ export const content = {
             en: 'Reviews',
             ru: 'Отзывы',
         },
+        titleClose: {
+            en: 'Closed',
+            ru: 'Закрыто',
+        },
+        titleOpen: {
+            en: 'Open now',
+            ru: 'Открыто',
+        },
     },
     errorPage: {
         title: {
@@ -334,7 +342,7 @@ export const content = {
     bookingModal: {
         btnNext: {
             en: 'Next',
-            ru: 'Дальше',
+            ru: 'Вперед',
         },
         btnPrev: {
             en: 'Back',
@@ -360,13 +368,25 @@ export const content = {
             en: 'Name',
             ru: 'Имя',
         },
+        namePlaceholder: {
+            en: 'Name (at least 2 letters)',
+            ru: 'Имя (минимум 2 буквы)',
+        },
         phone: {
             en: 'Phone',
             ru: 'Телефон',
         },
+        phonePlaceholder: {
+            en: 'Phone number (Example: +375123795570)',
+            ru: 'Номер телефона (Пример: +375123795570)',
+        },
         comment: {
             en: 'Comment',
             ru: 'Комментарий',
+        },
+        commentPlaceholder: {
+            en: 'Your special wishes and preferences',
+            ru: 'Ваши особые пожелания и предпочтения',
         },
         date: {
             en: 'Date',
@@ -387,6 +407,32 @@ export const content = {
         guestsPerTable: {
             en: '*max: 4 guests per table',
             ru: '*макс: 4 гостя за столом',
+        },
+        guestText: {
+            en: 'Please login or create an account',
+            ru: 'Пожалуйста зарегистрируйтесь или создайте аккаунт',
+        },
+        guestBtnText: {
+            en: 'Registration',
+            ru: 'Регистрация',
+        },
+    },
+    reviewModal: {
+        title: {
+            en: 'Review about restaurant',
+            ru: 'Отзыв о ресторане',
+        },
+        label: {
+            en: 'Your review',
+            ru: 'Ваш отзыв',
+        },
+        errorMsgReview: {
+            en: 'Review should contain more than 5 words',
+            ru: 'Отзыв должен содержать более чем 5 слов',
+        },
+        errorMsgRating: {
+            en: 'Rating should be more than 0',
+            ru: 'Рейтинг должен быть больше 0',
         },
     },
 };
