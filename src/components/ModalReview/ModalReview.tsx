@@ -13,23 +13,24 @@ import logoWhite from '../../assets/icons/favicon_white3.png';
 import { useNavigate } from 'react-router-dom';
 
 interface ModalReviewProps {
-    setIsModalReviewOpen: (data: boolean) => void;
+    // setIsModalReviewOpen: (data: boolean) => void;
+    closeModalReveiw: () => void;
     isModalReviewOpen: boolean;
     restaurant: IRestaurant;
     userReview?: IReview;
 }
 
-const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReviewOpen, restaurant, userReview }) => {
+const ModalReview: FC<ModalReviewProps> = ({ closeModalReveiw, isModalReviewOpen, restaurant, userReview }) => {
     const { state, dispatch } = useContext(AppContext);
     const [errorMessageRating, setErrorMessageRating] = useState('');
     const [errorMessageReview, setErrorMessageReview] = useState('');
     const [submitBtnClass, setSubmitBtnClass] = useState('hidden');
     const navigate = useNavigate();
 
-    const closeModal = () => {
-        setIsModalReviewOpen(false);
-        document.body.classList.remove('active');
-    };
+    // const closeModal = () => {
+    //     setIsModalReviewOpen(false);
+    //     document.body.classList.remove('active');
+    // };
 
     const currentRating = userReview ? Number(userReview.rating) : '';
     const [rating, setRating] = useState(currentRating);
@@ -62,7 +63,8 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
                 type: 'updateUser',
                 payload: updatedUser,
             });
-            setIsModalReviewOpen(false);
+            // setIsModalReviewOpen(false);
+            closeModalReveiw();
         });
     };
 
@@ -85,7 +87,8 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
                 updateReview({ id: userReview.id, rating: rating, text: review }).then((data) => {
                     if (typeof data === 'object') {
                         updateUserState();
-                        setIsModalReviewOpen(false);
+                        // setIsModalReviewOpen(false);
+                        closeModalReveiw();
                     } else {
                         console.log('error:::', data);
                     }
@@ -100,13 +103,14 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
                             });
                         });
                         updateUserState();
-                        setIsModalReviewOpen(false);
+                        // setIsModalReviewOpen(false);
+                        closeModalReveiw();
                     } else {
                         console.log('error:::', data);
                     }
                 });
             }
-            closeModal();
+            closeModalReveiw();
         } else {
             setSubmitBtnClass('hidden');
         }
@@ -120,7 +124,7 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
     return (
         <Modal
             isModalOpen={isModalReviewOpen}
-            closeModal={closeModal}
+            closeModal={closeModalReveiw}
             width={'w-[95%] sm:w-[90%] md:w-[650px] lg:w-[700px]'}
             height={'h-fit'}
         >
@@ -161,7 +165,7 @@ const ModalReview: FC<ModalReviewProps> = ({ setIsModalReviewOpen, isModalReview
                                 width={'w-32'}
                                 height={'h-8'}
                                 buttonText={content.common.cancel[state.language]}
-                                onClick={closeModal}
+                                onClick={closeModalReveiw}
                             />
                             <ButtonBlack
                                 width={'w-32'}

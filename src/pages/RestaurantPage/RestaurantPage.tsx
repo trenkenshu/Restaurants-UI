@@ -100,10 +100,17 @@ const RestaurantPage = () => {
         document.getElementById('innerScroll')?.classList.remove('active');
     };
 
-    const createReview = () => {
+    const openReviewModal = () => {
         console.log('click');
         setIsModalReviewOpen(true);
         document.body.classList.add('active');
+        document.getElementById('innerScroll')?.classList.add('active');
+    };
+    const closeReviewModal = () => {
+        console.log('click');
+        setIsModalReviewOpen(false);
+        document.body.classList.remove('active');
+        document.getElementById('innerScroll')?.classList.remove('active');
     };
 
     // !! Если ID > существующего то сдеать переход на ERROR page
@@ -190,7 +197,7 @@ const RestaurantPage = () => {
                                 <div className='flex flex-col items-center min-w-[100px]'>
                                     <button
                                         className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center cursor-pointer'
-                                        onClick={createReview}
+                                        onClick={openReviewModal}
                                     ></button>
                                     <div className=''>{content.restaurantsPage.review[state.language]}</div>
                                 </div>
@@ -247,7 +254,7 @@ const RestaurantPage = () => {
                 </div>
             )}
             <ModalReview
-                setIsModalReviewOpen={setIsModalReviewOpen}
+                closeModalReveiw={closeReviewModal}
                 isModalReviewOpen={isModalReviewOpen}
                 restaurant={restaurant}
             />
