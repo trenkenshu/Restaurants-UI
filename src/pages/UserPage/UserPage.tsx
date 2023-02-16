@@ -38,6 +38,10 @@ const UserPage = () => {
             setCurrentRest(rest);
         });
     };
+    const closeModalReveiw = () => {
+        setIsModalReviewOpen(false);
+        document.body.classList.remove('active');
+    };
 
     const logOut = () => {
         dispatch({
@@ -195,7 +199,7 @@ const UserPage = () => {
             )}
             {isModalReviewOpen && (
                 <ModalReview
-                    setIsModalReviewOpen={setIsModalReviewOpen}
+                    closeModalReveiw={closeModalReveiw}
                     isModalReviewOpen={isModalReviewOpen}
                     restaurant={currentRest}
                     userReview={currentReview}
