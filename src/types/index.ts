@@ -24,11 +24,11 @@ export interface IRestaurant
 }
 export interface IReview {
     id: number;
-    // cafe: IRestaurant;
     authorId: number;
     author: IUser;
     text: string;
-    rating: number | string;
+    // rating: number | string;
+    rating: number;
     cafeId: number;
     cafe: IRestaurant;
 }

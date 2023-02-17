@@ -10,6 +10,7 @@ import RestaurantCard from 'components/RestaurantCard';
 import ModalUserData from 'components/ModalUserData';
 import ModalReview from 'components/ModalReview';
 import { emptyRestaurant, emptyReview, emptyUser } from 'utils/constants';
+import UserPageModalReview from 'components/UserPageModalReview';
 
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -43,10 +44,10 @@ const UserPage = () => {
             setCurrentRest(rest);
         });
     };
-    // const closeModalReview = () => {
-    //     setIsModalReviewOpen(false);
-    //     document.body.classList.remove('active');
-    // };
+    const closeModalReview = () => {
+        setIsModalReviewOpen(false);
+        document.body.classList.remove('active');
+    };
 
     const logOut = () => {
         dispatch({
@@ -199,13 +200,13 @@ const UserPage = () => {
 
             <ModalUserData setIsModalUserInfoOpen={setIsModalUserInfoOpen} isModalUserInfoOpen={isModalUserInfoOpen} />
 
-            <ModalReview
-                // closeModalReveiw={closeModalReveiw}
-                setIsModalReviewOpen={setIsModalReviewOpen}
+            <UserPageModalReview
+                closeModalReview={closeModalReview}
+                // setIsModalReviewOpen={setIsModalReviewOpen}
                 isModalReviewOpen={isModalReviewOpen}
                 restaurant={currentRest}
                 userReview={currentReview}
-                setRestaurant={setCurrentRest}
+                // setRestaurant={setCurrentRest}
             />
         </>
     );

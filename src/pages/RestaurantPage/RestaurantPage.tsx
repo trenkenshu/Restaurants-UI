@@ -18,6 +18,7 @@ import ModalReview from 'components/ModalReview';
 import checkFavorites from 'utils/functions/checkFavorites';
 import { baseURL, emptyRestaurant } from 'utils/constants';
 import checkWorkTime from 'utils/functions/checkWorkTime';
+import RestaurantModalReview from 'components/RestaurantModalReview';
 
 const sliderSetting = {
     dots: false,
@@ -103,12 +104,12 @@ const RestaurantPage = () => {
         document.body.classList.add('active');
         document.getElementById('innerScroll')?.classList.add('active');
     };
-    // const closeReviewModal = () => {
-    //     console.log('click');
-    //     setIsModalReviewOpen(false);
-    //     document.body.classList.remove('active');
-    //     document.getElementById('innerScroll')?.classList.remove('active');
-    // };
+    const closeReviewModal = () => {
+        console.log('click');
+        setIsModalReviewOpen(false);
+        document.body.classList.remove('active');
+        document.getElementById('innerScroll')?.classList.remove('active');
+    };
 
     // !! Если ID > существующего то сдеать переход на ERROR page
     return (
@@ -244,9 +245,9 @@ const RestaurantPage = () => {
                     </div>
                 </div>
             )}
-            <ModalReview
-                // closeModalReveiw={closeReviewModal}
-                setIsModalReviewOpen={setIsModalReviewOpen}
+            <RestaurantModalReview
+                closeModalReview={closeReviewModal}
+                // setIsModalReviewOpen={setIsModalReviewOpen}
                 isModalReviewOpen={isModalReviewOpen}
                 restaurant={restaurant}
                 setRestaurant={setRestaurant}
