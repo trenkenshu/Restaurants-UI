@@ -24,7 +24,7 @@ const RestaurantTable: FC<RestaurantTableProps> = ({ dataId, setStepperState, st
     //     }
     // });
     useEffect(() => {
-        console.log('useffect rest TAble', stepperState.reservedTables);
+        // console.log('useffect rest TAble', stepperState.reservedTables);
         const booked = stepperState.reservedTables.includes(String(dataId));
         const userBooked = state.user.bookings.some((el) => {
             const bookedTime = String(new Date(el.date).getHours());

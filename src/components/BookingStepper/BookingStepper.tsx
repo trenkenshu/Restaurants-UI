@@ -13,7 +13,7 @@ import { ICreateBooking, IRestaurant } from 'types';
 import { isConstructorDeclaration } from 'typescript';
 import { content } from 'utils/content';
 import { createBooking, getRestaurant, getUser } from 'api/api';
-import { emptyStepper } from 'utils/constants';
+import { emptyStepper, nameRegexp, phoneRegexp } from 'utils/constants';
 import checkActiveTime from 'utils/functions/checkActiveTime';
 
 const steps = {
@@ -33,59 +33,96 @@ type BookingStepperProps = {
 const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal, setRestaurant }) => {
     const { state, dispatch } = useContext(AppContext);
     const [activeStep, setActiveStep] = useState(0);
-    const [isStepEnd, setIsStepEnd] = useState(false);
     const [stepperState, setStepperState] = useState(emptyStepper);
-    // setStepperState(prev => {...prev, stepTwo: '9:00')
+    // for inputs
+    const [nameError, setNameError] = useState(false);
+    const [nameFocus, setNameFocus] = useState(false);
+    const [phoneError, setPhoneError] = useState(false);
+    const [phoneFocus, setPhoneFocus] = useState(false);
 
     // states
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState('');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [guestAmount, setGuestAmount] = useState(1);
-    const [tableId, setTableId] = useState('');
+    // const [date, setDate] = useState(new Date());
+    // const [time, setTime] = useState('');
+    // const [name, setName] = useState('');
+    // const [phone, setPhone] = useState('');
+    // const [guestAmount, setGuestAmount] = useState(1);
+    // const [tableId, setTableId] = useState('');
+    // const [isStepEnd, setIsStepEnd] = useState(false);
 
     const timeIntervals = setTimeIntervals(restaurant.workTimeStart, restaurant.workTimeEnd - 2);
     // console.log('time', timeIntervals);
 
-    const checkStepFour = () => {
-        if (stepperState.stepFour.name.length > 2 && stepperState.stepFour.phone.length > 9) {
-            console.log('12412');
+    useEffect(() => {
+        if (!nameError && stepperState.stepFour.name.length && !phoneError && stepperState.stepFour.phone.length) {
+            console.log('step 4 true');
             setStepperState((prev) => {
                 return {
                     ...prev,
                     stepsFinished: prev.stepsFinished.map((el) => (el = true)),
                 };
             });
+        } else {
+            console.log('step4 false', activeStep);
+            setStepperState((prev) => {
+                return {
+                    ...prev,
+                    stepsFinished: prev.stepsFinished.map((el, index) => index === 3 && (el = false)),
+                };
+            });
         }
-    };
+    }, [nameError, phoneError, stepperState.stepFour.name, stepperState.stepFour.phone]);
+    // const checkStepFour = () => {
+    //     if (!nameError && stepperState.stepFour.name.length && !phoneError && stepperState.stepFour.phone.length) {
+    //         console.log('step 4 true');
+    //         setStepperState((prev) => {
+    //             return {
+    //                 ...prev,
+    //                 stepsFinished: prev.stepsFinished.map((el) => (el = true)),
+    //             };
+    //         });
+    //     } else {
+    //         console.log('step4 false', activeStep);
+    //         setStepperState((prev) => {
+    //             return {
+    //                 ...prev,
+    //                 stepsFinished: prev.stepsFinished.map((el, index) => index === 3 && (el = false)),
+    //             };
+    //         });
+    //     }
+    // };
 
+    // Inputs functions
     const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { target } = event;
-        console.log('name', target.value);
-        // setName(target.value);
+        const value = event.target.value.replace(/[^A-Za-zА-Яа-я\s]/g, '');
+        if (value.match(nameRegexp)) {
+            setNameError(false);
+        } else {
+            setNameError(true);
+        }
         setStepperState((prev) => {
             return {
                 ...prev,
-                stepFour: { ...prev.stepFour, name: target.value },
+                stepFour: { ...prev.stepFour, name: value },
             };
         });
     };
     const phoneHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { target } = event;
-        console.log('phone', target.value);
-        // setPhone(target.value);
+        const value = event.target.value.replace(/[^\d+]/g, '');
+        if (value.match(phoneRegexp)) {
+            setPhoneError(false);
+        } else {
+            setPhoneError(true);
+        }
         setStepperState((prev) => {
             return {
                 ...prev,
-                stepFour: { ...prev.stepFour, phone: target.value },
+                stepFour: { ...prev.stepFour, phone: value },
             };
         });
     };
+
     const guestAmountHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { target } = event;
-        console.log('guestAmount', target.value);
-        // setGuestAmount(Number(target.value));
         setStepperState((prev) => {
             return {
                 ...prev,
@@ -93,13 +130,23 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
             };
         });
     };
+    const blurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+        const { target } = event;
+        switch (target.name) {
+            case 'bookingName':
+                setNameFocus(true);
+                break;
+            case 'bookingPhone':
+                setPhoneFocus(true);
+                break;
+        }
+    };
 
     const handleNext = () => {
         if (activeStep >= 0 && activeStep < steps[state.language].length) {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
-            // setIsStepEnd(false);
         }
-        console.log(activeStep);
+        console.log('next', activeStep);
         if (activeStep === steps[state.language].length - 1) {
             console.log('Завершили бронь');
             const dateOfBooking = new Date(`${stepperState.stepOne.toDateString()} ${stepperState.stepTwo}:00:00`);
@@ -157,6 +204,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 stepsFinished: prev.stepsFinished.map((el, index) => (index <= 1 ? (el = true) : (el = false))),
                 stepTwo: target.dataset.time ? target.dataset.time : '',
                 reservedTables: reservedTables,
+                stepThree: { ...prev.stepThree, tableId: '' },
             };
         });
         console.log(stepperState.stepsFinished);
@@ -268,7 +316,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                         {content.bookingModal.guestsNumber[state.language]}
                                     </label>
                                     <input
-                                        className='w-10 text-center text-zinc-800 border border-zinc-800 rounded focus:border-corall focus:outline-none'
+                                        className='w-10 text-center text-zinc-800 border border-zinc-800 rounded focus:outline-none'
                                         type='number'
                                         id='guestsNum'
                                         value={stepperState.stepThree.guestNumber}
@@ -291,42 +339,66 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     )}
                     {activeStep === 3 && (
                         <div className='flex w-8/12 flex-col gap-3'>
-                            <div className='flex flex-col'>
-                                <p className='font-semibold'>{content.bookingModal.name[state.language]}</p>
+                            <div className='flex flex-col gap-1'>
+                                <div className='flex gap-2 justify-between'>
+                                    <p className='font-semibold'>{content.bookingModal.name[state.language]}</p>
+                                    {nameFocus && nameError && <p className='text-red-500 font-semibold'>Error</p>}
+                                </div>
+
                                 <input
-                                    className='w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:border-corall focus:outline-none'
+                                    className={`w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:outline-none ${
+                                        nameFocus && !nameError && 'border-green-500'
+                                    }`}
                                     type='text'
+                                    name='bookingName'
                                     value={stepperState.stepFour.name}
                                     placeholder={content.bookingModal.namePlaceholder[state.language]}
+                                    onBlur={(event) => blurHandler(event)}
                                     onChange={(event) => {
                                         nameHandler(event);
-                                        checkStepFour();
+                                        // checkStepFour();
                                     }}
                                 />
+                                <p className='w-fit p-1 bg-zinc-300 text-zinc-800 dark:text-smoke-gray text-sm rounded'>
+                                    {content.bookingModal.nameError[state.language]}
+                                </p>
                             </div>
-                            <div className='flex flex-col'>
-                                <p className='font-semibold'>{content.bookingModal.phone[state.language]}</p>
+                            <div className='flex flex-col gap-1'>
+                                <div className='flex gap-2 justify-between'>
+                                    <p className='font-semibold'>{content.bookingModal.phone[state.language]}</p>
+                                    {phoneFocus && phoneError && <p className='text-red-500 font-semibold'>Error</p>}
+                                </div>
                                 <input
-                                    className='w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:border-corall focus:outline-none'
+                                    className={`w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:outline-none ${
+                                        phoneFocus && !phoneError && 'border-green-500'
+                                    }`}
                                     type='text'
+                                    name='bookingPhone'
                                     value={stepperState.stepFour.phone}
                                     placeholder={content.bookingModal.phonePlaceholder[state.language]}
+                                    onBlur={(event) => blurHandler(event)}
                                     onChange={(event) => {
                                         phoneHandler(event);
-                                        checkStepFour();
+                                        // checkStepFour();
                                     }}
                                 />
+                                <p className='w-fit p-1 bg-zinc-300 text-zinc-800 dark:text-smoke-gray text-sm rounded'>
+                                    {content.bookingModal.phoneError[state.language]}
+                                </p>
                             </div>
                             <div className='flex flex-col'>
-                                <p className='font-semibold'>{content.bookingModal.comment[state.language]}</p>
+                                <p className='font-semibold'>
+                                    {content.bookingModal.comment[state.language]} (
+                                    {content.bookingModal.optional[state.language]})
+                                </p>
                                 <textarea
-                                    className='text-zinc-800 border border-zinc-800 dark:border-smoke-gray rounded pl-1 focus:border-corall focus:outline-none resize-none '
+                                    className='text-zinc-800 border border-zinc-800 dark:border-smoke-gray rounded pl-1 focus:outline-none resize-none '
                                     name='textarea'
                                     id='comment'
                                     placeholder={content.bookingModal.commentPlaceholder[state.language]}
                                     defaultValue={''}
-                                    cols={10}
-                                    rows={8}
+                                    cols={8}
+                                    rows={6}
                                 ></textarea>
                             </div>
                         </div>
@@ -364,7 +436,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 </div>
                 <div className='flex justify-center gap-3 p-2'>
                     <ButtonBlack
-                        width='w-32'
+                        width='w-36'
                         height='h-10'
                         fontsize='text-lg'
                         buttonText={content.bookingModal.btnPrev[state.language]}
@@ -372,7 +444,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                         onClick={handleBack}
                     />
                     <ButtonBlack
-                        width='w-32'
+                        width='w-36'
                         height='h-10'
                         fontsize='text-lg'
                         disabled={!stepperState.stepsFinished[activeStep]}

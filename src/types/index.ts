@@ -141,7 +141,7 @@ export interface IState {
 export interface IStepper {
     stepsFinished: boolean[];
     reservedTables: string[];
-    selectedTable: string;
+    // selectedTable: string;
     stepOne: Date;
     stepTwo: string;
     stepThree: { guestNumber: number; tableId: string };

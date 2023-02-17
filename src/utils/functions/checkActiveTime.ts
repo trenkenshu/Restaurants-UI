@@ -7,11 +7,6 @@ const checkActiveTime = (date: Date, time: number) => {
     const currentMonth = new Date().getMonth();
     const currentHour = new Date().getHours();
     const currentDay = new Date().getDate();
-
-    console.log('Year', bookingYear, currentYear);
-    console.log('Month', bookingMonth, currentMonth);
-    console.log('Hour', bookingHour, currentHour);
-    console.log('day', bookingDay, currentDay);
     if (
         bookingYear <= currentYear &&
         bookingMonth <= currentMonth &&

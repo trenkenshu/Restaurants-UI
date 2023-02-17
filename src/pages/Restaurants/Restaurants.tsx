@@ -2,36 +2,15 @@ import React, { useContext, useEffect } from 'react';
 import Map from 'components/Map';
 import RestaurantItem from 'components/RestaurantItem';
 import { content } from 'utils/content';
-import { getRestaurants } from 'api/api';
 import { IRestaurant } from 'types';
 import { AppContext } from 'store/store';
+import getAndUpdateRestaurants from 'utils/functions/getAndUpdateRestaurants';
 
 const Restaurants = () => {
     const { state, dispatch } = useContext(AppContext);
 
     useEffect(() => {
-        // getRestaurants('Minsk').then((restaurants) => {
-        //     console.log(restaurants);
-        //     restaurants.forEach((el: IRestaurant) => {
-        //         el.parsedTranslation = JSON.parse(el.translation);
-        //     });
-        // setRestaurants(resp.data);
-        //     dispatch({
-        //         type: 'getRestaurants',
-        //         payload: restaurants,
-        //     });
-        // });
-        const saveRestaurants = async () => {
-            const restaurants = await getRestaurants(state.currentCity['en']);
-            restaurants.forEach((el: IRestaurant) => {
-                el.parsedTranslation = JSON.parse(el.translation);
-            });
-            console.log(restaurants);
-            dispatch({ type: 'getRestaurants', payload: restaurants });
-        };
-
-        saveRestaurants();
-        // getRestaurant(3).then((resp) => console.log('cafe', resp));
+        getAndUpdateRestaurants(state, dispatch);
     }, [state.currentCity]);
 
     return (

@@ -26,7 +26,7 @@ const UserPage = () => {
 
     console.log('state:::', state);
 
-    const openModal = () => {
+    const openModalUserInfo = () => {
         setIsModalUserInfoOpen(true);
         document.body.classList.add('active');
     };
@@ -36,16 +36,17 @@ const UserPage = () => {
         document.body.classList.add('active');
 
         const currentReview = state.user.reviews.filter((rev) => rev.id === id)[0];
+        console.log('currentReview', currentReview);
         setCurrentReview(currentReview);
 
         await getRestaurant(currentReview.cafeId).then((rest) => {
             setCurrentRest(rest);
         });
     };
-    const closeModalReveiw = () => {
-        setIsModalReviewOpen(false);
-        document.body.classList.remove('active');
-    };
+    // const closeModalReview = () => {
+    //     setIsModalReviewOpen(false);
+    //     document.body.classList.remove('active');
+    // };
 
     const logOut = () => {
         dispatch({
@@ -121,7 +122,7 @@ const UserPage = () => {
                         <button
                             title={content.userPage.settings[state.language]}
                             className='h-8 sm:w-8 w-24 sm:bg-sets bg-cover sm:dark:bg-setsWhite sm:text-transparent border-2 sm:border-none border-gray-800 rounded-full opacity-50 hover:opacity-100 transition'
-                            onClick={openModal}
+                            onClick={openModalUserInfo}
                         >
                             Settings
                         </button>
@@ -195,21 +196,17 @@ const UserPage = () => {
                 </div>
                 {/* <ProgressStepsBarUX /> */}
             </div>
-            {isModalUserInfoOpen && (
-                <ModalUserData
-                    setIsModalUserInfoOpen={setIsModalUserInfoOpen}
-                    isModalUserInfoOpen={isModalUserInfoOpen}
-                />
-            )}
-            {isModalReviewOpen && (
-                <ModalReview
-                    closeModalReveiw={closeModalReveiw}
-                    isModalReviewOpen={isModalReviewOpen}
-                    restaurant={currentRest}
-                    userReview={currentReview}
-                    setRestaurant={setCurrentRest}
-                />
-            )}
+
+            <ModalUserData setIsModalUserInfoOpen={setIsModalUserInfoOpen} isModalUserInfoOpen={isModalUserInfoOpen} />
+
+            <ModalReview
+                // closeModalReveiw={closeModalReveiw}
+                setIsModalReviewOpen={setIsModalReviewOpen}
+                isModalReviewOpen={isModalReviewOpen}
+                restaurant={currentRest}
+                userReview={currentReview}
+                setRestaurant={setCurrentRest}
+            />
         </>
     );
 };

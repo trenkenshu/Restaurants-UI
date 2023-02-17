@@ -45,10 +45,11 @@ body.active {
   right: 20px;
   z-index: 1;
 }
-.restaurant .slick-prev:before {
+/* .restaurant .slick-prev:before {
   font-size: 40px;
   color: white !important;
-}
+} */
+.restaurant .slick-prev:before,
 .restaurant .slick-next:before {
   font-size: 40px;
   color: white !important;

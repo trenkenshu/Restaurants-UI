@@ -13,27 +13,22 @@ import logoWhite from '../../assets/icons/favicon_white3.png';
 import { useNavigate } from 'react-router-dom';
 
 interface ModalReviewProps {
-    // setIsModalReviewOpen: (data: boolean) => void;
-    closeModalReveiw: () => void;
+    setIsModalReviewOpen: (data: boolean) => void;
+    // closeModalReveiw: () => void;
     isModalReviewOpen: boolean;
     restaurant: IRestaurant;
     setRestaurant: (data: IRestaurant) => void;
     userReview?: IReview;
 }
 
-const ModalReview: FC<ModalReviewProps> = ({
-    closeModalReveiw,
-    isModalReviewOpen,
-    restaurant,
-    setRestaurant,
-    userReview,
-}) => {
+const ModalReview: FC<ModalReviewProps> = (props) => {
+    const { setIsModalReviewOpen, isModalReviewOpen, restaurant, setRestaurant, userReview } = props;
     const { state, dispatch } = useContext(AppContext);
     const [errorMessageRating, setErrorMessageRating] = useState('');
     const [errorMessageReview, setErrorMessageReview] = useState('');
     const [submitBtnClass, setSubmitBtnClass] = useState('hidden');
     const navigate = useNavigate();
-    const hasUserBooking = state.user.bookings.some((el) => el.cafeId === restaurant.id);
+    const hasUserBooking = userReview ? true : state.user.bookings.some((el) => el.cafeId === restaurant.id);
     // const hasUserBooking = restaurant.bookings.map((el) => {
     //     if (el.guestId === state.user.id) {
     //         return el;
@@ -41,10 +36,11 @@ const ModalReview: FC<ModalReviewProps> = ({
     // });
     // console.log('hasUserBooking', hasUserBooking);
 
-    // const closeModal = () => {
-    //     setIsModalReviewOpen(false);
-    //     document.body.classList.remove('active');
-    // };
+    const closeModalReview = () => {
+        setIsModalReviewOpen(false);
+        document.body.classList.remove('active');
+        !userReview && document.getElementById('innerScroll')?.classList.remove('active');
+    };
 
     const currentRating = userReview ? Number(userReview.rating) : '';
     const [rating, setRating] = useState(currentRating);
@@ -78,7 +74,7 @@ const ModalReview: FC<ModalReviewProps> = ({
                 payload: updatedUser,
             });
             // setIsModalReviewOpen(false);
-            closeModalReveiw();
+            closeModalReview();
         });
     };
 
@@ -86,6 +82,7 @@ const ModalReview: FC<ModalReviewProps> = ({
         event.preventDefault();
         setSubmitBtnClass('');
         checkInputs();
+        console.log('review');
 
         const createReviewBody = {
             clientId: state.user.id,
@@ -93,30 +90,36 @@ const ModalReview: FC<ModalReviewProps> = ({
             rating: rating,
             text: review,
         };
+        console.log('rating', rating, typeof rating);
+        console.log('review', review, typeof review);
 
-        if (rating > 0 && review.split(' ').length >= 3) {
+        if (rating > 0 && review.split(' ').length > 5) {
             setSubmitBtnClass('');
+            console.log('inner review');
 
             if (userReview) {
                 updateReview({ id: userReview.id, rating: rating, text: review }).then((data) => {
                     if (typeof data === 'object') {
                         updateUserState();
                         // setIsModalReviewOpen(false);
-                        closeModalReveiw();
+                        closeModalReview();
                     } else {
                         console.log('error:::', data);
                     }
                 });
             } else {
+                setSubmitBtnClass('hidden');
+                setRating(0);
+                setReview('');
                 createReview(createReviewBody).then((data) => {
                     console.log('Create review', data);
                     data.parsedTranslation = JSON.parse(data.translation);
                     // setRestaurant(data);
                     if (typeof data === 'object') {
                         setRestaurant(data);
-                        setSubmitBtnClass('hidden');
-                        setRating(0);
-                        setReview('');
+                        // setSubmitBtnClass('hidden');
+                        // setRating(0);
+                        // setReview('');
                         // getRestaurant(restaurant.id).then((updatedRestaurant) => {
                         //     dispatch({
                         //         type: 'getRestaurant',
@@ -125,13 +128,13 @@ const ModalReview: FC<ModalReviewProps> = ({
                         // });
                         updateUserState();
                         // setIsModalReviewOpen(false);
-                        closeModalReveiw();
+                        closeModalReview();
                     } else {
                         console.log('error:::', data);
                     }
                 });
             }
-            closeModalReveiw();
+            closeModalReview();
         } else {
             setSubmitBtnClass('hidden');
         }
@@ -145,7 +148,7 @@ const ModalReview: FC<ModalReviewProps> = ({
     return (
         <Modal
             isModalOpen={isModalReviewOpen}
-            closeModal={closeModalReveiw}
+            closeModal={closeModalReview}
             width={'w-[95%] sm:w-[90%] md:w-[650px] lg:w-[700px]'}
             height={'h-fit'}
         >
@@ -187,7 +190,7 @@ const ModalReview: FC<ModalReviewProps> = ({
                                 height='h-10'
                                 fontsize='text-lg'
                                 buttonText={content.common.cancel[state.language]}
-                                onClick={closeModalReveiw}
+                                onClick={closeModalReview}
                             />
                             <ButtonBlack
                                 width='w-32'
@@ -212,7 +215,7 @@ const ModalReview: FC<ModalReviewProps> = ({
                         height='h-12'
                         fontsize='text-lg'
                         buttonText={content.reviewModal.noBookingBtnText[state.language]}
-                        onClick={closeModalReveiw}
+                        onClick={closeModalReview}
                     />
                 </div>
             ) : (

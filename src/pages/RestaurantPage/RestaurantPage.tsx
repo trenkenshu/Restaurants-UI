@@ -67,9 +67,6 @@ const RestaurantPage = () => {
     const [idError, setIdError] = useState(false);
     const [restaurant, setRestaurant] = useState(emptyRestaurant);
     const { id } = useParams();
-    // console.log('rest id', id);
-    // console.log(state.restaurants);
-    // const [tableId, setTableId] = useState('');
 
     const saveRestaurant = async () => {
         const restaurant = await getRestaurant(Number(id));
@@ -106,12 +103,12 @@ const RestaurantPage = () => {
         document.body.classList.add('active');
         document.getElementById('innerScroll')?.classList.add('active');
     };
-    const closeReviewModal = () => {
-        console.log('click');
-        setIsModalReviewOpen(false);
-        document.body.classList.remove('active');
-        document.getElementById('innerScroll')?.classList.remove('active');
-    };
+    // const closeReviewModal = () => {
+    //     console.log('click');
+    //     setIsModalReviewOpen(false);
+    //     document.body.classList.remove('active');
+    //     document.getElementById('innerScroll')?.classList.remove('active');
+    // };
 
     // !! Если ID > существующего то сдеать переход на ERROR page
     return (
@@ -248,7 +245,8 @@ const RestaurantPage = () => {
                 </div>
             )}
             <ModalReview
-                closeModalReveiw={closeReviewModal}
+                // closeModalReveiw={closeReviewModal}
+                setIsModalReviewOpen={setIsModalReviewOpen}
                 isModalReviewOpen={isModalReviewOpen}
                 restaurant={restaurant}
                 setRestaurant={setRestaurant}

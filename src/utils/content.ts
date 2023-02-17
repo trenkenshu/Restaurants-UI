@@ -350,7 +350,7 @@ export const content = {
         },
         btnBook: {
             en: 'Book',
-            ru: 'Забронировать',
+            ru: 'Отправить',
         },
         selectedDate: {
             en: 'Selected date',
@@ -361,24 +361,32 @@ export const content = {
             ru: 'Время бронирования: 1 час',
         },
         guestsNumber: {
-            en: 'Guests number:',
-            ru: 'Количество гостей:',
+            en: 'Guests number',
+            ru: 'Количество гостей',
         },
         name: {
             en: 'Name',
             ru: 'Имя',
         },
         namePlaceholder: {
-            en: 'Name (at least 2 letters)',
-            ru: 'Имя (минимум 2 буквы)',
+            en: 'Name',
+            ru: 'Имя',
+        },
+        nameError: {
+            en: 'Must start with capital letter and contain at least 2 letters',
+            ru: 'Должно начинаться с заглавной буквы и быть не менее двух букв',
         },
         phone: {
             en: 'Phone',
             ru: 'Телефон',
         },
         phonePlaceholder: {
-            en: 'Phone number (Example: +375123795570)',
-            ru: 'Номер телефона (Пример: +375123795570)',
+            en: 'Phone number',
+            ru: 'Номер телефона',
+        },
+        phoneError: {
+            en: 'Must begin with plus and contain and at least 9 numbers',
+            ru: 'Должен начинаться с плюса и не менее 9 чисел',
         },
         comment: {
             en: 'Comment',
@@ -387,6 +395,10 @@ export const content = {
         commentPlaceholder: {
             en: 'Your special wishes and preferences',
             ru: 'Ваши особые пожелания и предпочтения',
+        },
+        optional: {
+            en: 'optional',
+            ru: 'опционально',
         },
         date: {
             en: 'Date',
