@@ -308,6 +308,10 @@ export const content = {
             en: 'Table',
             ru: 'Столик',
         },
+        guest: {
+            en: 'Guest name: ',
+            ru: 'Имя гостя: ',
+        },
     },
     error: {
         wrongloginOrEmail: {

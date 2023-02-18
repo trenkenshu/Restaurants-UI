@@ -12,7 +12,7 @@ import checkFavorites from 'utils/functions/checkFavorites';
 const RestaurantRecs = () => {
     const { state } = useContext(AppContext);
 
-    const filteredByRating = state.restaurants.filter((el) => el.rating > 4.4);
+    const filteredByRating = state.restaurants.sort((a, b) => b.rating - a.rating).slice(0, 6);
 
     const sliderSetting = {
         dots: false,

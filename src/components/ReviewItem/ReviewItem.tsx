@@ -1,5 +1,8 @@
-import React, { FC } from 'react';
-import { Rating } from 'react-rainbow-components';
+import React, { FC, useState } from 'react';
+// import { Rating } from 'react-rainbow-components';
+import { Rating } from 'react-simple-star-rating';
+// import ReactStars from 'react-rating-stars-component';
+import { render } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
 import { IReview } from 'types';
 import './ReviewItem.css';
@@ -10,6 +13,17 @@ interface ReviewItemProps {
 }
 
 const ReviewItem: FC<ReviewItemProps> = ({ isOnRestaurantPage, review }) => {
+    const [rating, setRating] = useState(review.rating);
+    const handleRating = (rate: number) => {
+        setRating(rate);
+
+        // other logic
+    };
+
+    const onPointerEnter = () => console.log('Enter');
+    const onPointerLeave = () => console.log('Leave');
+    const onPointerMove = (value: number, index: number) => console.log(value, index);
+
     const title = isOnRestaurantPage ? review.author.login : review.cafe.name;
 
     const navigate = useNavigate();
@@ -31,9 +45,19 @@ const ReviewItem: FC<ReviewItemProps> = ({ isOnRestaurantPage, review }) => {
                         {title}
                     </button>
                 </h3>
-                <div className='flex text-start items-center gap-2'>
-                    <Rating value={review.rating} readOnly />
-                </div>
+
+                {/* <ReactStars count={5} onChange={ratingChanged} size={24} activeColor='#ffd700' /> */}
+                <Rating
+                    fillColor='#ff5f49'
+                    fillStyle={{ color: '#ff5f49' }}
+                    // emptyStyle={{  }}
+                    initialValue={rating}
+                    onClick={handleRating}
+                    onPointerEnter={onPointerEnter}
+                    onPointerLeave={onPointerLeave}
+                    onPointerMove={onPointerMove}
+                    readonly
+                />
             </div>
 
             <div className='w-full border rounded border-zinc-300 dark:border-zinc-600 p-1.5'>

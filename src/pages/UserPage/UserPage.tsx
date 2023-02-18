@@ -19,9 +19,9 @@ const UserPage = () => {
     const [currentReview, setCurrentReview] = useState(emptyReview);
     const [currentRest, setCurrentRest] = useState(emptyRestaurant);
 
-    useEffect(() => {
-        getUser(state.user.id).then((user: IUser) => dispatch({ type: 'updateUser', payload: user }));
-    }, []);
+    // useEffect(() => {
+    //     getUser(state.user.id).then((user: IUser) => dispatch({ type: 'updateUser', payload: user }));
+    // }, []);
 
     const navigate = useNavigate();
 
@@ -84,7 +84,7 @@ const UserPage = () => {
     return (
         <>
             <div className='flex flex-col w-full md:w-9/12 2xl:w-9/12 mx-auto pb-10 md:py-5 gap-5 select-none'>
-                <div className='flex flex-col p-5 gap-3 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg relative'>
+                <div className='flex flex-col p-5 gap-5 bg-zinc-200 dark:bg-zinc-700 rounded drop-shadow-lg relative'>
                     <div className='flex flex-col sm:flex-row items-center sm:items-start justify-center sm:justify-between gap-5'>
                         <div className='w-full sm:w-6/12 flex flex-col items-center sm:items-start gap-5'>
                             <div className='flex items-center gap-3'>
@@ -104,14 +104,14 @@ const UserPage = () => {
                             </div>
                         </div>
                         <div className='w-9/12 sm:w-5/12 flex flex-col items-center'>
-                            <div className='w-16 h-16 bg-medalSilver bg-cover drop-shadow-md shadow-gray-900'></div>
+                            <div className='w-10 h-10 bg-medalSilver bg-cover drop-shadow-md shadow-gray-900'></div>
                             <h3 className='p-1'>{`${bonus} бонусов`}</h3>
-                            <h2 className='text-xl 2xl:text-2xl text-center font-semibold dark:text-smoke-gray items-center drop-shadow-md'>
+                            <h2 className='text-lg 2xl:text-xl text-center font-semibold dark:text-smoke-gray items-center drop-shadow-md'>
                                 Ваш уровень: <b>любитель</b>
                             </h2>
-                            <div className='w-full'>
-                                <div className='flex items-center gap-1 w-full h-4 my-5 bg-gradient-to-r from-zinc-300 via-corall to-black rounded drop-shadow-md'>
-                                    <div className={`${width} h-8 border-r-4 border-black`}></div>
+                            <div className='w-full mt-0 -mb-5'>
+                                <div className='flex items-center gap-1 w-full h-2 my-3 bg-gradient-to-r from-zinc-300 via-corall to-black rounded drop-shadow-md'>
+                                    <div className={`${width} h-3.5 border-r-4 border-black`}></div>
                                 </div>
                                 <p className={`${width} flex justify-end text-sm font-bold text-black`}>
                                     <span className='w-full text-end -mr-2'>{bonus}</span>

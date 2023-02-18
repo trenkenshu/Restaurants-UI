@@ -41,6 +41,10 @@ const LoginForm = () => {
                     user.favourites.forEach((rest) => {
                         rest.parsedTranslation = JSON.parse(rest.translation);
                     });
+                    user.bookings.forEach((el) => {
+                        el.cafe.parsedTranslation = JSON.parse(el.cafe.translation);
+                    });
+
                     dispatch({
                         type: 'updateUser',
                         payload: user,

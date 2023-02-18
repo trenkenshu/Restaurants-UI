@@ -41,7 +41,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
     };
 
     return (
-        <div className='h-72 w-72 sm:w-72 sm:h-72 gap-2 relative drop-shadow-lg'>
+        <div className='h-80 w-72 gap-2 relative drop-shadow-lg'>
             <img
                 className='w-full h-full rounded'
                 src={`${baseURL}/${booking.cafe.images[0]}`}
@@ -64,10 +64,19 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                     <p className='text-3xl -mt-3 font-semibold text-black text-end drop-shadow-md'>
                         {hours}:{minutes}
                     </p>
-                    <p className='font-bold text-end text-black -mt-2 drop-shadow-md'>{bookingDate}</p>
+                    <p className='font-bold text-end text-black -mt-1 drop-shadow-md'>
+                        <ul className='list-none leading-5'>
+                            {bookingDate.split(', ').map((el) => {
+                                return <li key={el}>{el}</li>;
+                            })}
+                        </ul>
+                    </p>
+                    <p className='text-sm text-end text-black leading-4'>{`${content.booking.guest[state.language]}${
+                        booking.guestName
+                    }`}</p>
                     <p className='text-sm text-end text-black leading-4'>
                         {`${content.booking.table[state.language]} №${booking.tableId}
-                        ${content.booking.forPersons[state.language]} ${booking.guestId}
+                        ${content.booking.forPersons[state.language]} ${booking.guestsAmount}
                         ${content.booking.person[state.language]}
                         ${content.booking.forDuration[state.language]}
                         ${booking.duration} ${content.booking.hours[state.language]}`}
