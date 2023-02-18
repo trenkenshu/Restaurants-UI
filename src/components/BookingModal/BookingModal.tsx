@@ -12,6 +12,7 @@ import logoWhite from '../../assets/icons/favicon_white3.png';
 
 type BookingModalProps = {
     restaurant: IRestaurant;
+    setRestaurant: (data: IRestaurant) => void;
     isBookingModalOpen: boolean;
     closeBookingModal: () => void;
     title: string;
@@ -22,7 +23,7 @@ type BookingModalProps = {
 };
 
 const BookingModal: FC<BookingModalProps> = (props) => {
-    const { isBookingModalOpen, closeBookingModal, title, isBookingEdit, restaurant } = props;
+    const { isBookingModalOpen, closeBookingModal, title, isBookingEdit, restaurant, setRestaurant } = props;
     const { state } = useContext(AppContext);
     const navigate = useNavigate();
     // const [activeStep, setActiveStep] = useState(0);
@@ -57,7 +58,11 @@ const BookingModal: FC<BookingModalProps> = (props) => {
         >
             <div className='flex flex-col h-full justify-between items-center'>
                 {state.user.id > 0 ? (
-                    <BookingStepper restaurant={restaurant} closeBookingModal={closeBookingModal} />
+                    <BookingStepper
+                        restaurant={restaurant}
+                        setRestaurant={setRestaurant}
+                        closeBookingModal={closeBookingModal}
+                    />
                 ) : (
                     <div className='flex flex-col gap-6 items-center p-5'>
                         <img className='dark:hidden mx-auto h-14 w-auto rounded-full shadow-lg' src={logoBlack}></img>
@@ -71,6 +76,7 @@ const BookingModal: FC<BookingModalProps> = (props) => {
                         <ButtonBlack
                             width='w-48'
                             height='h-12'
+                            fontsize='text-lg'
                             buttonText={content.bookingModal.guestBtnText[state.language]}
                             onClick={() => navigate('/registration')}
                         />

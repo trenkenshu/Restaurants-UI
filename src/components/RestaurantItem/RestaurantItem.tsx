@@ -54,9 +54,9 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
             },
         ],
     };
-    console.log(restaurant);
+
     return (
-        <div className='flex flex-col gap-1 p-2 bg-white dark:bg-zinc-200 dark:text-zinc-800 rounded-md'>
+        <div className='flex flex-col gap-1 p-2 bg-white dark:bg-zinc-700 rounded-md'>
             <div className='flex gap-2.5 items-center'>
                 <Link
                     to={`/restaurants/${restaurant.id}`}
@@ -64,13 +64,13 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                 >
                     {restaurant.name}
                 </Link>
-                <div className='flex items-center  gap-1 border rounded px-0.5'>
+                <div className='flex items-center gap-1 border rounded px-0.5'>
                     <div className='bg-rating h-4 w-4 bg-no-repeat bg-cover'></div>
                     <div className=''>{restaurant.rating}</div>
                 </div>
-                <div className='flex items-center gap-1 border rounded px-0.5 bg-red-500'>
-                    <div className='bg-review h-4 w-4 bg-no-repeat bg-cover'></div>
-                    <div className=''></div>
+                <div className='flex items-center gap-1 border rounded px-0.5'>
+                    <div className='bg-review dark:bg-reviewWhite h-5 w-5 bg-no-repeat bg-cover'></div>
+                    <div className=''>{restaurant.reviews.length}</div>
                 </div>
                 <div className='w-10 h-10 ml-auto'>
                     <ButtonFavorite restaurant={restaurant} filled={checkFavorites(restaurant.id, state)} />

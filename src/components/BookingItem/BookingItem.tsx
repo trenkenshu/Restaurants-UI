@@ -14,6 +14,7 @@ interface BookingItemProps {
 
 const BookingItem: FC<BookingItemProps> = ({ booking }) => {
     const { state, dispatch } = useContext(AppContext);
+    // console.log('booking', booking);
 
     const bookingDate = getCalendarDate(new Date(booking.date), state.language);
     const hours = new Date(booking.date).getHours().toString().padStart(2, '0');

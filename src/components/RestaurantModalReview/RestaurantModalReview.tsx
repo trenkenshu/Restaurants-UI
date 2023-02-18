@@ -1,34 +1,35 @@
 import { createReview, getRestaurant, getUser, updateReview } from 'api/api';
 import ButtonBlack from 'components/ButtonBlack';
 import Modal from 'components/Modal';
-import { FC, useContext, useState } from 'react';
+import { FC, useContext, useEffect, useState } from 'react';
 import { Rating } from 'react-rainbow-components';
 import { AppContext } from 'store/store';
 import { IRestaurant, IReview } from 'types';
 import { content } from 'utils/content';
 import spinner from '../../assets/icons/spinner_corall.png';
-import './ModalReview.css';
 import logoBlack from '../../assets/icons/favicon.png';
 import logoWhite from '../../assets/icons/favicon_white3.png';
 import { useNavigate } from 'react-router-dom';
 
-interface ModalReviewProps {
-    setIsModalReviewOpen: (data: boolean) => void;
-    // closeModalReveiw: () => void;
+interface RestaurantModalReviewProps {
+    // setIsModalReviewOpen: (data: boolean) => void;
+    closeModalReview: () => void;
     isModalReviewOpen: boolean;
     restaurant: IRestaurant;
     setRestaurant: (data: IRestaurant) => void;
     userReview?: IReview;
 }
 
-const ModalReview: FC<ModalReviewProps> = (props) => {
-    const { setIsModalReviewOpen, isModalReviewOpen, restaurant, setRestaurant, userReview } = props;
+const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {
+    const { closeModalReview, isModalReviewOpen, restaurant, setRestaurant } = props;
     const { state, dispatch } = useContext(AppContext);
     const [errorMessageRating, setErrorMessageRating] = useState('');
     const [errorMessageReview, setErrorMessageReview] = useState('');
     const [submitBtnClass, setSubmitBtnClass] = useState('hidden');
+    const [rating, setRating] = useState(0);
+    const [review, setReview] = useState('');
     const navigate = useNavigate();
-    const hasUserBooking = userReview ? true : state.user.bookings.some((el) => el.cafeId === restaurant.id);
+    const hasUserBooking = state.user.bookings.some((el) => el.cafeId === restaurant.id);
     // const hasUserBooking = restaurant.bookings.map((el) => {
     //     if (el.guestId === state.user.id) {
     //         return el;
@@ -36,52 +37,39 @@ const ModalReview: FC<ModalReviewProps> = (props) => {
     // });
     // console.log('hasUserBooking', hasUserBooking);
 
-    const closeModalReview = () => {
-        setIsModalReviewOpen(false);
-        document.body.classList.remove('active');
-        !userReview && document.getElementById('innerScroll')?.classList.remove('active');
-    };
+    useEffect(() => {
+        checkInputs();
+    }, [rating, review]);
 
-    const currentRating = userReview ? Number(userReview.rating) : '';
-    const [rating, setRating] = useState(currentRating);
-    // const onChangeRating = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     const value = event.target.value;
-    //     setRating(value);
-    //     console.log('onChange rating:::', rating);
+    // const closeModalReview = () => {
+    //     setIsModalReviewOpen(false);
+    //     document.body.classList.remove('active');
+    //     document.getElementById('innerScroll')?.classList.remove('active');
     // };
 
-    const currentReview = userReview ? userReview.text : '';
-    const [review, setReview] = useState(currentReview);
     const onChangeReview = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
         setReview(value);
-        checkInputs();
     };
 
     const checkInputs = () => {
         review.split(' ').length < 5
             ? setErrorMessageReview(`${content.reviewModal.errorMsgReview[state.language]}`)
             : setErrorMessageReview('');
-        rating === ''
+        rating === 0
             ? setErrorMessageRating(`${content.reviewModal.errorMsgRating[state.language]}`)
             : setErrorMessageRating('');
     };
 
-    const updateUserState = () => {
-        getUser(state.user.id).then((updatedUser) => {
-            dispatch({
-                type: 'updateUser',
-                payload: updatedUser,
-            });
-            // setIsModalReviewOpen(false);
-            closeModalReview();
-        });
+    const updateUserState = async () => {
+        const newUser = await getUser(state.user.id);
+        dispatch({ type: 'updateUser', payload: newUser });
     };
 
     const saveReview = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        setSubmitBtnClass('');
-        checkInputs();
+        // setSubmitBtnClass('');
+        // checkInputs();
         console.log('review');
 
         const createReviewBody = {
@@ -93,48 +81,23 @@ const ModalReview: FC<ModalReviewProps> = (props) => {
         console.log('rating', rating, typeof rating);
         console.log('review', review, typeof review);
 
-        if (rating > 0 && review.split(' ').length > 5) {
-            setSubmitBtnClass('');
+        if (rating > 0 && review.split(' ').length >= 5) {
             console.log('inner review');
-
-            if (userReview) {
-                updateReview({ id: userReview.id, rating: rating, text: review }).then((data) => {
-                    if (typeof data === 'object') {
-                        updateUserState();
-                        // setIsModalReviewOpen(false);
-                        closeModalReview();
-                    } else {
-                        console.log('error:::', data);
-                    }
-                });
-            } else {
-                setSubmitBtnClass('hidden');
-                setRating(0);
-                setReview('');
-                createReview(createReviewBody).then((data) => {
-                    console.log('Create review', data);
+            setSubmitBtnClass('');
+            createReview(createReviewBody).then((data) => {
+                console.log('Create review', data);
+                if (typeof data === 'object') {
                     data.parsedTranslation = JSON.parse(data.translation);
-                    // setRestaurant(data);
-                    if (typeof data === 'object') {
-                        setRestaurant(data);
-                        // setSubmitBtnClass('hidden');
-                        // setRating(0);
-                        // setReview('');
-                        // getRestaurant(restaurant.id).then((updatedRestaurant) => {
-                        //     dispatch({
-                        //         type: 'getRestaurant',
-                        //         payload: updatedRestaurant,
-                        //     });
-                        // });
-                        updateUserState();
-                        // setIsModalReviewOpen(false);
-                        closeModalReview();
-                    } else {
-                        console.log('error:::', data);
-                    }
-                });
-            }
-            closeModalReview();
+                    setRestaurant(data);
+                    setSubmitBtnClass('hidden');
+                    setRating(0);
+                    setReview('');
+                    updateUserState();
+                    closeModalReview();
+                } else {
+                    console.log('error:::', data);
+                }
+            });
         } else {
             setSubmitBtnClass('hidden');
         }
@@ -142,7 +105,7 @@ const ModalReview: FC<ModalReviewProps> = (props) => {
 
     const setStars = (event: React.ChangeEvent<HTMLElement>) => {
         const target = event.target as HTMLInputElement;
-        setRating(target.value);
+        setRating(Number(target.value));
     };
 
     return (
@@ -175,14 +138,16 @@ const ModalReview: FC<ModalReviewProps> = (props) => {
                             ></textarea>
                         </div>
 
-                        <p className='text-corall text-center flex justify-center drop-shadow-md'>
+                        <div className='text-corall text-center flex justify-center drop-shadow-md'>
                             <img
                                 className={`${submitBtnClass} animate-spin h-10 w-10 drop-shadow-md`}
                                 src={spinner}
                             ></img>
-                            {errorMessageReview}
-                            {errorMessageRating}
-                        </p>
+                            <div className='flex flex-col'>
+                                <p>{errorMessageReview}</p>
+                                <p> {errorMessageRating}</p>
+                            </div>
+                        </div>
 
                         <div className='flex flex-col sm:flex-row w-full gap-5 mt-3 justify-center items-center'>
                             <ButtonBlack
@@ -197,7 +162,6 @@ const ModalReview: FC<ModalReviewProps> = (props) => {
                                 height='h-10'
                                 fontsize='text-lg'
                                 buttonText={content.common.save[state.language]}
-                                // onClick={() => saveUpdatedUserData}
                                 type='submit'
                             />
                         </div>
@@ -236,4 +200,4 @@ const ModalReview: FC<ModalReviewProps> = (props) => {
     );
 };
 
-export default ModalReview;
+export default RestaurantModalReview;

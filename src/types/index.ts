@@ -24,11 +24,11 @@ export interface IRestaurant
 }
 export interface IReview {
     id: number;
-    // cafe: IRestaurant;
     authorId: number;
     author: IUser;
     text: string;
-    rating: number | string;
+    // rating: number | string;
+    rating: number;
     cafeId: number;
     cafe: IRestaurant;
 }
@@ -80,6 +80,9 @@ export interface ICreateBooking {
     tableId: number;
     date: Date;
     duration: number;
+    guestsAmount: number;
+    guestName: string;
+    guestPhone: string;
 }
 
 export interface IBooking {
@@ -134,6 +137,16 @@ export interface IState {
     currentCity: CityType;
     language: 'en' | 'ru';
     theme: string;
+}
+export interface IStepper {
+    stepsFinished: boolean[];
+    reservedTables: string[];
+    // selectedTable: string;
+    stepOne: Date;
+    stepTwo: string;
+    stepThree: { guestNumber: number; tableId: string };
+    stepFour: { name: string; phone: string; comment: string };
+    stepFive: IBooking;
 }
 
 export type ActionType =

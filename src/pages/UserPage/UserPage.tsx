@@ -1,6 +1,6 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { createBooking, createReview, deleteReview, getRestaurant, getUser } from 'api/api';
-import { ICreateBooking, ICreateReview } from 'types';
+import { ICreateBooking, ICreateReview, IUser } from 'types';
 import BookingItem from 'components/BookingItem';
 import ReviewItem from 'components/ReviewItem';
 import { content } from 'utils/content';
@@ -10,6 +10,7 @@ import RestaurantCard from 'components/RestaurantCard';
 import ModalUserData from 'components/ModalUserData';
 import ModalReview from 'components/ModalReview';
 import { emptyRestaurant, emptyReview, emptyUser } from 'utils/constants';
+import UserPageModalReview from 'components/UserPageModalReview';
 
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -18,11 +19,15 @@ const UserPage = () => {
     const [currentReview, setCurrentReview] = useState(emptyReview);
     const [currentRest, setCurrentRest] = useState(emptyRestaurant);
 
+    useEffect(() => {
+        getUser(state.user.id).then((user: IUser) => dispatch({ type: 'updateUser', payload: user }));
+    }, []);
+
     const navigate = useNavigate();
 
     console.log('state:::', state);
 
-    const openModal = () => {
+    const openModalUserInfo = () => {
         setIsModalUserInfoOpen(true);
         document.body.classList.add('active');
     };
@@ -32,13 +37,14 @@ const UserPage = () => {
         document.body.classList.add('active');
 
         const currentReview = state.user.reviews.filter((rev) => rev.id === id)[0];
+        console.log('currentReview', currentReview);
         setCurrentReview(currentReview);
 
         await getRestaurant(currentReview.cafeId).then((rest) => {
             setCurrentRest(rest);
         });
     };
-    const closeModalReveiw = () => {
+    const closeModalReview = () => {
         setIsModalReviewOpen(false);
         document.body.classList.remove('active');
     };
@@ -117,7 +123,7 @@ const UserPage = () => {
                         <button
                             title={content.userPage.settings[state.language]}
                             className='h-8 sm:w-8 w-24 sm:bg-sets bg-cover sm:dark:bg-setsWhite sm:text-transparent border-2 sm:border-none border-gray-800 rounded-full opacity-50 hover:opacity-100 transition'
-                            onClick={openModal}
+                            onClick={openModalUserInfo}
                         >
                             Settings
                         </button>
@@ -191,20 +197,17 @@ const UserPage = () => {
                 </div>
                 {/* <ProgressStepsBarUX /> */}
             </div>
-            {isModalUserInfoOpen && (
-                <ModalUserData
-                    setIsModalUserInfoOpen={setIsModalUserInfoOpen}
-                    isModalUserInfoOpen={isModalUserInfoOpen}
-                />
-            )}
-            {isModalReviewOpen && (
-                <ModalReview
-                    closeModalReveiw={closeModalReveiw}
-                    isModalReviewOpen={isModalReviewOpen}
-                    restaurant={currentRest}
-                    userReview={currentReview}
-                />
-            )}
+
+            <ModalUserData setIsModalUserInfoOpen={setIsModalUserInfoOpen} isModalUserInfoOpen={isModalUserInfoOpen} />
+
+            <UserPageModalReview
+                closeModalReview={closeModalReview}
+                // setIsModalReviewOpen={setIsModalReviewOpen}
+                isModalReviewOpen={isModalReviewOpen}
+                restaurant={currentRest}
+                userReview={currentReview}
+                // setRestaurant={setCurrentRest}
+            />
         </>
     );
 };

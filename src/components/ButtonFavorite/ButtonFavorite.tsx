@@ -1,4 +1,4 @@
-import { updateUser } from 'api/api';
+import { addRemoveFavourites, updateUser } from 'api/api';
 import React, { FC, useContext } from 'react';
 import { AppContext } from 'store/store';
 import { IRestaurant } from 'types';
@@ -14,24 +14,35 @@ const ButtonFavorite: FC<ButtonFavoriteProps> = ({ filled, restaurant }) => {
 
     const updateFavorites = async (id: number, filled: boolean) => {
         if (state.user.id === 0) return;
+        // filled
+        //     ? (state.user.favourites = state.user.favourites.filter((rest) => rest.id !== id))
+        //     : state.user.favourites && state.user.favourites.push(restaurant);
+        let updatedUser;
         filled
-            ? (state.user.favourites = state.user.favourites.filter((rest) => rest.id !== id))
-            : state.user.favourites && state.user.favourites.push(restaurant);
-
-        const bodyForUpdateUser = { ...state.user };
-        updateUser(bodyForUpdateUser).then((updatedUser) => {
-            if (typeof updatedUser.data === 'object') {
-                dispatch({
-                    type: 'updateUser',
-                    payload: updatedUser.data,
-                });
-            }
-        });
+            ? (updatedUser = await addRemoveFavourites('delete', state.user.id, restaurant.id))
+            : (updatedUser = await addRemoveFavourites('post', state.user.id, restaurant.id));
+        console.log(updatedUser);
+        updatedUser &&
+            dispatch({
+                type: 'updateUser',
+                payload: updatedUser.data,
+            });
     };
+
+    // const bodyForUpdateUser = { ...state.user };
+    // updateUser(bodyForUpdateUser).then((updatedUser) => {
+    //     if (typeof updatedUser.data === 'object') {
+    //         dispatch({
+    //             type: 'updateUser',
+    //             payload: updatedUser.data,
+    //         });
+    //     }
+    // });
+    // };
 
     return (
         <button
-            className={`w-full h-full ${bg} bg-cover hover:scale-125 transition`}
+            className={`w-full h-full ${bg} bg-cover hover:scale-110 transition duration-300`}
             onClick={() => updateFavorites(restaurant.id, filled)}
         ></button>
     );

@@ -12,7 +12,9 @@ import setTimeIntervals from 'utils/functions/setTimeIntervals';
 import { ICreateBooking, IRestaurant } from 'types';
 import { isConstructorDeclaration } from 'typescript';
 import { content } from 'utils/content';
-import { createBooking, getUser } from 'api/api';
+import { createBooking, getRestaurant, getUser } from 'api/api';
+import { emptyStepper, nameRegexp, phoneRegexp } from 'utils/constants';
+import checkActiveTime from 'utils/functions/checkActiveTime';
 
 const steps = {
     en: ['Select date', 'Select time', 'Select table', 'Guest info', 'Finish booking'],
@@ -21,127 +23,210 @@ const steps = {
 
 type BookingStepperProps = {
     restaurant: IRestaurant;
+    setRestaurant: (data: IRestaurant) => void;
     closeBookingModal: () => void;
     // date: Date;
     // setDate: (data: Date) => void;
     // setTableId: (data: string) => void;
 };
 
-const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal }) => {
+const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal, setRestaurant }) => {
     const { state, dispatch } = useContext(AppContext);
     const [activeStep, setActiveStep] = useState(0);
-    const [isStepEnd, setIsStepEnd] = useState(false);
+    const [stepperState, setStepperState] = useState(emptyStepper);
+    // for inputs
+    const [nameError, setNameError] = useState(false);
+    const [nameFocus, setNameFocus] = useState(false);
+    const [phoneError, setPhoneError] = useState(false);
+    const [phoneFocus, setPhoneFocus] = useState(false);
 
     // states
-    const [date, setDate] = useState(new Date());
-    const [time, setTime] = useState('');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [guestAmount, setGuestAmount] = useState(1);
-    const [tableId, setTableId] = useState('');
+    // const [date, setDate] = useState(new Date());
+    // const [time, setTime] = useState('');
+    // const [name, setName] = useState('');
+    // const [phone, setPhone] = useState('');
+    // const [guestAmount, setGuestAmount] = useState(1);
+    // const [tableId, setTableId] = useState('');
+    // const [isStepEnd, setIsStepEnd] = useState(false);
 
     const timeIntervals = setTimeIntervals(restaurant.workTimeStart, restaurant.workTimeEnd - 2);
     // console.log('time', timeIntervals);
 
     useEffect(() => {
-        if (guestAmount > 0 && tableId.length > 0) {
-            setIsStepEnd(true);
+        if (!nameError && stepperState.stepFour.name.length && !phoneError && stepperState.stepFour.phone.length) {
+            console.log('step 4 true');
+            setStepperState((prev) => {
+                return {
+                    ...prev,
+                    stepsFinished: prev.stepsFinished.map((el) => (el = true)),
+                };
+            });
+        } else {
+            console.log('step4 false', activeStep);
+            setStepperState((prev) => {
+                return {
+                    ...prev,
+                    stepsFinished: prev.stepsFinished.map((el, index) => index === 3 && (el = false)),
+                };
+            });
         }
-    }, [guestAmount, tableId]);
+    }, [nameError, phoneError, stepperState.stepFour.name, stepperState.stepFour.phone]);
+    // const checkStepFour = () => {
+    //     if (!nameError && stepperState.stepFour.name.length && !phoneError && stepperState.stepFour.phone.length) {
+    //         console.log('step 4 true');
+    //         setStepperState((prev) => {
+    //             return {
+    //                 ...prev,
+    //                 stepsFinished: prev.stepsFinished.map((el) => (el = true)),
+    //             };
+    //         });
+    //     } else {
+    //         console.log('step4 false', activeStep);
+    //         setStepperState((prev) => {
+    //             return {
+    //                 ...prev,
+    //                 stepsFinished: prev.stepsFinished.map((el, index) => index === 3 && (el = false)),
+    //             };
+    //         });
+    //     }
+    // };
 
-    useEffect(() => {
-        if (name.length > 0 && phone.length > 0) {
-            setIsStepEnd(true);
-        }
-    }, [name, phone]);
-
-    useEffect(() => {
-        if (activeStep !== steps[state.language].length - 1) {
-            setIsStepEnd(false);
-        }
-    }, [activeStep]);
-
+    // Inputs functions
     const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { target } = event;
-        console.log('name', target.value);
-        setName(target.value);
+        const value = event.target.value.replace(/[^A-Za-zА-Яа-я\s]/g, '');
+        if (value.match(nameRegexp)) {
+            setNameError(false);
+        } else {
+            setNameError(true);
+        }
+        setStepperState((prev) => {
+            return {
+                ...prev,
+                stepFour: { ...prev.stepFour, name: value },
+            };
+        });
     };
     const phoneHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { target } = event;
-        console.log('phone', target.value);
-        setPhone(target.value);
+        const value = event.target.value.replace(/[^\d+]/g, '');
+        if (value.match(phoneRegexp)) {
+            setPhoneError(false);
+        } else {
+            setPhoneError(true);
+        }
+        setStepperState((prev) => {
+            return {
+                ...prev,
+                stepFour: { ...prev.stepFour, phone: value },
+            };
+        });
     };
+
     const guestAmountHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const { target } = event;
-        console.log('guestAmount', target.value);
-        setGuestAmount(Number(target.value));
+        setStepperState((prev) => {
+            return {
+                ...prev,
+                stepThree: { ...prev.stepThree, guestNumber: Number(target.value) },
+            };
+        });
+    };
+    const blurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+        const { target } = event;
+        switch (target.name) {
+            case 'bookingName':
+                setNameFocus(true);
+                break;
+            case 'bookingPhone':
+                setPhoneFocus(true);
+                break;
+        }
     };
 
     const handleNext = () => {
         if (activeStep >= 0 && activeStep < steps[state.language].length) {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
-            // setIsStepEnd(false);
         }
-        console.log(activeStep);
+        console.log('next', activeStep);
         if (activeStep === steps[state.language].length - 1) {
             console.log('Завершили бронь');
-            const dateOfBooking = new Date(`${date.toDateString()} ${time}:00:00`);
+            const dateOfBooking = new Date(`${stepperState.stepOne.toDateString()} ${stepperState.stepTwo}:00:00`);
             console.log(dateOfBooking);
             const bookingBody = {
                 clientId: state.user.id,
                 cafeId: restaurant.id,
-                tableId: Number(tableId),
+                tableId: Number(stepperState.stepThree.tableId),
                 date: dateOfBooking,
                 duration: 1,
+                guestName: stepperState.stepFour.name,
+                guestPhone: stepperState.stepFour.phone,
+                guestsAmount: stepperState.stepThree.guestNumber,
             };
-            console.log(bookingBody);
+            console.log('bookingBody', bookingBody);
             makeReservation(bookingBody);
             // обнуляем данные.
             setTimeout(() => {
                 console.log('close modal');
                 closeBookingModal();
                 handleReset();
-            }, 2000);
+            }, 1000);
         }
     };
 
     const handleBack = () => {
-        console.log(activeStep);
+        console.log('back', stepperState.stepsFinished, activeStep);
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
     const handleReset = () => {
         setActiveStep(0);
-        setDate(new Date());
-        setTime('');
-        setPhone('');
-        setGuestAmount(1);
-        setTableId('');
+        setStepperState(emptyStepper);
     };
-    // const chooseDate = () => {
-    //     setDate;
-    // };
-    const chooseTime = (event: React.MouseEvent<HTMLDivElement>) => {
+
+    const chooseTime = (event: React.MouseEvent<HTMLButtonElement>) => {
         const target = event.currentTarget;
         console.log(target.dataset.time);
         document.querySelectorAll('.timeblock').forEach((el) => el.classList.remove('active'));
         target.classList.add('active');
-        target.dataset.time && setTime(target.dataset.time);
-        setIsStepEnd(true);
+        // target.dataset.time && setTime(target.dataset.time);
+        console.log('restnbookings', restaurant.bookings);
+        const reservedTables: string[] = [];
+        restaurant.bookings.forEach((booking) => {
+            const dateOfBooking = new Date(`${stepperState.stepOne.toDateString()} ${target.dataset.time}:00:00`);
+            // console.log(new Date(booking.date).getTime() - dateOfBooking.getTime());
+            if (new Date(booking.date).getTime() === dateOfBooking.getTime()) {
+                reservedTables.push(String(booking.tableId));
+            }
+        });
+
+        setStepperState((prev) => {
+            return {
+                ...prev,
+                stepsFinished: prev.stepsFinished.map((el, index) => (index <= 1 ? (el = true) : (el = false))),
+                stepTwo: target.dataset.time ? target.dataset.time : '',
+                reservedTables: reservedTables,
+                stepThree: { ...prev.stepThree, tableId: '' },
+            };
+        });
+        console.log(stepperState.stepsFinished);
     };
 
-    // const checkGuestsAmountAndTable = () => {
-    //     if (guestAmount > 0 && tableId.length > 0) {
-    //         setIsStepEnd(true);
-    //     }
-    // };
     const makeReservation = (body: ICreateBooking) => {
         createBooking(body).then(() => {
             getUser(state.user.id).then((updatedUser) => {
+                console.log('NEWUSER', updatedUser);
                 dispatch({
                     type: 'updateUser',
                     payload: updatedUser,
                 });
+            });
+            getRestaurant(restaurant.id).then((restaurant) => {
+                console.log('NEWrestaurant', restaurant);
+                restaurant.parsedTranslation = JSON.parse(restaurant.translation);
+                setRestaurant(restaurant);
+                // dispatch({
+                //     type: 'getRestaurant',
+                //     payload: restaurant,
+                // });
             });
         });
     };
@@ -173,15 +258,32 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     {activeStep === 0 && (
                         <div className='flex flex-col gap-4 items-center text-zinc-800'>
                             <Calendar
-                                value={date}
-                                onChange={setDate}
+                                value={stepperState.stepOne}
+                                onChange={(value: Date) =>
+                                    setStepperState((prev) => {
+                                        return {
+                                            ...prev,
+                                            stepOne: value,
+                                        };
+                                    })
+                                }
                                 minDate={new Date()}
                                 locale={state.language}
-                                onClickDay={() => setIsStepEnd(true)}
+                                onClickDay={() => {
+                                    setStepperState((prev) => {
+                                        return {
+                                            ...prev,
+                                            stepsFinished: prev.stepsFinished.map((el, index) =>
+                                                index === 0 ? (el = true) : (el = false),
+                                            ),
+                                        };
+                                    });
+                                    console.log(stepperState.stepsFinished);
+                                }}
                             />
                             <div className='flex flex-col min-[400px]:flex-row gap-1 text-center'>
                                 <p className='font-bold'>{content.bookingModal.selectedDate[state.language]}:</p>
-                                <p>{getCalendarDate(date, state.language)}</p>
+                                <p>{getCalendarDate(stepperState.stepOne, state.language)}</p>
                             </div>
                         </div>
                     )}
@@ -190,14 +292,18 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                             <div className='font-bold'>{content.bookingModal.bookingTime[state.language]}</div>
                             <div className='flex gap-1 justify-center flex-wrap w-full min-[480px]:w-10/12 sm:w-8/12'>
                                 {timeIntervals.map((el, index) => (
-                                    <div
-                                        className='timeblock w-16 h-16 min-[400px]:w-20 min-[400px]:h-20 min-[680px]:w-24  min-[680px]:h-24 rounded bg-gray-400 flex items-center justify-center cursor-pointer'
+                                    <button
+                                        className={`timeblock w-16 h-16 min-[400px]:w-20 min-[400px]:h-20 min-[680px]:w-24  min-[680px]:h-24 rounded bg-gray-400 flex items-center justify-center cursor-pointer
+                                        disabled:bg-zinc-700 disabled:cursor-default ${
+                                            stepperState.stepTwo === String(el) && 'active'
+                                        }`}
+                                        disabled={!checkActiveTime(stepperState.stepOne, el)}
                                         key={index}
                                         data-time={el}
                                         onClick={chooseTime}
                                     >
                                         {el}.00
-                                    </div>
+                                    </button>
                                 ))}
                             </div>
                         </div>
@@ -210,10 +316,10 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                         {content.bookingModal.guestsNumber[state.language]}
                                     </label>
                                     <input
-                                        className='w-10 text-center text-zinc-800 border border-zinc-800 rounded focus:border-corall focus:outline-none'
+                                        className='w-10 text-center text-zinc-800 border border-zinc-800 rounded focus:outline-none'
                                         type='number'
                                         id='guestsNum'
-                                        value={guestAmount}
+                                        value={stepperState.stepThree.guestNumber}
                                         min={1}
                                         max={4}
                                         maxLength={9}
@@ -224,39 +330,75 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                     {content.bookingModal.guestsPerTable[state.language]}
                                 </p>
                             </div>
-                            <RestaurantScheme setTableId={setTableId} />
+                            <RestaurantScheme
+                                restaurant={restaurant}
+                                stepperState={stepperState}
+                                setStepperState={setStepperState}
+                            />
                         </>
                     )}
                     {activeStep === 3 && (
                         <div className='flex w-8/12 flex-col gap-3'>
-                            <div className='flex flex-col'>
-                                <p className='font-semibold'>{content.bookingModal.name[state.language]}</p>
+                            <div className='flex flex-col gap-1'>
+                                <div className='flex gap-2 justify-between'>
+                                    <p className='font-semibold'>{content.bookingModal.name[state.language]}</p>
+                                    {nameFocus && nameError && <p className='text-red-500 font-semibold'>Error</p>}
+                                </div>
+
                                 <input
-                                    className='w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:border-corall focus:outline-none'
+                                    className={`w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:outline-none ${
+                                        nameFocus && !nameError && 'border-green-500'
+                                    }`}
                                     type='text'
+                                    name='bookingName'
+                                    value={stepperState.stepFour.name}
                                     placeholder={content.bookingModal.namePlaceholder[state.language]}
-                                    onChange={nameHandler}
+                                    onBlur={(event) => blurHandler(event)}
+                                    onChange={(event) => {
+                                        nameHandler(event);
+                                        // checkStepFour();
+                                    }}
                                 />
+                                <p className='w-fit p-1 bg-zinc-300 text-zinc-800 dark:text-smoke-gray text-sm rounded'>
+                                    {content.bookingModal.nameError[state.language]}
+                                </p>
                             </div>
-                            <div className='flex flex-col'>
-                                <p className='font-semibold'>{content.bookingModal.phone[state.language]}</p>
+                            <div className='flex flex-col gap-1'>
+                                <div className='flex gap-2 justify-between'>
+                                    <p className='font-semibold'>{content.bookingModal.phone[state.language]}</p>
+                                    {phoneFocus && phoneError && <p className='text-red-500 font-semibold'>Error</p>}
+                                </div>
                                 <input
-                                    className='w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:border-corall focus:outline-none'
+                                    className={`w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:outline-none ${
+                                        phoneFocus && !phoneError && 'border-green-500'
+                                    }`}
                                     type='text'
+                                    name='bookingPhone'
+                                    value={stepperState.stepFour.phone}
                                     placeholder={content.bookingModal.phonePlaceholder[state.language]}
-                                    onChange={phoneHandler}
+                                    onBlur={(event) => blurHandler(event)}
+                                    onChange={(event) => {
+                                        phoneHandler(event);
+                                        // checkStepFour();
+                                    }}
                                 />
+                                <p className='w-fit p-1 bg-zinc-300 text-zinc-800 dark:text-smoke-gray text-sm rounded'>
+                                    {content.bookingModal.phoneError[state.language]}
+                                </p>
                             </div>
                             <div className='flex flex-col'>
-                                <p className='font-semibold'>{content.bookingModal.comment[state.language]}</p>
+                                <p className='font-semibold'>
+                                    {content.bookingModal.comment[state.language]} (
+                                    {content.bookingModal.optional[state.language]})
+                                </p>
                                 <textarea
-                                    className='text-zinc-800 border border-zinc-800 dark:border-smoke-gray rounded pl-1 focus:border-corall focus:outline-none resize-none '
+                                    className='text-zinc-800 border border-zinc-800 dark:border-smoke-gray rounded pl-1 focus:outline-none resize-none '
                                     name='textarea'
                                     id='comment'
                                     placeholder={content.bookingModal.commentPlaceholder[state.language]}
                                     defaultValue={''}
-                                    cols={10}
-                                    rows={8}
+                                    cols={8}
+                                    rows={6}
                                 ></textarea>
                             </div>
                         </div>
@@ -265,61 +407,47 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                         <div className='flex flex-col w-11/12 sm:w-8/12 gap-3'>
                             <div className='w-full flex justify-between text-lg sm:text-2xl'>
                                 <p className=''>{content.bookingModal.name[state.language]}:</p>
-                                <p className='font-semibold'>{name}</p>
+                                <p className='font-semibold'>{stepperState.stepFour.name}</p>
                             </div>
                             <div className='w-full flex justify-between text-lg sm:text-2xl'>
                                 <p className=''>{content.bookingModal.phone[state.language]}: </p>
-                                <p className='font-semibold'>{phone}</p>
+                                <p className='font-semibold'>{stepperState.stepFour.phone}</p>
                             </div>
                             <div className='w-full flex flex-col min-[400px]:flex-row justify-between text-lg sm:text-2xl'>
                                 <p className=''>{content.bookingModal.date[state.language]}:</p>
                                 <p className='font-semibold self-end min-[400px]:self-auto'>
-                                    {getCalendarDate(date, state.language)}
+                                    {getCalendarDate(stepperState.stepOne, state.language)}
                                 </p>
                             </div>
                             <div className='w-full flex justify-between text-lg sm:text-2xl'>
                                 <p className=''>{content.bookingModal.time[state.language]}:</p>
-                                <p className='font-semibold'>{time}</p>
+                                <p className='font-semibold'>{stepperState.stepTwo}.00</p>
                             </div>
                             <div className='w-full flex justify-between text-lg sm:text-2xl'>
                                 <p className=''>{content.bookingModal.table[state.language]}:</p>
-                                <p className='font-semibold'>{tableId}</p>
+                                <p className='font-semibold'>{stepperState.stepThree.tableId}</p>
                             </div>
                             <div className='w-full flex justify-between text-lg sm:text-2xl'>
                                 <p className=''>{content.bookingModal.guestsNumber[state.language]}:</p>
-                                <p className='font-semibold'>{guestAmount}</p>
+                                <p className='font-semibold'>{stepperState.stepThree.guestNumber}</p>
                             </div>
                         </div>
                     )}
                 </div>
                 <div className='flex justify-center gap-3 p-2'>
-                    {/* <button
-                        className='py-1 px-2 text-xl border border-zinc-800 dark:border-corall rounded disabled:bg-gray-400 hover:disabled:bg-gray-400 hover:disabled:text-zinc-800 transition hover:bg-corall hover:text-white'
-                        disabled={activeStep === 0}
-                        onClick={handleBack}
-                    >
-                        {content.bookingModal.btnPrev[state.language]}
-                    </button>
-                    <button
-                        className='py-1 px-2 text-lg sm:text-xl border border-zinc-800 dark:border-corall rounded transition disabled:bg-gray-400 hover:disabled:bg-gray-400 hover:disabled:text-zinc-800 hover:bg-corall hover:text-white'
-                        onClick={handleNext}
-                        disabled={!isStepEnd}
-                    >
-                        {activeStep === steps[state.language].length - 1
-                            ? content.bookingModal.btnBook[state.language]
-                            : content.bookingModal.btnNext[state.language]}
-                    </button> */}
                     <ButtonBlack
-                        width='w-32'
-                        height='h-8'
+                        width='w-36'
+                        height='h-10'
+                        fontsize='text-lg'
                         buttonText={content.bookingModal.btnPrev[state.language]}
                         disabled={activeStep === 0}
                         onClick={handleBack}
                     />
                     <ButtonBlack
-                        width='w-32'
-                        height='h-8'
-                        disabled={!isStepEnd}
+                        width='w-36'
+                        height='h-10'
+                        fontsize='text-lg'
+                        disabled={!stepperState.stepsFinished[activeStep]}
                         onClick={handleNext}
                         buttonText={
                             activeStep === steps[state.language].length - 1

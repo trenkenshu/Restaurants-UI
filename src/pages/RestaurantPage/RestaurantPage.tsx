@@ -18,6 +18,7 @@ import ModalReview from 'components/ModalReview';
 import checkFavorites from 'utils/functions/checkFavorites';
 import { baseURL, emptyRestaurant } from 'utils/constants';
 import checkWorkTime from 'utils/functions/checkWorkTime';
+import RestaurantModalReview from 'components/RestaurantModalReview';
 
 const sliderSetting = {
     dots: false,
@@ -67,9 +68,6 @@ const RestaurantPage = () => {
     const [idError, setIdError] = useState(false);
     const [restaurant, setRestaurant] = useState(emptyRestaurant);
     const { id } = useParams();
-    // console.log('rest id', id);
-    // console.log(state.restaurants);
-    // const [tableId, setTableId] = useState('');
 
     const saveRestaurant = async () => {
         const restaurant = await getRestaurant(Number(id));
@@ -127,24 +125,22 @@ const RestaurantPage = () => {
                         <div className='flex flex-col items-center w-full h-full gap-2 pr-0.5'>
                             <BookingModal
                                 restaurant={restaurant}
+                                setRestaurant={setRestaurant}
                                 isBookingModalOpen={isBookingModalOpen}
                                 closeBookingModal={closeBookingModal}
                                 title='Book a table'
                                 isBookingEdit={false}
                             />
-                            <h1 className='text-4xl text-corall font-semibold drop-shadow-lg uppercase py-5'>
+                            <h1 className='text-4xl text-corall font-semibold drop-shadow-lg uppercase py-5 text-center'>
                                 {restaurant.name}
                             </h1>
-                            <a
-                                href='#restMap'
-                                className='flex items-center gap-1 px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'
-                            >
-                                <div className='bg-location dark:bg-locationWhite w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
+                            <div className='flex items-center gap-1 px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'>
+                                <div className='bg-location dark:bg-locationWhite w-6 h-6 bg-cover bg-no-repeat bg-center hover:scale-110 transition duration-300'></div>
                                 <div className=''>
                                     {restaurant.parsedTranslation &&
                                         restaurant.parsedTranslation[state.language].address}
                                 </div>
-                            </a>
+                            </div>
                             <div className='flex  flex-col sm:flex-row items-center gap-2.5'>
                                 <div className='flex gap-1 px-2 py-1 border border-gray-400 rounded-full'>
                                     <div className='border-r pr-1 border-gray-400'>
@@ -153,7 +149,7 @@ const RestaurantPage = () => {
                                     </div>
                                     <div className='flex gap-1'>
                                         <div
-                                            className={`w-6 h-6 bg-no-repeat bg-cover cursor-pointer ${
+                                            className={`w-6 h-6 bg-no-repeat bg-cover ${
                                                 checkWorkTime(restaurant.workTimeStart, restaurant.workTimeEnd)
                                                     ? 'bg-workGreen'
                                                     : 'bg-workRed'
@@ -167,22 +163,19 @@ const RestaurantPage = () => {
                                     </div>
                                 </div>
                                 <div className='flex gap-1.5 px-2 py-1 border border-gray-400 rounded-full cursor-pointer'>
-                                    <a
-                                        href='#restReviews'
-                                        className='flex items-center gap-1 border-r pr-1 border-gray-400'
-                                    >
-                                        <div className='bg-review dark:bg-reviewWhite w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
-                                        <div className=''>99</div>
-                                    </a>
+                                    <div className='flex items-center gap-1 border-r pr-1 border-gray-400'>
+                                        <div className='bg-review dark:bg-reviewWhite w-6 h-6 bg-cover bg-no-repeat bg-center hover:scale-110 transition duration-300'></div>
+                                        <div className=''>{restaurant.reviews.length}</div>
+                                    </div>
                                     <div className='flex gap-1'>
-                                        <div className='bg-rating w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
+                                        <div className='bg-rating w-6 h-6 bg-cover bg-no-repeat bg-center hover:scale-110 transition duration-300'></div>
                                         <div className=''>{restaurant.rating}</div>
                                     </div>
                                 </div>
                             </div>
                             <div className='flex items-center gap-2.5'>
                                 <div className='flex flex-col items-center min-w-[100px]' onClick={openBookingModal}>
-                                    <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite cursor-pointer'></div>
+                                    <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite cursor-pointer hover:scale-110 transition duration-300'></div>
                                     <div className=''>{content.restaurantsPage.book[state.language]}</div>
                                 </div>
                                 <div className='flex flex-col items-center min-w-[100px]'>
@@ -196,13 +189,12 @@ const RestaurantPage = () => {
                                 </div>
                                 <div className='flex flex-col items-center min-w-[100px]'>
                                     <button
-                                        className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center cursor-pointer'
+                                        className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center cursor-pointer hover:scale-110 transition duration-300'
                                         onClick={openReviewModal}
                                     ></button>
                                     <div className=''>{content.restaurantsPage.review[state.language]}</div>
                                 </div>
                             </div>
-                            {/* <RestaurantScheme /> */}
                             <div id='about' className='flex flex-col w-full h-full gap-2'>
                                 <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
                                     {content.restaurantsPage.about[state.language]}
@@ -253,10 +245,12 @@ const RestaurantPage = () => {
                     </div>
                 </div>
             )}
-            <ModalReview
-                closeModalReveiw={closeReviewModal}
+            <RestaurantModalReview
+                closeModalReview={closeReviewModal}
+                // setIsModalReviewOpen={setIsModalReviewOpen}
                 isModalReviewOpen={isModalReviewOpen}
                 restaurant={restaurant}
+                setRestaurant={setRestaurant}
             />
         </>
     );

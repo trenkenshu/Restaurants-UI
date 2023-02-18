@@ -8,13 +8,13 @@
 html {
   scroll-behavior: smooth;
 }
-/* html {
-  height: 100%;
-  width: 100%;
-}
-#root {
-  height: 100vh;
+/* #restReviews ~ html {
+  overflow: hidden;
 } */
+html:has(#restReviews) {
+  overflow: hidden;
+}
+
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     width: 10px;
@@ -45,10 +45,11 @@ body.active {
   right: 20px;
   z-index: 1;
 }
-.restaurant .slick-prev:before {
+/* .restaurant .slick-prev:before {
   font-size: 40px;
   color: white !important;
-}
+} */
+.restaurant .slick-prev:before,
 .restaurant .slick-next:before {
   font-size: 40px;
   color: white !important;
