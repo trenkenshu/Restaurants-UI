@@ -69,8 +69,8 @@ export const updateBooking = async (body: IBooking) => {
     return response.data;
 };
 
-export const deleteBooking = async (id: number) => {
-    const response = await api.delete(`/bookings/${id}`);
+export const deleteBooking = async (id: number, userId: number) => {
+    const response = await api.delete(`/bookings/${userId}/${id}`);
     console.log('delete booking:');
     return response.data;
 };
@@ -87,8 +87,8 @@ export const updateReview = async (body: IUpdateReview) => {
     return response.data;
 };
 
-export const deleteReview = async (id: number) => {
-    const response = await api.delete(`/reviews/${id}`);
+export const deleteReview = async (id: number, userId: number) => {
+    const response = await api.delete(`/reviews/${userId}/${id}`);
     console.log('delete review:', response.data);
     return response.data;
 };
