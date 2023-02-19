@@ -184,6 +184,10 @@ export const content = {
             en: 'Open now',
             ru: 'Открыто',
         },
+        noReviews: {
+            en: 'No reviews',
+            ru: 'Нету отзывов',
+        },
     },
     errorPage: {
         title: {
@@ -448,11 +452,11 @@ export const content = {
         },
         noBookingRedirect: {
             en: 'If you want to leave a review, you need to reserve a table in this restaurant',
-            ru: 'Если Вы хотите оставить отзыв, сначала следуюет забронировать столик в этом ресторане',
+            ru: 'Если Вы хотите оставить отзыв, сначала следует забронировать столик в этом ресторане',
         },
         noBookingBtnText: {
-            en: 'To book a table',
-            ru: 'К бронированию столика',
+            en: 'To booking',
+            ru: 'К бронированию',
         },
     },
 };

@@ -218,9 +218,17 @@ const RestaurantPage = () => {
                                     {content.restaurantsPage.reviews[state.language]}
                                 </div>
                                 <div className='pb-5'>
-                                    {restaurant.reviews.map((review) => {
-                                        return <ReviewItem review={review} key={review.id} isOnRestaurantPage={true} />;
-                                    })}
+                                    {restaurant.reviews.length > 0 ? (
+                                        restaurant.reviews.map((review) => {
+                                            return (
+                                                <ReviewItem review={review} key={review.id} isOnRestaurantPage={true} />
+                                            );
+                                        })
+                                    ) : (
+                                        <div className='text-lg'>
+                                            {content.restaurantsPage.noReviews[state.language]}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
