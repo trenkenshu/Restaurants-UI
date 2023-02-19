@@ -1,9 +1,6 @@
-import React, { FC, useState } from 'react';
-// import { Rating } from 'react-rainbow-components';
 import { Rating } from 'react-simple-star-rating';
-// import ReactStars from 'react-rating-stars-component';
-import { render } from 'react-dom';
 import { useNavigate } from 'react-router-dom';
+import React, { FC } from 'react';
 import { IReview } from 'types';
 import './ReviewItem.css';
 
@@ -13,17 +10,6 @@ interface ReviewItemProps {
 }
 
 const ReviewItem: FC<ReviewItemProps> = ({ isOnRestaurantPage, review }) => {
-    const [rating, setRating] = useState(review.rating);
-    const handleRating = (rate: number) => {
-        setRating(rate);
-
-        // other logic
-    };
-
-    const onPointerEnter = () => console.log('Enter');
-    const onPointerLeave = () => console.log('Leave');
-    const onPointerMove = (value: number, index: number) => console.log(value, index);
-
     const title = isOnRestaurantPage ? review.author.login : review.cafe.name;
 
     const navigate = useNavigate();
@@ -46,16 +32,12 @@ const ReviewItem: FC<ReviewItemProps> = ({ isOnRestaurantPage, review }) => {
                     </button>
                 </h3>
 
-                {/* <ReactStars count={5} onChange={ratingChanged} size={24} activeColor='#ffd700' /> */}
                 <Rating
                     fillColor='#ff5f49'
-                    fillStyle={{ color: '#ff5f49' }}
-                    // emptyStyle={{  }}
-                    initialValue={rating}
-                    onClick={handleRating}
-                    onPointerEnter={onPointerEnter}
-                    onPointerLeave={onPointerLeave}
-                    onPointerMove={onPointerMove}
+                    size={25}
+                    fillStyle={{ color: '#ff5f49', display: 'flex', flexWrap: 'wrap' }}
+                    emptyStyle={{ display: 'flex' }}
+                    initialValue={review.rating}
                     readonly
                 />
             </div>

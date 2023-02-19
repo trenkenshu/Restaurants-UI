@@ -1,7 +1,8 @@
 import { addRemoveFavourites, updateUser } from 'api/api';
 import React, { FC, useContext } from 'react';
 import { AppContext } from 'store/store';
-import { IRestaurant } from 'types';
+import { IRestaurant, IUser } from 'types';
+import setParsedTranslation from 'utils/functions/setParsedTranslation';
 
 interface ButtonFavoriteProps {
     filled: boolean;
@@ -21,12 +22,14 @@ const ButtonFavorite: FC<ButtonFavoriteProps> = ({ filled, restaurant }) => {
         filled
             ? (updatedUser = await addRemoveFavourites('delete', state.user.id, restaurant.id))
             : (updatedUser = await addRemoveFavourites('post', state.user.id, restaurant.id));
-        console.log(updatedUser);
-        updatedUser &&
+
+        if (updatedUser) {
+            setParsedTranslation(updatedUser.data);
             dispatch({
                 type: 'updateUser',
                 payload: updatedUser.data,
             });
+        }
     };
 
     // const bodyForUpdateUser = { ...state.user };
