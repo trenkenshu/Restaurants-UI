@@ -282,6 +282,26 @@ export const content = {
             en: 'New password',
             ru: 'Новый пароль',
         },
+        yourLevel: {
+            en: 'Your level',
+            ru: 'Ваш уровень',
+        },
+        bonusPoints: {
+            en: 'bonus points',
+            ru: 'бонусов',
+        },
+        newbie: {
+            en: 'Newbie',
+            ru: 'Новичок',
+        },
+        heavyEater: {
+            en: 'Heavy eater',
+            ru: 'Любитель',
+        },
+        gourmet: {
+            en: 'Gourmet',
+            ru: 'Гурман',
+        },
     },
     booking: {
         duration: {
@@ -307,6 +327,10 @@ export const content = {
         table: {
             en: 'Table',
             ru: 'Столик',
+        },
+        guest: {
+            en: 'Guest name: ',
+            ru: 'Имя гостя: ',
         },
     },
     error: {

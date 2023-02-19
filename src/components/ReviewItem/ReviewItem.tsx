@@ -1,6 +1,6 @@
-import React, { FC } from 'react';
-import { Rating } from 'react-rainbow-components';
+import { Rating } from 'react-simple-star-rating';
 import { useNavigate } from 'react-router-dom';
+import React, { FC } from 'react';
 import { IReview } from 'types';
 import './ReviewItem.css';
 
@@ -31,9 +31,15 @@ const ReviewItem: FC<ReviewItemProps> = ({ isOnRestaurantPage, review }) => {
                         {title}
                     </button>
                 </h3>
-                <div className='flex text-start items-center gap-2'>
-                    <Rating value={review.rating} readOnly />
-                </div>
+
+                <Rating
+                    fillColor='#ff5f49'
+                    size={25}
+                    fillStyle={{ color: '#ff5f49', display: 'flex', flexWrap: 'wrap' }}
+                    emptyStyle={{ display: 'flex' }}
+                    initialValue={review.rating}
+                    readonly
+                />
             </div>
 
             <div className='w-full border rounded border-zinc-300 dark:border-zinc-600 p-1.5'>

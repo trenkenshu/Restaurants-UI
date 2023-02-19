@@ -21,11 +21,10 @@ const RestaurantCard: FC<RestaurantItemProps> = ({ restaurant, isInUserFavotites
     return (
         <div className='flex flex-col w-full h-80 lg:h-96 border-b border-zinc-800 dark:border-corall'>
             <div className='w-full h-full overflow-y-hidden relative'>
-                <img
+                <div
                     className='w-full h-full absolute top-0 left-0'
-                    src={`${baseURL}/${restaurant.images[0]}`}
-                    alt={`${restaurant.name} restaurant photo`}
-                ></img>
+                    style={{ backgroundImage: `url(${baseURL}/${restaurant.images[0]})`, backgroundSize: 'cover' }}
+                ></div>
                 <div className='w-8 h-8 absolute right-2 top-2'>
                     <ButtonFavorite filled={isInUserFavotites} restaurant={restaurant} />
                 </div>

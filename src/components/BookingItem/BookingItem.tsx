@@ -41,7 +41,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
     };
 
     return (
-        <div className='h-72 w-72 sm:w-72 sm:h-72 gap-2 relative drop-shadow-lg'>
+        <div className='h-72 w-72 gap-2 relative drop-shadow-lg'>
             <img
                 className='w-full h-full rounded'
                 src={`${baseURL}/${booking.cafe.images[0]}`}
@@ -50,7 +50,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
             <div className='w-4/5 h-4/5 sm:w-3/4 sm:h-3/4 absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4 backdrop-blur-sm bg-white/30 rounded'>
                 <div className='flex flex-col py-2 px-2.5'>
                     <button
-                        className='text-xl font-bold leading-5 h-12 text-black drop-shadow-md flex items-center cursor-pointer'
+                        className='text-xl font-bold leading-5 h-12 text-black drop-shadow-md flex text-start items-center cursor-pointer'
                         onClick={() => goToRestaurantPage(booking.cafeId)}
                     >
                         {booking.cafe.name}
@@ -64,14 +64,24 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                     <p className='text-3xl -mt-3 font-semibold text-black text-end drop-shadow-md'>
                         {hours}:{minutes}
                     </p>
-                    <p className='font-bold text-end text-black -mt-2 drop-shadow-md'>{bookingDate}</p>
+                    <div className='font-bold text-end text-black -mt-1 drop-shadow-md'>
+                        {bookingDate.split(', ')[1]}
+                    </div>
+                    <p className='text-sm text-end text-black leading-4'>{`${content.booking.guest[state.language]}${
+                        booking.guestName
+                    }`}</p>
                     <p className='text-sm text-end text-black leading-4'>
                         {`${content.booking.table[state.language]} №${booking.tableId}
-                        ${content.booking.forPersons[state.language]} ${booking.guestId}
-                        ${content.booking.person[state.language]}
                         ${content.booking.forDuration[state.language]}
                         ${booking.duration} ${content.booking.hours[state.language]}`}
                     </p>
+                    {/* <p className='text-sm text-end text-black leading-4'>
+                        {`${content.booking.table[state.language]} №${booking.tableId}
+                        ${content.booking.forPersons[state.language]} ${booking.guestsAmount}
+                        ${content.booking.person[state.language]}
+                        ${content.booking.forDuration[state.language]}
+                        ${booking.duration} ${content.booking.hours[state.language]}`}
+                    </p> */}
                 </div>
                 <div className='flex justify-center gap-3'>
                     <ButtonBlack
