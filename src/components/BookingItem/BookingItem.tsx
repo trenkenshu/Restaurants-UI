@@ -14,7 +14,6 @@ interface BookingItemProps {
 
 const BookingItem: FC<BookingItemProps> = ({ booking }) => {
     const { state, dispatch } = useContext(AppContext);
-    // console.log('booking', booking);
 
     const bookingDate = getCalendarDate(new Date(booking.date), state.language);
     const hours = new Date(booking.date).getHours().toString().padStart(2, '0');
@@ -22,7 +21,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
 
     const deleteUserBooking = async () => {
         console.log(booking.id, typeof booking.id);
-        await deleteBooking(booking.id).then(() => {
+        await deleteBooking(booking.id, state.user.id).then(() => {
             console.log('click delete');
             const updatedUser = state.user;
             updatedUser.bookings = state.user.bookings.filter((reserv) => reserv.id !== booking.id);
@@ -84,12 +83,6 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                     </p> */}
                 </div>
                 <div className='flex justify-center gap-3'>
-                    <ButtonBlack
-                        width='w-24'
-                        height='h-7'
-                        buttonText={content.common.edit[state.language]}
-                        // onClick={editUserBooking}
-                    />
                     <ButtonBlack
                         width='w-24'
                         height='h-7'

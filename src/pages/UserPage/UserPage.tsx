@@ -78,7 +78,7 @@ const UserPage = () => {
     };
 
     const deleteUserReview = (id: number) => {
-        deleteReview(id).then(() => {
+        deleteReview(id, state.user.id).then(() => {
             const updatedUser = state.user;
             updatedUser.reviews = state.user.reviews.filter((rev) => rev.id !== id);
             setParsedTranslation(updatedUser);
