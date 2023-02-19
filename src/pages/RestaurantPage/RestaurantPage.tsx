@@ -14,11 +14,11 @@ import ReviewItem from 'components/ReviewItem';
 import { content } from 'utils/content';
 import BookingModal from 'components/BookingModal/BookingModal';
 import Error404 from 'pages/Error404';
-import ModalReview from 'components/ModalReview';
 import checkFavorites from 'utils/functions/checkFavorites';
 import { baseURL, emptyRestaurant } from 'utils/constants';
 import checkWorkTime from 'utils/functions/checkWorkTime';
 import RestaurantModalReview from 'components/RestaurantModalReview';
+import Loader from 'components/Loader';
 
 const sliderSetting = {
     dots: false,
@@ -114,6 +114,7 @@ const RestaurantPage = () => {
     // !! Если ID > существующего то сдеать переход на ERROR page
     return (
         <>
+            <Loader />
             {idError && <Error404 />}
             {restaurant.id > 0 && !idError && (
                 <div className='restaurant flex flex-col-reverse w-full h-full gap-2 lg:gap-0 lg:flex-row lg:h-[calc(100vh-130px)] select-none'>

@@ -15,6 +15,7 @@ import { content } from 'utils/content';
 import { createBooking, getRestaurant, getUser } from 'api/api';
 import { emptyStepper, nameRegexp, phoneRegexp } from 'utils/constants';
 import checkActiveTime from 'utils/functions/checkActiveTime';
+import setParsedTranslation from 'utils/functions/setParsedTranslation';
 
 const steps = {
     en: ['Select date', 'Select time', 'Select table', 'Guest info', 'Finish booking'],
@@ -213,6 +214,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     const makeReservation = (body: ICreateBooking) => {
         createBooking(body).then(() => {
             getUser(state.user.id).then((updatedUser) => {
+                setParsedTranslation(updatedUser);
                 console.log('NEWUSER', updatedUser);
                 dispatch({
                     type: 'updateUser',

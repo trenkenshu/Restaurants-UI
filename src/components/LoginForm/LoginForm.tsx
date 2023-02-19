@@ -1,9 +1,10 @@
-import { createUser, loginUser } from 'api/api';
+import setParsedTranslation from 'utils/functions/setParsedTranslation';
+import spinner from '../../assets/icons/spinner_corall.png';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
-import spinner from '../../assets/icons/spinner_corall.png';
+import { loginUser } from 'api/api';
 
 const LoginForm = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -37,10 +38,8 @@ const LoginForm = () => {
                     setPasswordSingIn('');
                     setErrorMessage('');
                     setSubmitBtnClass('hidden');
-
-                    user.favourites.forEach((rest) => {
-                        rest.parsedTranslation = JSON.parse(rest.translation);
-                    });
+                    setParsedTranslation(user);
+                    // очистить LS
                     dispatch({
                         type: 'updateUser',
                         payload: user,
@@ -48,7 +47,6 @@ const LoginForm = () => {
                     navigate('/userpage');
                 } else {
                     console.log(user);
-                    // setErrorMessage(JSON.parse(JSON.stringify(user)).slice(10, -2));
                     setErrorMessage(content.error.wrongloginOrEmail[state.language]);
                     setSubmitBtnClass('hidden');
                 }

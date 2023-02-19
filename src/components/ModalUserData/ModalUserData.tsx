@@ -1,10 +1,11 @@
-import { updateUser } from 'api/api';
+import setParsedTranslation from 'utils/functions/setParsedTranslation';
+import spinner from '../../assets/icons/spinner_corall.png';
 import ButtonBlack from 'components/ButtonBlack';
-import Modal from 'components/Modal';
 import { FC, useContext, useState } from 'react';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
-import spinner from '../../assets/icons/spinner_corall.png';
+import Modal from 'components/Modal';
+import { updateUser } from 'api/api';
 
 interface ModalUserDataProps {
     setIsModalUserInfoOpen: (data: boolean) => void;
@@ -81,10 +82,10 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                 email: email ? email : state.user.email,
                 password: newPassword ? newPassword : state.user.password,
             };
-            console.log(bodyForUpdateUser);
 
             updateUser(bodyForUpdateUser).then((updatedUser) => {
                 if (typeof updatedUser.data === 'object') {
+                    // setParsedTranslation(updatedUser.data);
                     dispatch({
                         type: 'updateUser',
                         payload: updatedUser.data,
@@ -93,10 +94,10 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                     setErrorMessage('');
                     setErrorMsgPrevPassword('');
                     setSubmitBtnClass('hidden');
+                    document.body.classList.remove('active');
                 } else {
                     setErrorMessage(JSON.stringify(updatedUser.data));
                 }
-                console.log(state.user);
             });
         } else {
             setSubmitBtnClass('hidden');

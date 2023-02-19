@@ -1,8 +1,7 @@
-import { createReview, getRestaurant, getUser, updateReview } from 'api/api';
+import { createReview, getUser } from 'api/api';
 import ButtonBlack from 'components/ButtonBlack';
 import Modal from 'components/Modal';
 import { FC, useContext, useEffect, useState } from 'react';
-import { Rating } from 'react-rainbow-components';
 import { AppContext } from 'store/store';
 import { IRestaurant, IReview } from 'types';
 import { content } from 'utils/content';
@@ -10,9 +9,10 @@ import spinner from '../../assets/icons/spinner_corall.png';
 import logoBlack from '../../assets/icons/favicon.png';
 import logoWhite from '../../assets/icons/favicon_white3.png';
 import { useNavigate } from 'react-router-dom';
+import { Rating } from 'react-simple-star-rating';
+import setParsedTranslation from 'utils/functions/setParsedTranslation';
 
 interface RestaurantModalReviewProps {
-    // setIsModalReviewOpen: (data: boolean) => void;
     closeModalReview: () => void;
     isModalReviewOpen: boolean;
     restaurant: IRestaurant;
@@ -30,22 +30,10 @@ const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {
     const [review, setReview] = useState('');
     const navigate = useNavigate();
     const hasUserBooking = state.user.bookings.some((el) => el.cafeId === restaurant.id);
-    // const hasUserBooking = restaurant.bookings.map((el) => {
-    //     if (el.guestId === state.user.id) {
-    //         return el;
-    //     }
-    // });
-    // console.log('hasUserBooking', hasUserBooking);
 
     useEffect(() => {
         checkInputs();
     }, [rating, review]);
-
-    // const closeModalReview = () => {
-    //     setIsModalReviewOpen(false);
-    //     document.body.classList.remove('active');
-    //     document.getElementById('innerScroll')?.classList.remove('active');
-    // };
 
     const onChangeReview = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
         const value = event.target.value;
@@ -63,14 +51,12 @@ const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {
 
     const updateUserState = async () => {
         const newUser = await getUser(state.user.id);
+        setParsedTranslation(newUser);
         dispatch({ type: 'updateUser', payload: newUser });
     };
 
     const saveReview = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        // setSubmitBtnClass('');
-        // checkInputs();
-        console.log('review');
 
         const createReviewBody = {
             clientId: state.user.id,
@@ -78,15 +64,12 @@ const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {
             rating: rating,
             text: review,
         };
-        console.log('rating', rating, typeof rating);
-        console.log('review', review, typeof review);
 
         if (rating > 0 && review.split(' ').length >= 5) {
-            console.log('inner review');
             setSubmitBtnClass('');
             createReview(createReviewBody).then((data) => {
-                console.log('Create review', data);
                 if (typeof data === 'object') {
+                    console.log('data::::', data);
                     data.parsedTranslation = JSON.parse(data.translation);
                     setRestaurant(data);
                     setSubmitBtnClass('hidden');
@@ -103,9 +86,8 @@ const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {
         }
     };
 
-    const setStars = (event: React.ChangeEvent<HTMLElement>) => {
-        const target = event.target as HTMLInputElement;
-        setRating(Number(target.value));
+    const handleRating = (rate: number) => {
+        setRating(rate);
     };
 
     return (
@@ -122,7 +104,15 @@ const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {
                     } "${restaurant.name}"`}</h4>
                     <form onSubmit={saveReview} className='flex flex-col gap-4 w-96'>
                         <div className='flex w-full gap-5 items-center justify-center'>
-                            <Rating value={rating} onChange={setStars} required />
+                            {/* <Rating value={rating} onChange={setStars} required /> */}
+                            <Rating
+                                fillColor='#ff5f49'
+                                size={25}
+                                fillStyle={{ color: '#ff5f49', display: 'flex', flexWrap: 'wrap' }}
+                                emptyStyle={{ display: 'flex' }}
+                                initialValue={rating}
+                                onClick={handleRating}
+                            />
                         </div>
 
                         <div>

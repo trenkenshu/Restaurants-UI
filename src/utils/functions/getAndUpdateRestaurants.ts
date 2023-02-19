@@ -7,7 +7,6 @@ const getAndUpdateRestaurants = async (state: IState, dispatch: Dispatch<ActionT
     restaurants.forEach((el: IRestaurant) => {
         el.parsedTranslation = JSON.parse(el.translation);
     });
-    console.log(restaurants);
     dispatch({ type: 'getRestaurants', payload: restaurants });
 };
 

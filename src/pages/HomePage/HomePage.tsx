@@ -5,21 +5,25 @@ import RestaurantRecs from 'components/RestaurantRecs';
 import RegistrationProposal from 'components/RegistrationProposal';
 import { AppContext } from 'store/store';
 import getAndUpdateRestaurants from 'utils/functions/getAndUpdateRestaurants';
+import Loader from 'components/Loader';
 
 const HomePage = () => {
     const { state, dispatch } = useContext(AppContext);
 
     useEffect(() => {
         getAndUpdateRestaurants(state, dispatch);
-    }, []);
+    }, [state.currentCity]);
 
     return (
-        <div className='flex flex-col w-11/12 2xl:w-9/12 mx-auto pb-10 md:pb-40'>
-            <MainSection />
-            <Advantages />
-            <RestaurantRecs />
-            <RegistrationProposal />
-        </div>
+        <>
+            <Loader />
+            <div className='flex flex-col w-11/12 2xl:w-9/12 mx-auto pb-10 md:pb-40'>
+                <MainSection />
+                <Advantages />
+                <RestaurantRecs />
+                <RegistrationProposal />
+            </div>
+        </>
     );
 };
 

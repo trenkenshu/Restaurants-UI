@@ -3,47 +3,47 @@
 @tailwind utilities;
 
 * {
-  box-sizing: border-box ;
+    box-sizing: border-box;
 }
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 /* #restReviews ~ html {
   overflow: hidden;
 } */
-html:has(#restReviews) {
+/* html:has(#restReviews) {
   overflow: hidden;
-}
+} */
 
 @layer utilities {
-  .scrollbar::-webkit-scrollbar {
-    width: 10px;
-  }
-  .scrollbar::-webkit-scrollbar-track {
-    border-radius: 10px;
-  }
-  .scrollbar::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-  }
+    .scrollbar::-webkit-scrollbar {
+        width: 10px;
+    }
+    .scrollbar::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+    }
 }
 
 body.active {
-  overflow: hidden;
+    overflow: hidden;
 }
 #innerScroll.active {
-  overflow: hidden;
+    overflow: hidden;
 }
 .restaurant .slick-prev {
-  width: auto;
-  height: auto;
-  left: 20px;
-  z-index: 1;
+    width: auto;
+    height: auto;
+    left: 20px;
+    z-index: 1;
 }
 .restaurant .slick-next {
-  width: auto;
-  height: auto;
-  right: 20px;
-  z-index: 1;
+    width: auto;
+    height: auto;
+    right: 20px;
+    z-index: 1;
 }
 /* .restaurant .slick-prev:before {
   font-size: 40px;
@@ -51,22 +51,22 @@ body.active {
 } */
 .restaurant .slick-prev:before,
 .restaurant .slick-next:before {
-  font-size: 40px;
-  color: white !important;
+    font-size: 40px;
+    color: white !important;
 }
 .restaurant .slick-list {
-  height: 100% !important;
+    height: 100% !important;
 }
 .restaurant .slick-slide {
-  padding: 0 !important;
+    padding: 0 !important;
 }
 .restaurant .slick-track {
-  height: 100% !important;
+    height: 100% !important;
 }
 
 .slick-prev:before,
 .slick-next:before {
-  color: black !important;
+    color: black !important;
 }
 
 /* .homepage-dark .slick-prev:before,
@@ -75,34 +75,40 @@ body.active {
 } */
 
 .leaflet-popup-content p {
-  margin: 0;
-  margin-bottom: 2px;
+    margin: 0;
+    margin-bottom: 2px;
 }
 
 header .active {
-  color: #ff5f49;
+    color: #ff5f49;
 }
 
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-  color: #ff5f49 !important;
+    color: #ff5f49 !important;
 }
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-  color: black !important;
+    color: black !important;
 }
 .dark .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-  color: #F0F0F0 !important;
+    color: #f0f0f0 !important;
 }
 .css-1e6y48t-MuiButtonBase-root-MuiButton-root {
-  color: #ff5f49 !important;
-  filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
+    color: #ff5f49 !important;
+    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
 }
 .css-1hv8oq8-MuiStepLabel-label.MuiStepLabel-alternativeLabel {
-  margin-top: 5px !important;
+    margin-top: 5px !important;
 }
 .dark .css-1hv8oq8-MuiStepLabel-label.MuiStepLabel-alternativeLabel {
-  color: #F0F0F0 !important;
+    color: #f0f0f0 !important;
 }
 
 .timeblock.active {
-  background-color: #ff5f49;
+    background-color: #ff5f49;
+}
+
+@media (min-width: 1024px) {
+    html:has(#restReviews) {
+        overflow: hidden;
+    }
 }
