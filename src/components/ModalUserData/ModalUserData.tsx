@@ -106,10 +106,17 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
     };
 
     return (
-        <Modal isModalOpen={isModalUserInfoOpen} closeModal={closeModal} width={'w-[32rem]'} height={'h-fit'}>
-            <div className='w-full p-8 flex flex-col items-center'>
-                <h4 className='font-semibold text-xl drop-shadow-md'>{content.userPage.changeInfo[state.language]}</h4>
-                <form onSubmit={saveUpdatedUserData} className='flex flex-col gap-4 w-96'>
+        <Modal
+            isModalOpen={isModalUserInfoOpen}
+            closeModal={closeModal}
+            width={'w-[19rem] sm:w-[32rem]'}
+            height={'h-fit'}
+        >
+            <div className='w-full p-8 flex flex-col items-center gap-4'>
+                <h4 className='font-semibold text-xl drop-shadow-md text-center'>
+                    {content.userPage.changeInfo[state.language]}
+                </h4>
+                <form onSubmit={saveUpdatedUserData} noValidate className='w-full sm:w-11/12 flex flex-col gap-4 w-96'>
                     <div>
                         <label htmlFor='phone' className='w-full h-14 text-start'>
                             {content.registration.phone[state.language]}
@@ -178,7 +185,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                         {errorMessage}
                     </p>
 
-                    <div className='flex flex-col sm:flex-row w-full gap-5 mt-3 justify-center items-center'>
+                    <div className='flex flex-col sm:flex-row w-full gap-3 sm:gap-5 mt-3 justify-center items-center'>
                         <ButtonBlack
                             width={'w-32'}
                             height={'h-8'}

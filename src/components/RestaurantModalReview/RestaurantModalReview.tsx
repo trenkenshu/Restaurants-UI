@@ -99,10 +99,10 @@ const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {
         >
             {state.user.id > 0 && hasUserBooking ? (
                 <div className='w-full p-8 flex flex-col items-center'>
-                    <h4 className='font-semibold text-xl drop-shadow-md py-4'>{`${
+                    <h4 className='font-semibold text-xl drop-shadow-md py-4 text-center'>{`${
                         content.reviewModal.title[state.language]
                     } "${restaurant.name}"`}</h4>
-                    <form onSubmit={saveReview} className='flex flex-col gap-4 w-96'>
+                    <form onSubmit={saveReview} noValidate className='flex flex-col gap-4 w-96 w-full sm:w-11/12'>
                         <div className='flex w-full gap-5 items-center justify-center'>
                             {/* <Rating value={rating} onChange={setStars} required /> */}
                             <Rating

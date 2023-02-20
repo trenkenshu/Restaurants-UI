@@ -31,15 +31,16 @@ const ReviewItem: FC<ReviewItemProps> = ({ isOnRestaurantPage, review }) => {
                         {title}
                     </button>
                 </h3>
-
-                <Rating
-                    fillColor='#ff5f49'
-                    size={25}
-                    fillStyle={{ color: '#ff5f49', display: 'flex', flexWrap: 'wrap' }}
-                    emptyStyle={{ display: 'flex' }}
-                    initialValue={review.rating}
-                    readonly
-                />
+                <div className='w-max'>
+                    <Rating
+                        fillColor='#ff5f49'
+                        size={25}
+                        fillStyle={{ color: '#ff5f49', display: 'flex', flexWrap: 'wrap' }}
+                        emptyStyle={{ display: 'flex' }}
+                        initialValue={review.rating}
+                        readonly
+                    />
+                </div>
             </div>
 
             <div className='w-full border rounded border-zinc-300 dark:border-zinc-600 p-1.5'>
