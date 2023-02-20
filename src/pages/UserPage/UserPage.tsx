@@ -1,11 +1,12 @@
-import calculateBonusScaleWidth from 'utils/functions/calculateBonusScaleWidth';
+import calcBonusScaleWidth from 'utils/functions/calcBonusScaleWidth';
 import setParsedTranslation from 'utils/functions/setParsedTranslation';
 import UserPageModalReview from 'components/UserPageModalReview';
+import React, { useContext, useEffect, useState } from 'react';
 import { emptyReview, emptyUser } from 'utils/constants';
 import RestaurantCard from 'components/RestaurantCard';
 import ModalUserData from 'components/ModalUserData';
-import React, { useContext, useEffect, useState } from 'react';
 import BookingItem from 'components/BookingItem';
+import BonusPoints from 'components/BonusPoints';
 import { useNavigate } from 'react-router-dom';
 import ReviewItem from 'components/ReviewItem';
 import { AppContext } from 'store/store';
@@ -19,7 +20,6 @@ const UserPage = () => {
     const [isModalUserInfoOpen, setIsModalUserInfoOpen] = useState(false);
     const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
     const [currentReview, setCurrentReview] = useState(emptyReview);
-    const [bonusScaleWidth, setBonusScaleWidth] = useState(calculateBonusScaleWidth(state.user.bonusPoints));
     const navigate = useNavigate();
     // console.log('state:::', state);
 
@@ -32,15 +32,6 @@ const UserPage = () => {
             });
         });
     }, []);
-
-    let level;
-    if (state.user.bonusPoints > 0 && state.user.bonusPoints < 11) {
-        level = `${content.userPage.newbie[state.language]}`;
-    } else if (state.user.bonusPoints > 10 && state.user.bonusPoints < 71) {
-        level = `${content.userPage.heavyEater[state.language]}`;
-    } else if (state.user.bonusPoints > 70) {
-        level = `${content.userPage.gourmet[state.language]}`;
-    }
 
     const openModalUserInfo = () => {
         setIsModalUserInfoOpen(true);
@@ -117,25 +108,7 @@ const UserPage = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <div className='w-9/12 sm:w-5/12 flex flex-col items-center'>
-                                    <div className='w-10 h-10 bg-medalSilver bg-cover drop-shadow-md shadow-gray-900'></div>
-                                    <h3 className='p-1'>{`${state.user.bonusPoints} ${
-                                        content.userPage.bonusPoints[state.language]
-                                    }`}</h3>
-                                    <h2 className='text-lg 2xl:text-xl text-center font-semibold dark:text-smoke-gray items-center drop-shadow-md'>
-                                        {`${content.userPage.yourLevel[state.language]}`}: <b>{level}</b>
-                                    </h2>
-                                    <div className='w-full mt-0 -mb-5'>
-                                        <div className='flex items-center gap-1 w-full h-2 my-3 bg-gradient-to-r from-zinc-300 via-corall to-black rounded drop-shadow-md'>
-                                            <div className={`${bonusScaleWidth} h-3.5 border-r-4 border-black`}></div>
-                                        </div>
-                                        <p
-                                            className={`${bonusScaleWidth} flex justify-end text-sm font-bold text-black`}
-                                        >
-                                            <span className='w-full text-end -mr-2'>{state.user.bonusPoints}</span>
-                                        </p>
-                                    </div>
-                                </div>
+                                <BonusPoints bonusPoints={state.user.bonusPoints} />
                             </div>
                             <div className='flex justify-center sm:justify-start'>
                                 <button
@@ -220,19 +193,10 @@ const UserPage = () => {
                         setIsModalUserInfoOpen={setIsModalUserInfoOpen}
                         isModalUserInfoOpen={isModalUserInfoOpen}
                     />
-                    {/* <ModalReviewUser
-                setIsModalReviewOpen={setIsModalReviewOpen}
-                isModalReviewOpen={isModalReviewOpen}
-                restaurant={currentReview.cafe}
-                userReview={currentReview}
-            /> */}
                     <UserPageModalReview
                         closeModalReview={closeModalReview}
-                        // setIsModalReviewOpen={setIsModalReviewOpen}
                         isModalReviewOpen={isModalReviewOpen}
-                        // restaurant={currentRest}
                         userReview={currentReview}
-                        // setRestaurant={setCurrentRest}
                         setUserReview={setCurrentReview}
                     />
                 </>

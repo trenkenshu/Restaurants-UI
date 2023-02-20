@@ -75,10 +75,10 @@ const UserPageModalReview: FC<UserPageModalReviewProps> = (props) => {
             height={'h-fit'}
         >
             <div className='w-full p-8 flex flex-col items-center'>
-                <h4 className='font-semibold text-xl drop-shadow-md py-4'>{`${
+                <h4 className='font-semibold text-xl drop-shadow-md py-4 text-center'>{`${
                     content.reviewModal.title[state.language]
                 } "${userReview.cafe.name}"`}</h4>
-                <form onSubmit={saveReview} noValidate className='flex flex-col gap-4 w-96'>
+                <form onSubmit={saveReview} noValidate className='w-full sm:w-11/12 flex flex-col gap-4 w-96'>
                     <div className='flex w-full gap-5 items-center justify-center'>
                         <Rating
                             fillColor='#ff5f49'
