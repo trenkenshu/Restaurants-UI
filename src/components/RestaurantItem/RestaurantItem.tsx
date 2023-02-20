@@ -56,27 +56,29 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
     };
 
     return (
-        <div className='flex flex-col gap-1 p-2 bg-white dark:bg-zinc-700 rounded-md'>
-            <div className='flex gap-2.5 items-center'>
+        <div className='flex flex-col items-center sm:items-stretch gap-1 p-2 bg-white dark:bg-zinc-700 rounded-md'>
+            <div className='flex flex-col sm:flex-row gap-2.5 items-center'>
                 <Link
                     to={`/restaurants/${restaurant.id}`}
-                    className='text-xl font-bold uppercase underline underline-offset-4 hover:text-corall transition duration-300 drop-shadow-lg'
+                    className='text-xl text-center sm:text-start font-bold uppercase underline underline-offset-4 hover:text-corall transition duration-300 drop-shadow-lg'
                 >
                     {restaurant.name}
                 </Link>
-                <div className='flex items-center gap-1 border rounded px-0.5'>
-                    <div className='bg-rating h-4 w-4 bg-no-repeat bg-cover'></div>
-                    <div className=''>{restaurant.rating}</div>
-                </div>
-                <div className='flex items-center gap-1 border rounded px-0.5'>
-                    <div className='bg-review dark:bg-reviewWhite h-5 w-5 bg-no-repeat bg-cover'></div>
-                    <div className=''>{restaurant.reviews.length}</div>
-                </div>
-                <div className='w-10 h-10 ml-auto'>
-                    <ButtonFavorite restaurant={restaurant} filled={checkFavorites(restaurant.id, state)} />
+                <div className='flex items-center justify-center gap-2 w-full'>
+                    <div className='flex items-center gap-1 border rounded px-0.5'>
+                        <div className='bg-rating h-4 w-4 bg-no-repeat bg-cover'></div>
+                        <div className=''>{restaurant.rating}</div>
+                    </div>
+                    <div className='flex items-center gap-1 border rounded px-0.5'>
+                        <div className='bg-review dark:bg-reviewWhite h-5 w-5 bg-no-repeat bg-cover'></div>
+                        <div className=''>{restaurant.reviews.length}</div>
+                    </div>
+                    <div className='w-8 h-8 sm:w-10 sm:h-10 sm:ml-auto'>
+                        <ButtonFavorite restaurant={restaurant} filled={checkFavorites(restaurant.id, state)} />
+                    </div>
                 </div>
             </div>
-            <div className='flex gap-2.5'>
+            <div className='flex gap-2.5 flex-col sm:flex-row items-center'>
                 <div className='text-sm'>
                     {restaurant.parsedTranslation && restaurant.parsedTranslation[state.language].address}
                 </div>
