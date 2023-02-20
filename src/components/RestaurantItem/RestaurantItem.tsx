@@ -1,4 +1,4 @@
-import React, { FC, useContext } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import ButtonBlack from 'components/ButtonBlack';
 import ButtonFavorite from 'components/ButtonFavorite';
 
@@ -11,6 +11,8 @@ import { AppContext } from 'store/store';
 import { Link, useNavigate } from 'react-router-dom';
 import checkFavorites from 'utils/functions/checkFavorites';
 import checkWorkTime from 'utils/functions/checkWorkTime';
+import NewImg from 'components/NewImg';
+import Modal from 'components/Modal';
 
 type RestaurantItemType = {
     restaurant: IRestaurant;
@@ -19,6 +21,8 @@ type RestaurantItemType = {
 const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
     const { state } = useContext(AppContext);
     const navigate = useNavigate();
+    const [isImgModalOpen, setIsImgModalOpen] = useState(false);
+    const [imgSrc, setImgSrc] = useState('');
 
     const sliderSetting = {
         dots: false,
@@ -53,6 +57,19 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                 },
             },
         ],
+    };
+
+    const openImgModal = (newSrc: string) => {
+        setIsImgModalOpen(true);
+        setImgSrc(newSrc);
+        document.body.classList.add('active');
+        document.getElementById('innerScroll')?.classList.add('active');
+        console.log('img modal');
+    };
+    const closeImgModal = () => {
+        setIsImgModalOpen(false);
+        document.body.classList.remove('active');
+        document.getElementById('innerScroll')?.classList.remove('active');
     };
 
     return (
@@ -112,11 +129,19 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                 <Slider {...sliderSetting}>
                     {restaurant.images.map((img) => {
                         return (
-                            <img
-                                key={img}
+                            // <img
+                            //     key={img}
+                            //     src={`https://restaurants-server-3.onrender.com/${img}`}
+                            //     className='h-40 w-40 object-cover rounded-md'
+                            //     alt='Restaurant'
+                            // />
+                            <NewImg
+                                wrapperClasses=''
+                                imgClasses='h-40 w-40 object-cover rounded-md'
                                 src={`https://restaurants-server-3.onrender.com/${img}`}
-                                className='h-40 w-40 object-cover rounded-md'
                                 alt='Restaurant'
+                                key={img}
+                                openImgModal={openImgModal}
                             />
                         );
                     })}
@@ -133,6 +158,12 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                     <ButtonFavorite restaurant={restaurant} filled={checkFavorites(restaurant.id, state)} />
                 </div>
             </div> */}
+            <Modal isModalOpen={isImgModalOpen} closeModal={closeImgModal} height='h-10/12' width='w-10/12'>
+                <div
+                    className='w-full min-h-[600px] lg:min-h-[700px] bg-cover bg-no-repeat bg-center'
+                    style={{ backgroundImage: `url('${imgSrc}')` }}
+                ></div>
+            </Modal>
         </div>
     );
 };

@@ -19,6 +19,8 @@ import { baseURL, emptyRestaurant } from 'utils/constants';
 import checkWorkTime from 'utils/functions/checkWorkTime';
 import RestaurantModalReview from 'components/RestaurantModalReview';
 import Loader from 'components/Loader';
+import NewImg from 'components/NewImg';
+import Modal from 'components/Modal';
 
 const sliderSetting = {
     dots: false,
@@ -67,6 +69,8 @@ const RestaurantPage = () => {
     const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
     const [idError, setIdError] = useState(false);
     const [restaurant, setRestaurant] = useState(emptyRestaurant);
+    const [isImgModalOpen, setIsImgModalOpen] = useState(false);
+    const [imgSrc, setImgSrc] = useState('');
     const { id } = useParams();
 
     const saveRestaurant = async () => {
@@ -90,10 +94,25 @@ const RestaurantPage = () => {
         setIsBookingModalOpen(true);
         document.body.classList.add('active');
         document.getElementById('innerScroll')?.classList.add('active');
+        console.log('MODAL BOOKING');
     };
 
     const closeBookingModal = () => {
         setIsBookingModalOpen(false);
+        document.body.classList.remove('active');
+        document.getElementById('innerScroll')?.classList.remove('active');
+    };
+
+    const openImgModal = (newSrc: string) => {
+        console.log('clickec', newSrc);
+        setIsImgModalOpen(true);
+        setImgSrc(newSrc);
+        document.body.classList.add('active');
+        document.getElementById('innerScroll')?.classList.add('active');
+    };
+
+    const closeImgModal = () => {
+        setIsImgModalOpen(false);
         document.body.classList.remove('active');
         document.getElementById('innerScroll')?.classList.remove('active');
     };
@@ -114,7 +133,6 @@ const RestaurantPage = () => {
     // !! Если ID > существующего то сдеать переход на ERROR page
     return (
         <>
-            <Loader />
             {idError && <Error404 />}
             {restaurant.id > 0 && !idError && (
                 <div className='restaurant flex flex-col-reverse w-full h-full gap-2 lg:gap-0 lg:flex-row lg:h-[calc(100vh-130px)] select-none'>
@@ -175,11 +193,11 @@ const RestaurantPage = () => {
                                 </div>
                             </div>
                             <div className='flex items-center gap-2.5'>
-                                <div className='flex flex-col items-center min-w-[100px]' onClick={openBookingModal}>
+                                <div className='flex flex-col items-center min-w-[80px]' onClick={openBookingModal}>
                                     <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite cursor-pointer hover:scale-110 transition duration-300'></div>
                                     <div className=''>{content.restaurantsPage.book[state.language]}</div>
                                 </div>
-                                <div className='flex flex-col items-center min-w-[100px]'>
+                                <div className='flex flex-col items-center min-w-[80px]'>
                                     <div className='w-9 h-9'>
                                         <ButtonFavorite
                                             restaurant={restaurant}
@@ -188,7 +206,7 @@ const RestaurantPage = () => {
                                     </div>
                                     <div className=''>{content.restaurantsPage.favorites[state.language]}</div>
                                 </div>
-                                <div className='flex flex-col items-center min-w-[100px]'>
+                                <div className='flex flex-col items-center min-w-[80px]'>
                                     <button
                                         className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center cursor-pointer hover:scale-110 transition duration-300'
                                         onClick={openReviewModal}
@@ -239,14 +257,14 @@ const RestaurantPage = () => {
                             <Slider {...sliderSetting}>
                                 {restaurant.images.map((img) => {
                                     return (
-                                        <div key={img} className='min-[480px]:px-0.5 lg:px-0'>
-                                            <div
-                                                className='bg-cover bg-center h-44 lg:h-[calc(100vh-130px)] w-full'
-                                                style={{
-                                                    backgroundImage: `url(${baseURL}/${img})`,
-                                                }}
-                                            ></div>
-                                        </div>
+                                        <NewImg
+                                            wrapperClasses='h-44 lg:h-[calc(100vh-130px)] w-full'
+                                            imgClasses='h-full w-full object-cover min-[480px]:px-0.5 lg:px-0'
+                                            src={`https://restaurants-server-3.onrender.com/${img}`}
+                                            alt='Restaurant'
+                                            key={img}
+                                            openImgModal={openImgModal}
+                                        />
                                     );
                                 })}
                             </Slider>
@@ -254,6 +272,12 @@ const RestaurantPage = () => {
                     </div>
                 </div>
             )}
+            <Modal isModalOpen={isImgModalOpen} closeModal={closeImgModal} height='h-10/12' width='w-10/12'>
+                <div
+                    className='w-full min-h-[600px] lg:min-h-[700px] bg-cover bg-no-repeat bg-center'
+                    style={{ backgroundImage: `url('${imgSrc}')` }}
+                ></div>
+            </Modal>
             <RestaurantModalReview
                 closeModalReview={closeReviewModal}
                 // setIsModalReviewOpen={setIsModalReviewOpen}

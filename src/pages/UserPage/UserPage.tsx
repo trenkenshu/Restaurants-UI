@@ -82,7 +82,6 @@ const UserPage = () => {
 
     return (
         <>
-            <Loader />
             {state.user.id === 0 && <Error404 />}
             {state.user.id > 0 && (
                 <>

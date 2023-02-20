@@ -16,7 +16,6 @@ const HomePage = () => {
 
     return (
         <>
-            <Loader />
             <div className='flex flex-col w-11/12 2xl:w-9/12 mx-auto pb-10 md:pb-40'>
                 <MainSection />
                 <Advantages />

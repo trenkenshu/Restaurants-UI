@@ -1,26 +1,31 @@
-import React, { FC, useState } from 'react';
+import { FC } from 'react';
+import './Loader.css';
 
-export const Loader: FC = () => {
-    const [loaded, setLoaded] = useState(false);
+type LoaderType = {
+    imageLoaded: boolean;
+};
 
-    window.onload = () => {
-        setLoaded(true);
-    };
-
+export const Loader: FC<LoaderType> = ({ imageLoaded }) => {
     return (
         <div
-        // style={{
-        //     zIndex: loaded ? '-1' : '10000',
-        //     opacity: loaded ? '0' : '1',
-        //     transition: 'all 0.8s',
-        //     width: '100vw',
-        //     height: '100vh',
-        //     position: 'fixed',
-        //     left: 0,
-        //     top: 0,
-        //     background: '#111',
-        // }}
-        ></div>
+            className={`absolute w-full h-full bg-zinc-200 rounded-md transition-opacity duration-300 ${
+                !imageLoaded ? 'opacity-100' : 'opacity-0'
+            }`}
+        >
+            <div className='absolute top-1/2 left-1/2 -translate-x-2/4 -translate-y-2/4'>
+                <div className='lds-grid'>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
     );
 };
 
