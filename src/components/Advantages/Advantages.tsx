@@ -13,8 +13,8 @@ const Advantages = () => {
     const imgs = ['bg-adv1', 'bg-adv2', 'bg-adv3', 'bg-adv4'];
 
     return (
-        <div className='w-full flex flex-col md:mt-6 lg:mb-20'>
-            <h2 className='text-2xl 2xl:text-3xl font-bold text-zinc-400 mt-8 mb-4'>
+        <div className='w-full flex flex-col md:pt-6 lg:pb-20'>
+            <h2 className='text-2xl 2xl:text-3xl font-bold text-zinc-400 pt-8 pb-4'>
                 {content.homePage.titleSec2[state.language]}
             </h2>
             <h3 className='text-3xl 2xl:text-4xl font-semibold dark:text-smoke-gray mb-16'>
