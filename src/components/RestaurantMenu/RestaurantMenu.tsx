@@ -9,9 +9,10 @@ import NewImg from 'components/NewImg';
 
 type RestaurantMenuPropsType = {
     restaurant: IRestaurant;
+    openImgModal: (newSrc: string) => void;
 };
 
-const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant }) => {
+const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant, openImgModal }) => {
     // const { state } = useContext(AppContext);
 
     const sliderSetting = {
@@ -55,11 +56,12 @@ const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant }) => {
                             //     alt='Restaurant'
                             // />
                             <NewImg
-                                wrapperClasses='h-[500px]'
+                                wrapperClasses='h-[600px]'
                                 imgClasses='h-full w-full rounded-md min-[640px]:px-0.5'
                                 src={`https://restaurants-server-3.onrender.com/${img}`}
                                 alt='Restaurant'
                                 key={img}
+                                openImgModal={openImgModal}
                             />
                         );
                     })}

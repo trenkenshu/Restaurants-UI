@@ -1,5 +1,4 @@
 import Loader from 'components/Loader';
-import Modal from 'components/Modal';
 import { FC, useState } from 'react';
 
 type NewImgType = {
@@ -14,7 +13,7 @@ type NewImgType = {
 const NewImg: FC<NewImgType> = (props) => {
     const { wrapperClasses, imgClasses, src, alt, openImgModal } = props;
     const [imageLoaded, setImageLoaded] = useState(false);
-    console.log(openImgModal?.toString());
+
     return (
         <div className={`relative cursor-pointer ${wrapperClasses}`} onClick={() => openImgModal && openImgModal(src)}>
             <Loader imageLoaded={imageLoaded} />

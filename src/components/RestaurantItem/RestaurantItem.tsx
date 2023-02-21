@@ -163,6 +163,7 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                     className='w-full min-h-[600px] lg:min-h-[700px] bg-cover bg-no-repeat bg-center'
                     style={{ backgroundImage: `url('${imgSrc}')` }}
                 ></div>
+                {/* <img src={imgSrc} alt={imgSrc} className='w-10/12 min-h-[600px] lg:min-h-[700px]'></img> */}
             </Modal>
         </div>
     );

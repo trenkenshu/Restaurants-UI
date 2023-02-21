@@ -46,7 +46,7 @@ const RestaurantMap: FC<RestaurantMenuPropsType> = ({ restaurant }) => {
                         <p className='text-center'>
                             {restaurant.workTimeStart}.00 - {restaurant.workTimeEnd}.00
                         </p>
-                        <ButtonBlack width='w-full' height='h-7' buttonText={content.common.details[state.language]} />
+                        {/* <ButtonBlack width='w-full' height='h-7' buttonText={content.common.details[state.language]} /> */}
                     </Popup>
                 </Marker>
             </MapContainer>

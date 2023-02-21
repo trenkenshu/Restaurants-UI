@@ -18,7 +18,6 @@ import checkFavorites from 'utils/functions/checkFavorites';
 import { baseURL, emptyRestaurant } from 'utils/constants';
 import checkWorkTime from 'utils/functions/checkWorkTime';
 import RestaurantModalReview from 'components/RestaurantModalReview';
-import Loader from 'components/Loader';
 import NewImg from 'components/NewImg';
 import Modal from 'components/Modal';
 
@@ -30,7 +29,7 @@ const sliderSetting = {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
-    fade: true,
+    // fade: true,
     arrows: true,
     swipeToSlide: true,
     swipe: true,
@@ -224,7 +223,7 @@ const RestaurantPage = () => {
                                 <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
                                     {content.restaurantsPage.menu[state.language]}
                                 </div>
-                                <RestaurantMenu restaurant={restaurant} />
+                                <RestaurantMenu restaurant={restaurant} openImgModal={openImgModal} />
                             </div>
                             <div id='restMap' className='flex flex-col w-full h-full gap-2'>
                                 <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
@@ -263,7 +262,6 @@ const RestaurantPage = () => {
                                             src={`https://restaurants-server-3.onrender.com/${img}`}
                                             alt='Restaurant'
                                             key={img}
-                                            openImgModal={openImgModal}
                                         />
                                     );
                                 })}
@@ -272,11 +270,8 @@ const RestaurantPage = () => {
                     </div>
                 </div>
             )}
-            <Modal isModalOpen={isImgModalOpen} closeModal={closeImgModal} height='h-10/12' width='w-10/12'>
-                <div
-                    className='w-full min-h-[600px] lg:min-h-[700px] bg-cover bg-no-repeat bg-center'
-                    style={{ backgroundImage: `url('${imgSrc}')` }}
-                ></div>
+            <Modal isModalOpen={isImgModalOpen} closeModal={closeImgModal} height='h-auto' width='w-auto'>
+                <img src={imgSrc} alt={imgSrc} className='w-auto max-h-[95vh] inline-block m-auto'></img>
             </Modal>
             <RestaurantModalReview
                 closeModalReview={closeReviewModal}

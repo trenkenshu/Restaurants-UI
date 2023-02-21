@@ -247,7 +247,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
 
     return {
         ...(activeStep === steps[state.language].length ? (
-            <div className='py-6 text-4xl'>{content.bookingModal.finishBooking[state.language]}</div>
+            <div className='py-6 text-4xl text-center'>{content.bookingModal.finishBooking[state.language]}</div>
         ) : (
             <div className='flex flex-col w-full min-h-[560px] min-[400px]:min-h-[640px] justify-between p-2'>
                 <div className='flex flex-col gap-5'>
