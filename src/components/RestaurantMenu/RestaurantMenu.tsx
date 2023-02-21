@@ -19,13 +19,20 @@ const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant, openImgModal 
         dots: false,
         infinite: true,
         speed: 500,
-        slidesToShow: 2,
+        slidesToShow: 4,
         slidesToScroll: 1,
         autoplay: false,
         arrows: true,
-        swipeToSlide: true,
-        swipe: true,
+        swipeToSlide: false,
+        swipe: false,
         responsive: [
+            {
+                breakpoint: 1400,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 1,
+                },
+            },
             {
                 breakpoint: 1024,
                 settings: {
@@ -57,7 +64,7 @@ const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant, openImgModal 
                             // />
                             <NewImg
                                 wrapperClasses='h-[600px]'
-                                imgClasses='h-full w-full rounded-md min-[640px]:px-0.5'
+                                imgClasses='h-full w-full rounded-md min-[640px]:px-1'
                                 src={`https://restaurants-server-3.onrender.com/${img}`}
                                 alt='Restaurant'
                                 key={img}
