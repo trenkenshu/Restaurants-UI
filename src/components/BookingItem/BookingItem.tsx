@@ -1,12 +1,12 @@
-import React, { FC, useContext } from 'react';
+import getCalendarDate from 'utils/functions/getCalendarDate';
 import ButtonBlack from 'components/ButtonBlack';
-import { IBooking } from 'types';
+import { useNavigate } from 'react-router-dom';
+import React, { FC, useContext } from 'react';
+import { baseURL } from 'utils/constants';
 import { AppContext } from 'store/store';
 import { deleteBooking } from 'api/api';
 import { content } from 'utils/content';
-import { useNavigate } from 'react-router-dom';
-import getCalendarDate from 'utils/functions/getCalendarDate';
-import { baseURL } from 'utils/constants';
+import { IBooking } from 'types';
 
 interface BookingItemProps {
     booking: IBooking;
@@ -25,6 +25,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
             console.log('click delete');
             const updatedUser = state.user;
             updatedUser.bookings = state.user.bookings.filter((reserv) => reserv.id !== booking.id);
+            updatedUser.bonusPoints = updatedUser.bonusPoints - 5;
             dispatch({
                 type: 'updateUser',
                 payload: updatedUser,

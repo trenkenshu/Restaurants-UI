@@ -126,7 +126,9 @@ const UserPage = () => {
                             <div className='flex flex-col flex-wrap sm:flex-row items-center sm:items-start gap-5'>
                                 {state.user.bookings.length > 0
                                     ? state.user.bookings.map((booking) => {
-                                          return <BookingItem booking={booking} key={booking.id} />;
+                                          if (new Date(booking.date) >= new Date()) {
+                                              return <BookingItem booking={booking} key={booking.id} />;
+                                          }
                                       })
                                     : `${content.userPage.nobookings[state.language]}`}
                             </div>
