@@ -3,7 +3,6 @@ import participants from '../../utils/participants';
 import React, { useContext } from 'react';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
-import Loader from 'components/Loader';
 
 const AboutUs = () => {
     const { state } = useContext(AppContext);

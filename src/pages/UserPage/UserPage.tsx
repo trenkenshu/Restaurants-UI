@@ -6,11 +6,11 @@ import RestaurantCard from 'components/RestaurantCard';
 import ModalUserData from 'components/ModalUserData';
 import BookingItem from 'components/BookingItem';
 import BonusPoints from 'components/BonusPoints';
+import { deleteReview, getUser } from 'api/api';
 import { useNavigate } from 'react-router-dom';
 import ReviewItem from 'components/ReviewItem';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
-import { deleteReview, getUser } from 'api/api';
 import Error404 from 'pages/Error404';
 
 const UserPage = () => {

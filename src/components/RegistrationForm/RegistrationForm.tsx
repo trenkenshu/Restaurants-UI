@@ -1,10 +1,10 @@
+import spinner from '../../assets/icons/spinner_corall.png';
+import { emailRegexp, phoneRegexp } from 'utils/constants';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
 import { createUser } from 'api/api';
-import spinner from '../../assets/icons/spinner_corall.png';
-import { emailRegexp, phoneRegexp } from 'utils/constants';
 
 const RegistrationForm = () => {
     const { state, dispatch } = useContext(AppContext);

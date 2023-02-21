@@ -1,14 +1,13 @@
+import logoWhite from '../../assets/icons/favicon_white3.png';
+import RegistrationForm from 'components/RegistrationForm';
+import logoBlack from '../../assets/icons/favicon.png';
 import React, { useContext, useState } from 'react';
 import LoginForm from 'components/LoginForm';
-import RegistrationForm from 'components/RegistrationForm';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
-import logoBlack from '../../assets/icons/favicon.png';
-import logoWhite from '../../assets/icons/favicon_white3.png';
-import Loader from 'components/Loader';
 
 const Registration = () => {
-    const { state, dispatch } = useContext(AppContext);
+    const { state } = useContext(AppContext);
     const [registration, setForm] = useState(true);
     const [registrationTitle, setTitle] = useState(true);
     const [registrationText, setButtonText] = useState(true);

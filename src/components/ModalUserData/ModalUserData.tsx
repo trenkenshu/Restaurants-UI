@@ -1,4 +1,3 @@
-import setParsedTranslation from 'utils/functions/setParsedTranslation';
 import spinner from '../../assets/icons/spinner_corall.png';
 import ButtonBlack from 'components/ButtonBlack';
 import { FC, useContext, useState } from 'react';
