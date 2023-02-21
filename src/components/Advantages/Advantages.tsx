@@ -9,7 +9,9 @@ import { AppContext } from '../../store/store';
 const Advantages = () => {
     const { state } = useContext(AppContext);
 
-    const imgs = [jpg1, jpg2, jpg3, jpg4];
+    // const imgs = [jpg1, jpg2, jpg3, jpg4];
+    const imgs = ['bg-adv1', 'bg-adv2', 'bg-adv3', 'bg-adv4'];
+
     return (
         <div className='w-full flex flex-col md:mt-6 lg:mb-20'>
             <h2 className='text-2xl 2xl:text-3xl font-bold text-zinc-400 mt-8 mb-4'>
@@ -22,9 +24,7 @@ const Advantages = () => {
                 {content.homePage.advantages.map((el, index) => {
                     return (
                         <div className='flex flex-col w-1/2 md:w-1/3 lg:w-1/5 h-38 md:h-58 mb-2' key={el.id}>
-                            <div className='w-full h-32 sm:h-40 md:h-48 mb-2'>
-                                <img src={imgs[index]} className='w-full h-full' alt={el[state.language]}></img>
-                            </div>
+                            <div className={`w-full h-32 sm:h-40 md:h-48 mb-2 ${imgs[index]} bg-center bg-cover`}></div>
                             <p className='text-xs md:text-base lg:text-lg 2xl:text-2xl font-semibold dark:text-smoke-gray'>
                                 {el[state.language]}
                             </p>
