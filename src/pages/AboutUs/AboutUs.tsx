@@ -9,7 +9,6 @@ const AboutUs = () => {
     const { state } = useContext(AppContext);
     return (
         <>
-            <Loader />
             <div className='flex flex-col w-11/12 2xl:w-9/12 mx-auto pb-10 md:pb-20'>
                 <h1 className='text-2xl lg:text-3xl 2xl:text-4xl font-bold text-center w-full py-4 dark:text-smoke-gray'>
                     {content.header.about[state.language]}

@@ -80,7 +80,7 @@ export interface ICreateBooking {
     tableId: number;
     date: Date;
     duration: number;
-    guestsAmount: number;
+    guestAmount: number;
     guestName: string;
     guestPhone: string;
 }
@@ -94,7 +94,7 @@ export interface IBooking {
     duration: number;
     date: Date;
     createdAt: Date;
-    guestsAmount: number;
+    guestAmount: number;
     guestName: string;
     guestPhone: string;
     status: 'active' | 'deleted' | 'archived';

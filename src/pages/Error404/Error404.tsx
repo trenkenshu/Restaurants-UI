@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { content } from '../../utils/content';
 
-const lang = 'en';
-
 const Error404 = () => {
     const { state } = useContext(AppContext);
     return (
