@@ -1,4 +1,3 @@
-import calcBonusScaleWidth from 'utils/functions/calcBonusScaleWidth';
 import setParsedTranslation from 'utils/functions/setParsedTranslation';
 import UserPageModalReview from 'components/UserPageModalReview';
 import React, { useContext, useEffect, useState } from 'react';
@@ -72,6 +71,7 @@ const UserPage = () => {
         deleteReview(id, state.user.id).then(() => {
             const updatedUser = state.user;
             updatedUser.reviews = state.user.reviews.filter((rev) => rev.id !== id);
+            updatedUser.bonusPoints = updatedUser.bonusPoints - 1;
             setParsedTranslation(updatedUser);
             dispatch({
                 type: 'updateUser',
