@@ -12,6 +12,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useContext } from 'react';
 import { AppContext } from 'store/store';
+import NewImg from 'components/NewImg';
 
 const MainSection = () => {
     const { state } = useContext(AppContext);
@@ -44,7 +45,16 @@ const MainSection = () => {
                 <div className='md:w-7/12 h-60 md:h-96 2xl:h-136'>
                     <Slider {...sliderSetting}>
                         {imgs.map((el) => {
-                            return <img key={el} src={el} className='h-60 md:h-96 2xl:h-136' alt='Restaurant' />;
+                            // return <img key={el} src={el} className='h-60 md:h-96 2xl:h-136' alt='Restaurant' />;
+                            return (
+                                <NewImg
+                                    key={el}
+                                    src={el}
+                                    wrapperClasses='hh-60 md:h-96 2xl:h-136'
+                                    imgClasses='h-full w-full object-cover'
+                                    alt='Restaurant'
+                                />
+                            );
                         })}
                     </Slider>
                 </div>

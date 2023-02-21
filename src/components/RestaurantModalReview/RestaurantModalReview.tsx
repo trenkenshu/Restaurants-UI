@@ -17,7 +17,7 @@ interface RestaurantModalReviewProps {
     isModalReviewOpen: boolean;
     restaurant: IRestaurant;
     setRestaurant: (data: IRestaurant) => void;
-    userReview?: IReview;
+    // userReview?: IReview;
 }
 
 const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {

@@ -10,7 +10,6 @@ import ButtonBlack from 'components/ButtonBlack';
 import getCalendarDate from 'utils/functions/getCalendarDate';
 import setTimeIntervals from 'utils/functions/setTimeIntervals';
 import { ICreateBooking, IRestaurant } from 'types';
-import { isConstructorDeclaration } from 'typescript';
 import { content } from 'utils/content';
 import { createBooking, getRestaurant, getUser } from 'api/api';
 import { emptyStepper, nameRegexp, phoneRegexp } from 'utils/constants';
@@ -40,6 +39,9 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     const [nameFocus, setNameFocus] = useState(false);
     const [phoneError, setPhoneError] = useState(false);
     const [phoneFocus, setPhoneFocus] = useState(false);
+    // Validate states
+    const [nameValidate, setNameValidate] = useState(false);
+    const [phoneValidate, setPhoneValidate] = useState(false);
 
     // states
     // const [date, setDate] = useState(new Date());
@@ -51,11 +53,9 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     // const [isStepEnd, setIsStepEnd] = useState(false);
 
     const timeIntervals = setTimeIntervals(restaurant.workTimeStart, restaurant.workTimeEnd - 2);
-    // console.log('time', timeIntervals);
 
     useEffect(() => {
         if (!nameError && stepperState.stepFour.name.length && !phoneError && stepperState.stepFour.phone.length) {
-            console.log('step 4 true');
             setStepperState((prev) => {
                 return {
                     ...prev,
@@ -70,6 +70,17 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     stepsFinished: prev.stepsFinished.map((el, index) => index === 3 && (el = false)),
                 };
             });
+        }
+
+        if (nameFocus && !nameError && stepperState.stepFour.name.length > 1) {
+            setNameValidate(true);
+        } else {
+            setNameValidate(false);
+        }
+        if (phoneFocus && !phoneError && stepperState.stepFour.phone.length > 9) {
+            setPhoneValidate(true);
+        } else {
+            setPhoneValidate(false);
         }
     }, [nameError, phoneError, stepperState.stepFour.name, stepperState.stepFour.phone]);
     // const checkStepFour = () => {
@@ -95,31 +106,37 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     // Inputs functions
     const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.replace(/[^A-Za-zА-Яа-я\s]/g, '');
-        if (value.match(nameRegexp)) {
-            setNameError(false);
-        } else {
-            setNameError(true);
-        }
+
         setStepperState((prev) => {
             return {
                 ...prev,
                 stepFour: { ...prev.stepFour, name: value },
             };
         });
+
+        if (value.match(nameRegexp) && value.length > 1) {
+            console.log('validate name hanlder', value);
+            setNameError(false);
+        } else {
+            setNameError(true);
+        }
     };
     const phoneHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.replace(/[^\d+]/g, '');
-        if (value.match(phoneRegexp)) {
-            setPhoneError(false);
-        } else {
-            setPhoneError(true);
-        }
+
         setStepperState((prev) => {
             return {
                 ...prev,
                 stepFour: { ...prev.stepFour, phone: value },
             };
         });
+
+        if (value.match(phoneRegexp) && value.length > 9) {
+            console.log('validate phone hanlder', value);
+            setPhoneError(false);
+        } else {
+            setPhoneError(true);
+        }
     };
 
     const guestAmountHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -151,7 +168,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
         if (activeStep === steps[state.language].length - 1) {
             console.log('Завершили бронь');
             const dateOfBooking = new Date(`${stepperState.stepOne.toDateString()} ${stepperState.stepTwo}:00:00`);
-            console.log(dateOfBooking);
             const bookingBody = {
                 clientId: state.user.id,
                 cafeId: restaurant.id,
@@ -160,16 +176,10 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 duration: 1,
                 guestName: stepperState.stepFour.name,
                 guestPhone: stepperState.stepFour.phone,
-                guestsAmount: stepperState.stepThree.guestNumber,
+                guestAmount: stepperState.stepThree.guestNumber,
             };
             console.log('bookingBody', bookingBody);
             makeReservation(bookingBody);
-            // обнуляем данные.
-            setTimeout(() => {
-                console.log('close modal');
-                closeBookingModal();
-                handleReset();
-            }, 1000);
         }
     };
 
@@ -220,6 +230,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     type: 'updateUser',
                     payload: updatedUser,
                 });
+                closeBookingModal();
+                handleReset();
             });
             getRestaurant(restaurant.id).then((restaurant) => {
                 console.log('NEWrestaurant', restaurant);
@@ -235,7 +247,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
 
     return {
         ...(activeStep === steps[state.language].length ? (
-            <div className='py-6 text-4xl'>{content.bookingModal.finishBooking[state.language]}</div>
+            <div className='py-6 text-4xl text-center'>{content.bookingModal.finishBooking[state.language]}</div>
         ) : (
             <div className='flex flex-col w-full min-h-[560px] min-[400px]:min-h-[640px] justify-between p-2'>
                 <div className='flex flex-col gap-5'>
@@ -344,12 +356,12 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                             <div className='flex flex-col gap-1'>
                                 <div className='flex gap-2 justify-between'>
                                     <p className='font-semibold'>{content.bookingModal.name[state.language]}</p>
-                                    {nameFocus && nameError && <p className='text-red-500 font-semibold'>Error</p>}
+                                    {nameFocus && !nameValidate && <p className='text-red-500 font-semibold'>Error</p>}
                                 </div>
 
                                 <input
-                                    className={`w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:outline-none ${
-                                        nameFocus && !nameError && 'border-green-500'
+                                    className={`w-full pl-1 text-zinc-800 border rounded focus:outline-none ${
+                                        nameValidate ? 'border-green-500' : 'border-zinc-800'
                                     }`}
                                     type='text'
                                     name='bookingName'
@@ -368,11 +380,13 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                             <div className='flex flex-col gap-1'>
                                 <div className='flex gap-2 justify-between'>
                                     <p className='font-semibold'>{content.bookingModal.phone[state.language]}</p>
-                                    {phoneFocus && phoneError && <p className='text-red-500 font-semibold'>Error</p>}
+                                    {phoneFocus && !phoneValidate && (
+                                        <p className='text-red-500 font-semibold'>Error</p>
+                                    )}
                                 </div>
                                 <input
-                                    className={`w-full pl-1 text-zinc-800 border border-zinc-800 rounded focus:outline-none ${
-                                        phoneFocus && !phoneError && 'border-green-500'
+                                    className={`w-full pl-1 text-zinc-800 border  rounded focus:outline-none ${
+                                        phoneValidate ? 'border-green-500' : 'border-zinc-800'
                                     }`}
                                     type='text'
                                     name='bookingPhone'

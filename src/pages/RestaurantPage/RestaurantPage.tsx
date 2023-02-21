@@ -18,7 +18,8 @@ import checkFavorites from 'utils/functions/checkFavorites';
 import { baseURL, emptyRestaurant } from 'utils/constants';
 import checkWorkTime from 'utils/functions/checkWorkTime';
 import RestaurantModalReview from 'components/RestaurantModalReview';
-import Loader from 'components/Loader';
+import NewImg from 'components/NewImg';
+import Modal from 'components/Modal';
 
 const sliderSetting = {
     dots: false,
@@ -28,7 +29,7 @@ const sliderSetting = {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
-    fade: true,
+    // fade: true,
     arrows: true,
     swipeToSlide: true,
     swipe: true,
@@ -67,6 +68,8 @@ const RestaurantPage = () => {
     const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
     const [idError, setIdError] = useState(false);
     const [restaurant, setRestaurant] = useState(emptyRestaurant);
+    const [isImgModalOpen, setIsImgModalOpen] = useState(false);
+    const [imgSrc, setImgSrc] = useState('');
     const { id } = useParams();
 
     const saveRestaurant = async () => {
@@ -90,10 +93,25 @@ const RestaurantPage = () => {
         setIsBookingModalOpen(true);
         document.body.classList.add('active');
         document.getElementById('innerScroll')?.classList.add('active');
+        console.log('MODAL BOOKING');
     };
 
     const closeBookingModal = () => {
         setIsBookingModalOpen(false);
+        document.body.classList.remove('active');
+        document.getElementById('innerScroll')?.classList.remove('active');
+    };
+
+    const openImgModal = (newSrc: string) => {
+        console.log('clickec', newSrc);
+        setIsImgModalOpen(true);
+        setImgSrc(newSrc);
+        document.body.classList.add('active');
+        document.getElementById('innerScroll')?.classList.add('active');
+    };
+
+    const closeImgModal = () => {
+        setIsImgModalOpen(false);
         document.body.classList.remove('active');
         document.getElementById('innerScroll')?.classList.remove('active');
     };
@@ -114,7 +132,6 @@ const RestaurantPage = () => {
     // !! Если ID > существующего то сдеать переход на ERROR page
     return (
         <>
-            <Loader />
             {idError && <Error404 />}
             {restaurant.id > 0 && !idError && (
                 <div className='restaurant flex flex-col-reverse w-full h-full gap-2 lg:gap-0 lg:flex-row lg:h-[calc(100vh-130px)] select-none'>
@@ -175,11 +192,11 @@ const RestaurantPage = () => {
                                 </div>
                             </div>
                             <div className='flex items-center gap-2.5'>
-                                <div className='flex flex-col items-center min-w-[100px]' onClick={openBookingModal}>
+                                <div className='flex flex-col items-center min-w-[80px]' onClick={openBookingModal}>
                                     <div className='w-9 h-9 bg-cover bg-no-repeat bg-center bg-booking dark:bg-bookingWhite cursor-pointer hover:scale-110 transition duration-300'></div>
                                     <div className=''>{content.restaurantsPage.book[state.language]}</div>
                                 </div>
-                                <div className='flex flex-col items-center min-w-[100px]'>
+                                <div className='flex flex-col items-center min-w-[80px]'>
                                     <div className='w-9 h-9'>
                                         <ButtonFavorite
                                             restaurant={restaurant}
@@ -188,7 +205,7 @@ const RestaurantPage = () => {
                                     </div>
                                     <div className=''>{content.restaurantsPage.favorites[state.language]}</div>
                                 </div>
-                                <div className='flex flex-col items-center min-w-[100px]'>
+                                <div className='flex flex-col items-center min-w-[80px]'>
                                     <button
                                         className='bg-review dark:bg-reviewWhite w-9 h-9 bg-cover bg-no-repeat bg-center cursor-pointer hover:scale-110 transition duration-300'
                                         onClick={openReviewModal}
@@ -206,7 +223,7 @@ const RestaurantPage = () => {
                                 <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
                                     {content.restaurantsPage.menu[state.language]}
                                 </div>
-                                <RestaurantMenu restaurant={restaurant} />
+                                <RestaurantMenu restaurant={restaurant} openImgModal={openImgModal} />
                             </div>
                             <div id='restMap' className='flex flex-col w-full h-full gap-2'>
                                 <div className='rounded-md text-smoke-gray bg-zinc-800 dark:bg-zinc-700 text-xl text-center py-0.5'>
@@ -219,9 +236,17 @@ const RestaurantPage = () => {
                                     {content.restaurantsPage.reviews[state.language]}
                                 </div>
                                 <div className='pb-5'>
-                                    {restaurant.reviews.map((review) => {
-                                        return <ReviewItem review={review} key={review.id} isOnRestaurantPage={true} />;
-                                    })}
+                                    {restaurant.reviews.length > 0 ? (
+                                        restaurant.reviews.map((review) => {
+                                            return (
+                                                <ReviewItem review={review} key={review.id} isOnRestaurantPage={true} />
+                                            );
+                                        })
+                                    ) : (
+                                        <div className='text-lg'>
+                                            {content.restaurantsPage.noReviews[state.language]}
+                                        </div>
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -231,14 +256,13 @@ const RestaurantPage = () => {
                             <Slider {...sliderSetting}>
                                 {restaurant.images.map((img) => {
                                     return (
-                                        <div key={img} className='min-[480px]:px-0.5 lg:px-0'>
-                                            <div
-                                                className='bg-cover bg-center h-44 lg:h-[calc(100vh-130px)] w-full'
-                                                style={{
-                                                    backgroundImage: `url(${baseURL}/${img})`,
-                                                }}
-                                            ></div>
-                                        </div>
+                                        <NewImg
+                                            wrapperClasses='h-44 lg:h-[calc(100vh-130px)] w-full'
+                                            imgClasses='h-full w-full object-cover min-[480px]:px-0.5 lg:px-0'
+                                            src={`https://restaurants-server-3.onrender.com/${img}`}
+                                            alt='Restaurant'
+                                            key={img}
+                                        />
                                     );
                                 })}
                             </Slider>
@@ -246,6 +270,9 @@ const RestaurantPage = () => {
                     </div>
                 </div>
             )}
+            <Modal isModalOpen={isImgModalOpen} closeModal={closeImgModal} height='h-auto' width='w-auto'>
+                <img src={imgSrc} alt={imgSrc} className='w-auto max-h-[95vh] inline-block m-auto'></img>
+            </Modal>
             <RestaurantModalReview
                 closeModalReview={closeReviewModal}
                 // setIsModalReviewOpen={setIsModalReviewOpen}

@@ -6,6 +6,7 @@ import { AppContext } from 'store/store';
 import { IRestaurant } from 'types';
 import { useNavigate } from 'react-router-dom';
 import { baseURL } from 'utils/constants';
+import NewImg from 'components/NewImg';
 
 interface RestaurantItemProps {
     restaurant: IRestaurant;
@@ -21,14 +22,21 @@ const RestaurantCard: FC<RestaurantItemProps> = ({ restaurant, isInUserFavotites
     return (
         <div className='flex flex-col w-full h-80 lg:h-96 border-b border-zinc-800 dark:border-corall'>
             <div className='w-full h-full overflow-y-hidden relative'>
-                <div
+                {/* <div
                     className='w-full h-full absolute top-0 left-0'
                     style={{ backgroundImage: `url(${baseURL}/${restaurant.images[0]})`, backgroundSize: 'cover' }}
-                ></div>
+                ></div> */}
+                <NewImg
+                    src={`${baseURL}/${restaurant.images[0]}`}
+                    wrapperClasses='w-full h-full'
+                    imgClasses={'h-full w-full'}
+                    alt='restaurant image'
+                    key={String(restaurant.id)}
+                />
                 <div className='w-8 h-8 absolute right-2 top-2'>
                     <ButtonFavorite filled={isInUserFavotites} restaurant={restaurant} />
                 </div>
-                <div className='flex flex-col w-full h-4/5 bg-smoke-gray dark:bg-zinc-800 transition-all translate-y-64 lg:translate-y-80 duration-1000 hover:translate-y-24 py-4 px-2 cursor-pointer'>
+                <div className='flex flex-col w-full absolute top-0 left-0 h-4/5 bg-smoke-gray dark:bg-zinc-800 transition-all translate-y-64 lg:translate-y-80 duration-1000 hover:translate-y-24 py-4 px-2 cursor-pointer'>
                     <h4 className='text-xl text-center font-bold pb-6 dark:text-smoke-gray'>{restaurant.name}</h4>
                     <p className='text-xs mb-2 italic leading-3 dark:text-smoke-gray hidden h-12 overflow-y-hidden lg:block'>
                         {restaurant.parsedTranslation && restaurant.parsedTranslation[state.language].description}

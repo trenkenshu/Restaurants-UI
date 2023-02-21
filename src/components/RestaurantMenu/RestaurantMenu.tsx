@@ -5,12 +5,14 @@ import 'slick-carousel/slick/slick-theme.css';
 import { AppContext } from 'store/store';
 import './RestaurantMenu.css';
 import { IRestaurant } from 'types';
+import NewImg from 'components/NewImg';
 
 type RestaurantMenuPropsType = {
     restaurant: IRestaurant;
+    openImgModal: (newSrc: string) => void;
 };
 
-const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant }) => {
+const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant, openImgModal }) => {
     // const { state } = useContext(AppContext);
 
     const sliderSetting = {
@@ -47,19 +49,19 @@ const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant }) => {
                 <Slider {...sliderSetting}>
                     {restaurant.menuImg.map((img) => {
                         return (
-                            // <div key={img} className='min-[480px]:px-1'>
-                            //     <div
-                            //         className='h-80 w-full bg-cover bg-center bg-no-repeat rounded-md'
-                            //         style={{
-                            //             backgroundImage: `url(https://restaurants-server-3.onrender.com/${img})`,
-                            //         }}
-                            //     ></div>
-                            // </div>
-                            <img
-                                key={img}
+                            // <img
+                            //     key={img}
+                            //     src={`https://restaurants-server-3.onrender.com/${img}`}
+                            //     className='h-[600px] w-[400px] rounded-md min-[640px]:px-0.5'
+                            //     alt='Restaurant'
+                            // />
+                            <NewImg
+                                wrapperClasses='h-[600px]'
+                                imgClasses='h-full w-full rounded-md min-[640px]:px-0.5'
                                 src={`https://restaurants-server-3.onrender.com/${img}`}
-                                className='h-[600px] w-[400px] rounded-md min-[640px]:px-0.5'
                                 alt='Restaurant'
+                                key={img}
+                                openImgModal={openImgModal}
                             />
                         );
                     })}
