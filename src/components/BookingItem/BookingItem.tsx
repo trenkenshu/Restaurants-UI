@@ -72,16 +72,9 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                     }`}</p>
                     <p className='text-sm text-end text-black leading-4'>
                         {`${content.booking.table[state.language]} №${booking.tableId}
-                        ${content.booking.forDuration[state.language]}
-                        ${booking.duration} ${content.booking.hours[state.language]}`}
+                        ${content.booking.forPersons[state.language]} ${booking.guestAmount}
+                        ${content.booking.person[state.language]}`}
                     </p>
-                    {/* <p className='text-sm text-end text-black leading-4'>
-                        {`${content.booking.table[state.language]} №${booking.tableId}
-                        ${content.booking.forPersons[state.language]} ${booking.guestsAmount}
-                        ${content.booking.person[state.language]}
-                        ${content.booking.forDuration[state.language]}
-                        ${booking.duration} ${content.booking.hours[state.language]}`}
-                    </p> */}
                 </div>
                 <div className='flex justify-center gap-3'>
                     <ButtonBlack

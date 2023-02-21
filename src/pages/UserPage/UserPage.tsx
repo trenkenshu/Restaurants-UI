@@ -12,7 +12,6 @@ import { AppContext } from 'store/store';
 import { content } from 'utils/content';
 import { deleteReview, getUser } from 'api/api';
 import Error404 from 'pages/Error404';
-import Loader from 'components/Loader';
 
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);

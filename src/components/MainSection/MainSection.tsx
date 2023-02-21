@@ -31,6 +31,8 @@ const MainSection = () => {
         className: 'h-full',
     };
 
+    const reviewsCount = state.restaurants.reduce((acc, el) => acc + el.reviews.length, 0);
+
     return (
         <div className='flex flex-col w-full md:mb-14'>
             <div className='flex flex-col md:flex-row mt-8 mb-5'>
@@ -60,7 +62,7 @@ const MainSection = () => {
                 </div>
             </div>
             <p className='2xl:text-xl mt-5 md:mt-0 before:content-["\2605\2605\2605\2605\2605"] before:mr-1.5 uppercase dark:before:text-corall'>
-                176 {content.homePage.reviews[state.language]}
+                {reviewsCount} {content.homePage.reviews[state.language]}
             </p>
         </div>
     );
