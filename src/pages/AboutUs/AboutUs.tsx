@@ -1,9 +1,8 @@
-import Loader from 'components/Loader';
+import ParticipantCard from '../../components/ParticipantCard';
+import participants from '../../utils/participants';
 import React, { useContext } from 'react';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
-import ParticipantCard from '../../components/ParticipantCard';
-import participants from '../../utils/participants';
 
 const AboutUs = () => {
     const { state } = useContext(AppContext);

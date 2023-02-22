@@ -31,8 +31,10 @@ const MainSection = () => {
         className: 'h-full',
     };
 
+    const reviewsCount = state.restaurants.reduce((acc, el) => acc + el.reviews.length, 0);
+
     return (
-        <div className='flex flex-col w-full md:mb-14'>
+        <div className='flex flex-col w-full md:pb-14'>
             <div className='flex flex-col md:flex-row mt-8 mb-5'>
                 <div className='flex flex-col md:w-5/12 md:mt-14 pr-10'>
                     <h1 className='text-2xl lg:text-3xl 2xl:text-4xl leading-6 sm:leading-8 font-bold mb-5 dark:text-smoke-gray'>
@@ -50,7 +52,7 @@ const MainSection = () => {
                                 <NewImg
                                     key={el}
                                     src={el}
-                                    wrapperClasses='hh-60 md:h-96 2xl:h-136'
+                                    wrapperClasses='h-60 md:h-96 2xl:h-136'
                                     imgClasses='h-full w-full object-cover'
                                     alt='Restaurant'
                                 />
@@ -60,7 +62,7 @@ const MainSection = () => {
                 </div>
             </div>
             <p className='2xl:text-xl mt-5 md:mt-0 before:content-["\2605\2605\2605\2605\2605"] before:mr-1.5 uppercase dark:before:text-corall'>
-                176 {content.homePage.reviews[state.language]}
+                {reviewsCount} {content.homePage.reviews[state.language]}
             </p>
         </div>
     );

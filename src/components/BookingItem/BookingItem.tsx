@@ -1,12 +1,12 @@
-import React, { FC, useContext } from 'react';
+import getCalendarDate from 'utils/functions/getCalendarDate';
 import ButtonBlack from 'components/ButtonBlack';
-import { IBooking } from 'types';
+import { useNavigate } from 'react-router-dom';
+import React, { FC, useContext } from 'react';
+import { baseURL } from 'utils/constants';
 import { AppContext } from 'store/store';
 import { deleteBooking } from 'api/api';
 import { content } from 'utils/content';
-import { useNavigate } from 'react-router-dom';
-import getCalendarDate from 'utils/functions/getCalendarDate';
-import { baseURL } from 'utils/constants';
+import { IBooking } from 'types';
 
 interface BookingItemProps {
     booking: IBooking;
@@ -25,6 +25,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
             console.log('click delete');
             const updatedUser = state.user;
             updatedUser.bookings = state.user.bookings.filter((reserv) => reserv.id !== booking.id);
+            updatedUser.bonusPoints = updatedUser.bonusPoints - 5;
             dispatch({
                 type: 'updateUser',
                 payload: updatedUser,
@@ -71,16 +72,9 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                     }`}</p>
                     <p className='text-sm text-end text-black leading-4'>
                         {`${content.booking.table[state.language]} №${booking.tableId}
-                        ${content.booking.forDuration[state.language]}
-                        ${booking.duration} ${content.booking.hours[state.language]}`}
+                        ${content.booking.forPersons[state.language]} ${booking.guestAmount}
+                        ${content.booking.person[state.language]}`}
                     </p>
-                    {/* <p className='text-sm text-end text-black leading-4'>
-                        {`${content.booking.table[state.language]} №${booking.tableId}
-                        ${content.booking.forPersons[state.language]} ${booking.guestsAmount}
-                        ${content.booking.person[state.language]}
-                        ${content.booking.forDuration[state.language]}
-                        ${booking.duration} ${content.booking.hours[state.language]}`}
-                    </p> */}
                 </div>
                 <div className='flex justify-center gap-3'>
                     <ButtonBlack

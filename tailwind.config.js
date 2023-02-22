@@ -58,6 +58,10 @@ module.exports = {
                 workRed: "url('/src/assets/icons/work-red.svg')",
                 workGreen: "url('/src/assets/icons/work-green.svg')",
                 userReserved: "url('/src/assets/icons/user-reserved.svg')",
+                adv1: "url('/src/assets/images/home-page/advantage-1.jpg')",
+                adv2: "url('/src/assets/images/home-page/advantage-2.jpg')",
+                adv3: "url('/src/assets/images/home-page/advantage-3.jpg')",
+                adv4: "url('/src/assets/images/home-page/advantage-4.jpg')",
             },
             flex: {
                 100: '1 1 100%',

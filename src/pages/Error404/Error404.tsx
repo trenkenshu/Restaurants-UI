@@ -1,8 +1,8 @@
 import ButtonBlack from 'components/ButtonBlack';
+import { content } from '../../utils/content';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { AppContext } from 'store/store';
-import { content } from '../../utils/content';
 
 const Error404 = () => {
     const { state } = useContext(AppContext);
