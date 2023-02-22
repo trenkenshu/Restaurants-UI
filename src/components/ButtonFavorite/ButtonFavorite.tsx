@@ -1,8 +1,8 @@
-import { addRemoveFavourites, updateUser } from 'api/api';
+import setParsedTranslation from 'utils/functions/setParsedTranslation';
+import { addRemoveFavourites } from 'api/api';
 import React, { FC, useContext } from 'react';
 import { AppContext } from 'store/store';
-import { IRestaurant, IUser } from 'types';
-import setParsedTranslation from 'utils/functions/setParsedTranslation';
+import { IRestaurant } from 'types';
 
 interface ButtonFavoriteProps {
     filled: boolean;

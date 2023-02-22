@@ -59,18 +59,18 @@ export const content = {
         advantages: [
             {
                 id: 1,
-                en: 'Book a table in three clicks with no calls',
-                ru: 'Бронируй столик за три клика без звонков',
+                en: 'Book a table in a few clicks with no calls',
+                ru: 'Бронируй столик за несколько кликов без звонков',
             },
             {
                 id: 2,
-                en: 'Track bookings in your personal account',
-                ru: 'Отслеживай свои бронирования в личном кабинете',
+                en: 'Choose the table you like best',
+                ru: 'Выбери столик, который тебе больше всего нравится',
             },
             {
                 id: 3,
-                en: 'We will remind you about the upcoming visit to the restaurant',
-                ru: 'Мы напомним о скором визите в ресторан',
+                en: 'Track bookings in your personal account',
+                ru: 'Отслеживай свои бронирования в личном кабинете',
             },
             {
                 id: 4,

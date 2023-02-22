@@ -1,11 +1,10 @@
+import getAndUpdateRestaurants from 'utils/functions/getAndUpdateRestaurants';
+import RegistrationProposal from 'components/RegistrationProposal';
+import RestaurantRecs from 'components/RestaurantRecs';
 import React, { useContext, useEffect } from 'react';
 import MainSection from 'components/MainSection';
 import Advantages from 'components/Advantages';
-import RestaurantRecs from 'components/RestaurantRecs';
-import RegistrationProposal from 'components/RegistrationProposal';
 import { AppContext } from 'store/store';
-import getAndUpdateRestaurants from 'utils/functions/getAndUpdateRestaurants';
-import Loader from 'components/Loader';
 
 const HomePage = () => {
     const { state, dispatch } = useContext(AppContext);

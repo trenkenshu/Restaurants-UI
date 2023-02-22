@@ -1,4 +1,3 @@
-import calcBonusScaleWidth from 'utils/functions/calcBonusScaleWidth';
 import setParsedTranslation from 'utils/functions/setParsedTranslation';
 import UserPageModalReview from 'components/UserPageModalReview';
 import React, { useContext, useEffect, useState } from 'react';
@@ -7,13 +6,12 @@ import RestaurantCard from 'components/RestaurantCard';
 import ModalUserData from 'components/ModalUserData';
 import BookingItem from 'components/BookingItem';
 import BonusPoints from 'components/BonusPoints';
+import { deleteReview, getUser } from 'api/api';
 import { useNavigate } from 'react-router-dom';
 import ReviewItem from 'components/ReviewItem';
 import { AppContext } from 'store/store';
 import { content } from 'utils/content';
-import { deleteReview, getUser } from 'api/api';
 import Error404 from 'pages/Error404';
-import Loader from 'components/Loader';
 
 const UserPage = () => {
     const { state, dispatch } = useContext(AppContext);
@@ -72,6 +70,7 @@ const UserPage = () => {
         deleteReview(id, state.user.id).then(() => {
             const updatedUser = state.user;
             updatedUser.reviews = state.user.reviews.filter((rev) => rev.id !== id);
+            updatedUser.bonusPoints = updatedUser.bonusPoints - 1;
             setParsedTranslation(updatedUser);
             dispatch({
                 type: 'updateUser',
@@ -126,7 +125,9 @@ const UserPage = () => {
                             <div className='flex flex-col flex-wrap sm:flex-row items-center sm:items-start gap-5'>
                                 {state.user.bookings.length > 0
                                     ? state.user.bookings.map((booking) => {
-                                          return <BookingItem booking={booking} key={booking.id} />;
+                                          if (new Date(booking.date) >= new Date()) {
+                                              return <BookingItem booking={booking} key={booking.id} />;
+                                          }
                                       })
                                     : `${content.userPage.nobookings[state.language]}`}
                             </div>
