@@ -28,7 +28,7 @@ const MainSection = () => {
         arrows: false,
         swipeToSlide: true,
         swipe: true,
-        className: 'h-full',
+        className: 'main-slider h-full',
     };
 
     const reviewsCount = state.restaurants.reduce((acc, el) => acc + el.reviews.length, 0);
@@ -36,7 +36,7 @@ const MainSection = () => {
     return (
         <div className='flex flex-col w-full md:pb-14'>
             <div className='flex flex-col md:flex-row mt-8 mb-5'>
-                <div className='flex flex-col md:w-5/12 md:mt-14 pr-10'>
+                <div className='flex flex-col md:w-5/12 md:mt-14 md:pr-10'>
                     <h1 className='text-2xl lg:text-3xl 2xl:text-4xl leading-6 sm:leading-8 font-bold mb-5 dark:text-smoke-gray'>
                         {content.homePage.title[state.language]}
                     </h1>
