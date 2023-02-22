@@ -31,7 +31,7 @@ const Map: FC = () => {
     };
 
     return (
-        <div id='map' className='w-full h-[500px] lg:w-3/5 lg:h-full'>
+        <div id='map' className='w-full  h-[350px] min-[480px]:h-[500px] lg:w-3/5 lg:h-full'>
             <MapContainer
                 className='w-full h-full rounded'
                 center={[cityCoords[state.currentCity['en']][0], cityCoords[state.currentCity['en']][1]]}

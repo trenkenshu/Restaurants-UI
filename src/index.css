@@ -107,6 +107,11 @@ header .active {
     background-color: #ff5f49;
 }
 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button {  
+   opacity: 1;
+}
+
 @media (min-width: 1024px) {
     html:has(#restReviews) {
         overflow: hidden;

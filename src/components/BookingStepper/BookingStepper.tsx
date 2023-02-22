@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from 'react';
+import React, { FC, KeyboardEvent, useContext, useEffect, useState } from 'react';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -83,25 +83,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
             setPhoneValidate(false);
         }
     }, [nameError, phoneError, stepperState.stepFour.name, stepperState.stepFour.phone]);
-    // const checkStepFour = () => {
-    //     if (!nameError && stepperState.stepFour.name.length && !phoneError && stepperState.stepFour.phone.length) {
-    //         console.log('step 4 true');
-    //         setStepperState((prev) => {
-    //             return {
-    //                 ...prev,
-    //                 stepsFinished: prev.stepsFinished.map((el) => (el = true)),
-    //             };
-    //         });
-    //     } else {
-    //         console.log('step4 false', activeStep);
-    //         setStepperState((prev) => {
-    //             return {
-    //                 ...prev,
-    //                 stepsFinished: prev.stepsFinished.map((el, index) => index === 3 && (el = false)),
-    //             };
-    //         });
-    //     }
-    // };
 
     // Inputs functions
     const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -121,6 +102,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
             setNameError(true);
         }
     };
+
     const phoneHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.replace(/[^\d+]/g, '');
 
@@ -140,14 +122,30 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     };
 
     const guestAmountHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { target } = event;
-        setStepperState((prev) => {
-            return {
-                ...prev,
-                stepThree: { ...prev.stepThree, guestNumber: Number(target.value) },
-            };
-        });
+        let value = event.target.value;
+
+        if (Number(value) < 1) {
+            value = '1';
+        }
+        if (Number(value) > 4) {
+            value = '4';
+        }
+        if (value.length < 2) {
+            setStepperState((prev) => {
+                return {
+                    ...prev,
+                    stepThree: { ...prev.stepThree, guestNumber: Number(value) },
+                };
+            });
+        } else {
+            value = value.slice(0, -1);
+        }
     };
+    const disableKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+        event.preventDefault();
+        console.log('disableKeyDown');
+    };
+
     const blurHandler = (event: React.FocusEvent<HTMLInputElement>) => {
         const { target } = event;
         switch (target.name) {
@@ -336,8 +334,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                         value={stepperState.stepThree.guestNumber}
                                         min={1}
                                         max={4}
-                                        maxLength={9}
                                         onChange={guestAmountHandler}
+                                        onKeyDown={disableKeyDown}
                                     />
                                 </div>
                                 <p className='text-zinc-400 text-sm'>
@@ -370,7 +368,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                     onBlur={(event) => blurHandler(event)}
                                     onChange={(event) => {
                                         nameHandler(event);
-                                        // checkStepFour();
                                     }}
                                 />
                                 <p className='w-fit p-1 bg-zinc-300 text-zinc-800 dark:text-smoke-gray text-sm rounded'>
@@ -395,7 +392,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                     onBlur={(event) => blurHandler(event)}
                                     onChange={(event) => {
                                         phoneHandler(event);
-                                        // checkStepFour();
                                     }}
                                 />
                                 <p className='w-fit p-1 bg-zinc-300 text-zinc-800 dark:text-smoke-gray text-sm rounded'>
