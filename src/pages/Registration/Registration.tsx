@@ -22,8 +22,17 @@ const Registration = () => {
         <>
             <div className='flex min-h-full items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mx-auto'>
                 <div className='w-full max-w-md space-y-8'>
-                    <img className='dark:hidden mx-auto h-12 w-auto rounded-full shadow-lg' src={logoBlack}></img>
-                    <img className='hidden dark:block mx-auto h-12 w-auto rounded-full shadow-lg' src={logoWhite}></img>
+                    <div className='flex'>
+                        <img
+                            className='block dark:hidden mx-auto h-12 w-auto rounded-full shadow-lg'
+                            src={logoBlack}
+                        ></img>
+                        <img
+                            className='hidden dark:block mx-auto h-12 w-auto rounded-full shadow-lg'
+                            src={logoWhite}
+                        ></img>
+                    </div>
+
                     <h2 className='mt-6 text-center text-3xl font-bold tracking-tight text-zinc-800 dark:text-smoke-gray'>
                         {registrationTitle
                             ? content.registration.registerForm[state.language]
