@@ -400,7 +400,7 @@ export const content = {
             en: 'Name',
             ru: 'Имя',
         },
-        nameError: {
+        nameText: {
             en: 'Must start with capital letter and contain at least 2 letters',
             ru: 'Должно начинаться с заглавной буквы и быть не менее двух букв',
         },
@@ -412,7 +412,7 @@ export const content = {
             en: 'Phone number',
             ru: 'Номер телефона',
         },
-        phoneError: {
+        phoneText: {
             en: 'Must begin with plus and contain and at least 9 numbers',
             ru: 'Должен начинаться с плюса и не менее 9 чисел',
         },

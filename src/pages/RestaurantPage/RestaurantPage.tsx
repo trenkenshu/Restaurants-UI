@@ -271,7 +271,7 @@ const RestaurantPage = () => {
                 </div>
             )}
             <Modal isModalOpen={isImgModalOpen} closeModal={closeImgModal} height='h-auto' width='w-auto'>
-                <img src={imgSrc} alt={imgSrc} className='w-auto max-h-[95vh] inline-block m-auto'></img>
+                <img src={imgSrc} alt={imgSrc} className='w-auto max-h-[80vh] inline-block m-auto'></img>
             </Modal>
             <RestaurantModalReview
                 closeModalReview={closeReviewModal}

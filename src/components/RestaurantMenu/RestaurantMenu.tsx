@@ -63,12 +63,6 @@ const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant, openImgModal 
                 <Slider {...sliderSetting}>
                     {restaurant.menuImg.map((img) => {
                         return (
-                            // <img
-                            //     key={img}
-                            //     src={`https://restaurants-server-3.onrender.com/${img}`}
-                            //     className='h-[600px] w-[400px] rounded-md min-[640px]:px-0.5'
-                            //     alt='Restaurant'
-                            // />
                             <NewImg
                                 wrapperClasses='h-[600px]'
                                 imgClasses='h-full w-full rounded-md min-[540px]:px-1'

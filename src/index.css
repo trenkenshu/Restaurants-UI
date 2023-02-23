@@ -83,7 +83,7 @@ header .active {
     color: #ff5f49;
 }
 
-.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
+/* .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
     color: #ff5f49 !important;
 }
 .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
@@ -101,7 +101,8 @@ header .active {
 }
 .dark .css-1hv8oq8-MuiStepLabel-label.MuiStepLabel-alternativeLabel {
     color: #f0f0f0 !important;
-}
+} */
+
 
 .timeblock.active {
     background-color: #ff5f49;
