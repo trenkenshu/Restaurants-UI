@@ -24,7 +24,7 @@ const RestaurantRecs = () => {
         arrows: true,
         swipeToSlide: true,
         swipe: true,
-        className: 'h-full',
+        className: 'rest-recs h-full',
         centerMode: false,
         responsive: [
             {
@@ -38,16 +38,25 @@ const RestaurantRecs = () => {
             {
                 breakpoint: 768,
                 settings: {
-                    slidesToShow: 2,
+                    slidesToShow: 3,
                     slidesToScroll: 1,
                 },
             },
             {
                 breakpoint: 640,
                 settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 1,
+                    arrows: true,
+                },
+            },
+            {
+                breakpoint: 480,
+                settings: {
                     slidesToShow: 1,
                     slidesToScroll: 1,
                     arrows: false,
+                    dots: true,
                 },
             },
         ],
@@ -60,11 +69,11 @@ const RestaurantRecs = () => {
             <h3 className='text-3xl 2xl:text-4xl font-semibold dark:text-smoke-gray mb-16'>
                 {content.homePage.subtitleSec3[state.language]}
             </h3>
-            <div className='w-full h-80 lg:h-96 -pr-3'>
+            <div className='w-full h-96'>
                 <Slider {...sliderSetting}>
                     {filteredByRating.map((restaurant) => {
                         return (
-                            <div className='w-64 h-80 lg:h-96' key={restaurant.id}>
+                            <div className='w-full h-full' key={restaurant.id}>
                                 <RestaurantCard
                                     restaurant={restaurant}
                                     isInUserFavotites={checkFavorites(restaurant.id, state)}

@@ -168,7 +168,7 @@ const UserPage = () => {
                                 {state.user.favourites.length > 0
                                     ? state.user.favourites.map((restaurant) => {
                                           return (
-                                              <div className='w-64 h-80 lg:h-96' key={restaurant.id}>
+                                              <div className='w-64 h-96' key={restaurant.id}>
                                                   <RestaurantCard
                                                       restaurant={restaurant}
                                                       isInUserFavotites={checkRestaurant(restaurant.id)}
