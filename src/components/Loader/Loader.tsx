@@ -8,7 +8,7 @@ type LoaderType = {
 export const Loader: FC<LoaderType> = ({ imageLoaded }) => {
     return (
         <div
-            className={`absolute w-full h-full bg-zinc-200 rounded-md transition-opacity duration-300 ${
+            className={`absolute w-full h-full bg-zinc-200 transition-opacity duration-300 ${
                 !imageLoaded ? 'opacity-100' : 'opacity-0'
             }`}
         >

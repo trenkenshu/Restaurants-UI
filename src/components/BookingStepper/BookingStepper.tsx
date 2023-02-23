@@ -4,7 +4,6 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import RestaurantScheme from 'components/RestaurantScheme';
 import Calendar from 'react-calendar';
-import './Calendar.css';
 import { AppContext } from 'store/store';
 import ButtonBlack from 'components/ButtonBlack';
 import getCalendarDate from 'utils/functions/getCalendarDate';
@@ -15,6 +14,7 @@ import { createBooking, getRestaurant, getUser } from 'api/api';
 import { emptyStepper, nameRegexp, phoneRegexp } from 'utils/constants';
 import checkActiveTime from 'utils/functions/checkActiveTime';
 import setParsedTranslation from 'utils/functions/setParsedTranslation';
+import './Calendar.css';
 
 const steps = {
     en: ['Select date', 'Select time', 'Select table', 'Guest info', 'Finish booking'],
@@ -25,9 +25,6 @@ type BookingStepperProps = {
     restaurant: IRestaurant;
     setRestaurant: (data: IRestaurant) => void;
     closeBookingModal: () => void;
-    // date: Date;
-    // setDate: (data: Date) => void;
-    // setTableId: (data: string) => void;
 };
 
 const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal, setRestaurant }) => {
@@ -42,6 +39,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     // Validate states
     const [nameValidate, setNameValidate] = useState(false);
     const [phoneValidate, setPhoneValidate] = useState(false);
+    const [isNameValid, setIsNameValid] = useState(false);
+    const [isPhoneValid, setIsPhoneValid] = useState(false);
 
     // states
     // const [date, setDate] = useState(new Date());
@@ -55,7 +54,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     const timeIntervals = setTimeIntervals(restaurant.workTimeStart, restaurant.workTimeEnd - 2);
 
     useEffect(() => {
-        if (!nameError && stepperState.stepFour.name.length && !phoneError && stepperState.stepFour.phone.length) {
+        if (isNameValid && stepperState.stepFour.name.length && isPhoneValid && stepperState.stepFour.phone.length) {
             setStepperState((prev) => {
                 return {
                     ...prev,
@@ -72,17 +71,17 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
             });
         }
 
-        if (nameFocus && !nameError && stepperState.stepFour.name.length > 1) {
-            setNameValidate(true);
-        } else {
-            setNameValidate(false);
-        }
-        if (phoneFocus && !phoneError && stepperState.stepFour.phone.length > 9) {
-            setPhoneValidate(true);
-        } else {
-            setPhoneValidate(false);
-        }
-    }, [nameError, phoneError, stepperState.stepFour.name, stepperState.stepFour.phone]);
+        // if (nameFocus && !nameError && stepperState.stepFour.name.length > 1) {
+        //     setNameValidate(true);
+        // } else {
+        //     setNameValidate(false);
+        // }
+        // if (phoneFocus && !phoneError && stepperState.stepFour.phone.length > 9) {
+        //     setPhoneValidate(true);
+        // } else {
+        //     setPhoneValidate(false);
+        // }
+    }, [isNameValid, isPhoneValid, stepperState.stepFour.name, stepperState.stepFour.phone]);
 
     // Inputs functions
     const nameHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,11 +94,14 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
             };
         });
 
-        if (value.match(nameRegexp) && value.length > 1) {
-            console.log('validate name hanlder', value);
-            setNameError(false);
+        if (value.length > 1 && nameRegexp.test(value)) {
+            console.log('validate name hanlder', value.match(nameRegexp), value);
+            console.log('name hanlder', nameRegexp.test(value));
+            // setNameError(false);
+            setIsNameValid(true);
         } else {
-            setNameError(true);
+            // setNameError(true);
+            setIsNameValid(false);
         }
     };
 
@@ -113,11 +115,15 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
             };
         });
 
-        if (value.match(phoneRegexp) && value.length > 9) {
-            console.log('validate phone hanlder', value);
-            setPhoneError(false);
+        if (value.length > 9 && phoneRegexp.test(value)) {
+            // value.match(phoneRegexp) && value.length > 9
+            console.log('validate phone hanlder inside');
+            console.log('validate phone hanlder', phoneRegexp.test(value), value);
+            // setPhoneError(false);
+            setIsPhoneValid(true);
         } else {
-            setPhoneError(true);
+            // setPhoneError(true);
+            setIsPhoneValid(false);
         }
     };
 
@@ -235,10 +241,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 console.log('NEWrestaurant', restaurant);
                 restaurant.parsedTranslation = JSON.parse(restaurant.translation);
                 setRestaurant(restaurant);
-                // dispatch({
-                //     type: 'getRestaurant',
-                //     payload: restaurant,
-                // });
             });
         });
     };
@@ -256,7 +258,51 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                         {activeStep === 3 && steps[state.language][3]}
                         {activeStep === 4 && steps[state.language][4]}
                     </div>
-                    <Stepper activeStep={activeStep} alternativeLabel>
+                    <Stepper
+                        activeStep={activeStep}
+                        alternativeLabel
+                        sx={{
+                            '& .MuiStepLabel-root .Mui-completed': {
+                                color: 'black', // circle color (COMPLETED)
+                            },
+                            '.dark & .MuiStepLabel-root .Mui-completed': {
+                                color: '#F0F0F0', // dark theme circle color (COMPLETED)
+                            },
+                            '& .MuiStepLabel-label.Mui-completed.MuiStepLabel-alternativeLabel': {
+                                color: 'black', // Just text label (COMPLETED)
+                            },
+                            '& .MuiStepLabel-root .Mui-active': {
+                                color: '#ff5f49', // circle color (ACTIVE)
+                            },
+                            '& .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel': {
+                                color: '#ff5f49', // Just text label (ACTIVE)
+                            },
+                            '.dark & .MuiStepLabel-label.Mui-active.MuiStepLabel-alternativeLabel': {
+                                color: '#ff5f49', // Just text label (ACTIVE)
+                            },
+                            '& .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
+                                color: 'black', // Just text label light theme
+                            },
+                            '.dark & .MuiStepLabel-label.MuiStepLabel-alternativeLabel': {
+                                color: '#F0F0F0', // Just text label dark theme
+                            },
+                            '& .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
+                                fill: 'white', // text in circle (ACTIVE)
+                            },
+                            '.dark & .MuiStepLabel-root .Mui-active .MuiStepIcon-text': {
+                                fill: 'white', // text in circle dark theme (ACTIVE)
+                            },
+                            '.dark & .MuiStepLabel-root .MuiStepIcon-text': {
+                                fill: 'black', // text in circle
+                            },
+                            '& .Mui-disabled .MuiStepIcon-root': {
+                                color: 'black', // non-active circles color
+                            },
+                            '.dark & .Mui-disabled .MuiStepIcon-root': {
+                                color: '#F0F0F0', // non-active circles color dark theme
+                            },
+                        }}
+                    >
                         {steps[state.language].map((label) => {
                             return (
                                 <Step key={label}>
@@ -335,7 +381,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                         min={1}
                                         max={4}
                                         onChange={guestAmountHandler}
-                                        onKeyDown={disableKeyDown}
+                                        // onKeyDown={disableKeyDown}
                                     />
                                 </div>
                                 <p className='text-zinc-400 text-sm'>
@@ -354,48 +400,42 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                             <div className='flex flex-col gap-1'>
                                 <div className='flex gap-2 justify-between'>
                                     <p className='font-semibold'>{content.bookingModal.name[state.language]}</p>
-                                    {nameFocus && !nameValidate && <p className='text-red-500 font-semibold'>Error</p>}
+                                    {nameFocus && !isNameValid && <p className='text-red-500 font-semibold'>Error</p>}
                                 </div>
 
                                 <input
                                     className={`w-full pl-1 text-zinc-800 border rounded focus:outline-none ${
-                                        nameValidate ? 'border-green-500' : 'border-zinc-800'
+                                        nameFocus && isNameValid ? 'border-green-500' : 'border-zinc-800'
                                     }`}
                                     type='text'
                                     name='bookingName'
                                     value={stepperState.stepFour.name}
                                     placeholder={content.bookingModal.namePlaceholder[state.language]}
                                     onBlur={(event) => blurHandler(event)}
-                                    onChange={(event) => {
-                                        nameHandler(event);
-                                    }}
+                                    onChange={(event) => nameHandler(event)}
                                 />
-                                <p className='w-fit p-1 bg-zinc-300 text-zinc-800 dark:text-smoke-gray text-sm rounded'>
-                                    {content.bookingModal.nameError[state.language]}
+                                <p className='w-fit p-1 bg-zinc-300 text-zinc-800 text-sm rounded'>
+                                    {content.bookingModal.nameText[state.language]}
                                 </p>
                             </div>
                             <div className='flex flex-col gap-1'>
                                 <div className='flex gap-2 justify-between'>
                                     <p className='font-semibold'>{content.bookingModal.phone[state.language]}</p>
-                                    {phoneFocus && !phoneValidate && (
-                                        <p className='text-red-500 font-semibold'>Error</p>
-                                    )}
+                                    {phoneFocus && !isPhoneValid && <p className='text-red-500 font-semibold'>Error</p>}
                                 </div>
                                 <input
                                     className={`w-full pl-1 text-zinc-800 border  rounded focus:outline-none ${
-                                        phoneValidate ? 'border-green-500' : 'border-zinc-800'
+                                        phoneFocus && isPhoneValid ? 'border-green-500' : 'border-zinc-800'
                                     }`}
                                     type='text'
                                     name='bookingPhone'
                                     value={stepperState.stepFour.phone}
                                     placeholder={content.bookingModal.phonePlaceholder[state.language]}
                                     onBlur={(event) => blurHandler(event)}
-                                    onChange={(event) => {
-                                        phoneHandler(event);
-                                    }}
+                                    onChange={(event) => phoneHandler(event)}
                                 />
-                                <p className='w-fit p-1 bg-zinc-300 text-zinc-800 dark:text-smoke-gray text-sm rounded'>
-                                    {content.bookingModal.phoneError[state.language]}
+                                <p className='w-fit p-1 bg-zinc-300 text-zinc-800 text-sm rounded'>
+                                    {content.bookingModal.phoneText[state.language]}
                                 </p>
                             </div>
                             <div className='flex flex-col'>
