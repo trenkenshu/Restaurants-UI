@@ -33,6 +33,8 @@ body.active {
 #innerScroll.active {
     overflow: hidden;
 }
+
+
 .restaurant .slick-prev {
     width: auto;
     height: auto;
@@ -69,11 +71,6 @@ body.active {
     color: black !important;
 }
 
-/* .homepage-dark .slick-prev:before,
-.homepage-dark .slick-next:before {
-  color: lightgray !important;
-} */
-
 .leaflet-popup-content p {
     margin: 0;
     margin-bottom: 2px;
@@ -108,8 +105,8 @@ header .active {
     background-color: #ff5f49;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button {  
+#guestsNum::-webkit-inner-spin-button, 
+#guestsNum::-webkit-outer-spin-button {  
    opacity: 1;
 }
 

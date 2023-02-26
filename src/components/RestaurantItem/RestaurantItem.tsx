@@ -8,7 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { IRestaurant } from 'types';
 import { content } from 'utils/content';
 import { AppContext } from 'store/store';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import checkFavorites from 'utils/functions/checkFavorites';
 import checkWorkTime from 'utils/functions/checkWorkTime';
 import NewImg from 'components/NewImg';
@@ -20,7 +20,6 @@ type RestaurantItemType = {
 
 const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
     const { state } = useContext(AppContext);
-    const navigate = useNavigate();
     const [isImgModalOpen, setIsImgModalOpen] = useState(false);
     const [imgSrc, setImgSrc] = useState('');
 
@@ -129,12 +128,6 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                 <Slider {...sliderSetting}>
                     {restaurant.images.map((img) => {
                         return (
-                            // <img
-                            //     key={img}
-                            //     src={`https://restaurants-server-3.onrender.com/${img}`}
-                            //     className='h-40 w-40 object-cover rounded-md'
-                            //     alt='Restaurant'
-                            // />
                             <NewImg
                                 wrapperClasses=''
                                 imgClasses='h-40 w-40 object-cover rounded-md'
@@ -147,23 +140,11 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                     })}
                 </Slider>
             </div>
-            {/* <div className='flex gap-2.5 w-full items-center'>
-                <ButtonBlack
-                    width={'w-32'}
-                    height={'h-10'}
-                    buttonText={content.common.details[state.language]}
-                    onClick={() => navigate(`/restaurants/${restaurant.id}`)}
-                />
-                <div className='w-10 h-10'>
-                    <ButtonFavorite restaurant={restaurant} filled={checkFavorites(restaurant.id, state)} />
-                </div>
-            </div> */}
             <Modal isModalOpen={isImgModalOpen} closeModal={closeImgModal} height='h-10/12' width='w-10/12'>
                 <div
                     className='w-full min-h-[600px] lg:min-h-[700px] bg-cover bg-no-repeat bg-center'
                     style={{ backgroundImage: `url('${imgSrc}')` }}
                 ></div>
-                {/* <img src={imgSrc} alt={imgSrc} className='w-10/12 min-h-[600px] lg:min-h-[700px]'></img> */}
             </Modal>
         </div>
     );

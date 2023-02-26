@@ -3,7 +3,7 @@ import ButtonBlack from 'components/ButtonBlack';
 import Modal from 'components/Modal';
 import { FC, useContext, useEffect, useState } from 'react';
 import { AppContext } from 'store/store';
-import { IRestaurant, IReview } from 'types';
+import { IRestaurant } from 'types';
 import { content } from 'utils/content';
 import spinner from '../../assets/icons/spinner_corall.png';
 import logoBlack from '../../assets/icons/favicon.png';
@@ -17,7 +17,6 @@ interface RestaurantModalReviewProps {
     isModalReviewOpen: boolean;
     restaurant: IRestaurant;
     setRestaurant: (data: IRestaurant) => void;
-    // userReview?: IReview;
 }
 
 const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {
@@ -104,7 +103,6 @@ const RestaurantModalReview: FC<RestaurantModalReviewProps> = (props) => {
                     } "${restaurant.name}"`}</h4>
                     <form onSubmit={saveReview} noValidate className='flex flex-col gap-4 w-96 w-full sm:w-11/12'>
                         <div className='flex w-full gap-5 items-center justify-center'>
-                            {/* <Rating value={rating} onChange={setStars} required /> */}
                             <Rating
                                 fillColor='#ff5f49'
                                 size={25}

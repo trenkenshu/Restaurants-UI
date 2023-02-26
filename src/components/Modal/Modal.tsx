@@ -7,7 +7,7 @@ interface ModalProps {
     width: string;
     height: string;
 }
-// w-11/12 md:w-[750px] lg:w-[900px]
+
 const Modal: FC<ModalProps> = ({ children, isModalOpen, width, height, closeModal }) => {
     return (
         <div

@@ -2,7 +2,6 @@ import RegistrLogo from 'components/RegistrLogo';
 import UserLogo from 'components/UserLogo';
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import Select, { SingleValue } from 'react-select';
 import { AppContext } from 'store/store';
 import { CityType } from 'types';
 import { content } from 'utils/content';
@@ -13,22 +12,6 @@ const links = [
     { id: 2, route: '/about', title: content.header.about },
 ];
 
-// const cities = [
-//     {
-//         value: 'Minsk',
-//         label: {
-//             en: 'Minsk',
-//             ru: 'Минск',
-//         },
-//     },
-//     {
-//         value: 'Kazan',
-//         label: {
-//             en: 'Kazan',
-//             ru: 'Казань',
-//         },
-//     },
-// ];
 export const cities = [
     {
         city: {

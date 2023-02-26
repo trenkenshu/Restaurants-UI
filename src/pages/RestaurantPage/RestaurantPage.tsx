@@ -129,7 +129,6 @@ const RestaurantPage = () => {
         document.getElementById('innerScroll')?.classList.remove('active');
     };
 
-    // !! Если ID > существующего то сдеать переход на ERROR page
     return (
         <>
             {idError && <Error404 />}
@@ -152,8 +151,8 @@ const RestaurantPage = () => {
                             <h1 className='text-4xl text-corall font-semibold drop-shadow-lg uppercase py-5 text-center'>
                                 {restaurant.name}
                             </h1>
-                            <div className='flex items-center gap-1 px-2.5 py-1 border border-gray-400 rounded-full cursor-pointer'>
-                                <div className='bg-location dark:bg-locationWhite w-6 h-6 bg-cover bg-no-repeat bg-center hover:scale-110 transition duration-300'></div>
+                            <div className='flex items-center gap-1 px-2.5 py-1 border border-gray-400 rounded-full'>
+                                <div className='bg-location dark:bg-locationWhite w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
                                 <div className=''>
                                     {restaurant.parsedTranslation &&
                                         restaurant.parsedTranslation[state.language].address}
@@ -180,13 +179,13 @@ const RestaurantPage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                <div className='flex gap-1.5 px-2 py-1 border border-gray-400 rounded-full cursor-pointer'>
+                                <div className='flex gap-1.5 px-2 py-1 border border-gray-400 rounded-full'>
                                     <div className='flex items-center gap-1 border-r pr-1 border-gray-400'>
-                                        <div className='bg-review dark:bg-reviewWhite w-6 h-6 bg-cover bg-no-repeat bg-center hover:scale-110 transition duration-300'></div>
+                                        <div className='bg-review dark:bg-reviewWhite w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
                                         <div className=''>{restaurant.reviews.length}</div>
                                     </div>
                                     <div className='flex gap-1'>
-                                        <div className='bg-rating w-6 h-6 bg-cover bg-no-repeat bg-center hover:scale-110 transition duration-300'></div>
+                                        <div className='bg-rating w-6 h-6 bg-cover bg-no-repeat bg-center'></div>
                                         <div className=''>{restaurant.rating}</div>
                                     </div>
                                 </div>
@@ -275,7 +274,6 @@ const RestaurantPage = () => {
             </Modal>
             <RestaurantModalReview
                 closeModalReview={closeReviewModal}
-                // setIsModalReviewOpen={setIsModalReviewOpen}
                 isModalReviewOpen={isModalReviewOpen}
                 restaurant={restaurant}
                 setRestaurant={setRestaurant}

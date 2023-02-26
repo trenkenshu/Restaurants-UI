@@ -23,10 +23,6 @@ const RestaurantCard: FC<RestaurantItemProps> = ({ restaurant, isInUserFavotites
     return (
         <div className='flex flex-col w-full h-96 border-b border-zinc-800 dark:border-corall'>
             <div className='w-full h-full overflow-y-hidden relative'>
-                {/* <div
-                    className='w-full h-full absolute top-0 left-0'
-                    style={{ backgroundImage: `url(${baseURL}/${restaurant.images[0]})`, backgroundSize: 'cover' }}
-                ></div> */}
                 <NewImg
                     src={`${baseURL}/${restaurant.images[0]}`}
                     wrapperClasses='w-full h-full'

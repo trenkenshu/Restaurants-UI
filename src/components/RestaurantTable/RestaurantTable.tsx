@@ -4,7 +4,6 @@ import { IRestaurant, IStepper } from 'types';
 
 type RestaurantTableProps = {
     dataId: number;
-    // getTableId: (event: React.MouseEvent<HTMLDivElement>) => void;
     id: number;
     restaurant: IRestaurant;
     stepperState: IStepper;
@@ -15,16 +14,8 @@ const RestaurantTable: FC<RestaurantTableProps> = ({ dataId, setStepperState, st
     const { state } = useContext(AppContext);
     const [isBooked, setIsBooked] = useState(false);
     const [isUserBooked, setIsUserBooked] = useState(false);
-    // const isBooked = stepperState.reservedTables.includes(String(dataId));
-    // const isUserBooked = state.user.bookings.some((el) => {
-    //     const bookedTime = String(new Date(el.date).getHours());
-    //     if (restaurant.id === el.cafeId && bookedTime === stepperState.stepTwo) {
-    //         // console.log(`userBOoking date ${restaurant.name}`, new Date(el.date).getHours());
-    //         return el.tableId === dataId;
-    //     }
-    // });
+
     useEffect(() => {
-        // console.log('useffect rest TAble', stepperState.reservedTables);
         const booked = stepperState.reservedTables.includes(String(dataId));
         const userBooked = state.user.bookings.some((el) => {
             const bookedTime = String(new Date(el.date).getHours());
@@ -35,15 +26,12 @@ const RestaurantTable: FC<RestaurantTableProps> = ({ dataId, setStepperState, st
         setIsBooked(booked);
         setIsUserBooked(userBooked);
     }, [stepperState]);
-    // console.log(`table${dataId}`, isBooked, 'userbooked', isUserBooked);
 
     const tableClick = (event: React.MouseEvent<HTMLDivElement>) => {
         const target = event.currentTarget;
         if (!isBooked && !isUserBooked) {
             document.querySelectorAll('.singleTable').forEach((table) => {
-                // console.log('tables', stepperState.reservedTables.includes(table.id));
                 if (!stepperState.reservedTables.includes(table.id)) {
-                    // console.log('inner');
                     table.classList.remove('bg-tableCorall');
                     table.classList.add('bg-tableDark');
                 }

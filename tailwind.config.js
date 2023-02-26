@@ -62,6 +62,8 @@ module.exports = {
                 adv2: "url('/src/assets/images/home-page/advantage-2.jpg')",
                 adv3: "url('/src/assets/images/home-page/advantage-3.jpg')",
                 adv4: "url('/src/assets/images/home-page/advantage-4.jpg')",
+                plus: "url('/src/assets/icons/plus.svg')",
+                minus: "url('/src/assets/icons/minus.svg')",
             },
             flex: {
                 100: '1 1 100%',

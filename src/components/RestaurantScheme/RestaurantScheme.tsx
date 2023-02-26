@@ -16,11 +16,9 @@ type RestaurantSchemeType = {
     setStepperState: Dispatch<SetStateAction<IStepper>>;
 };
 const RestaurantScheme: FC<RestaurantSchemeType> = ({ stepperState, setStepperState, restaurant }) => {
-    const [seats, setSeats] = useState(tableScheme.flatMap((seat) => seat));
-    // const [tableId, setTableId] = useState(0);
-    // const scheme = tableScheme.flatMap((seat) => seat);
-    // console.log(scheme.flatMap((seat) => seat));
-    // const numOfTables = seats.filter((el) => el === 'table');
+    // const [seats, setSeats] = useState(tableScheme.flatMap((seat) => seat));
+    const seats = tableScheme.flatMap((seat) => seat);
+
     const autoIncrement = () => {
         let n = 0;
         return function () {
@@ -31,7 +29,6 @@ const RestaurantScheme: FC<RestaurantSchemeType> = ({ stepperState, setStepperSt
     const tableIdIncrement = autoIncrement();
     const idIncrement = autoIncrement();
 
-    // console.log('numOfTables', numOfTables.length);
     return (
         <div className='relative w-[280px] h-[280px] min-[400px]:w-[350px] min-[400px]:h-[400px] min-[480px]:w-[400px] min-[480px]:h-[400px] lg:w-[500px] lg:h-[400px] grid grid-cols-6 grid-rows-4 justify-items-center items-center border border-black bg-schemeFloor rounded'>
             <div className='absolute top-1/2 left-1/2 text-white text-4xl min-[480px]:text-5xl lg:text-6xl -translate-x-2/4 -translate-y-2/4 font-logo'>
