@@ -17,6 +17,7 @@ General site features		|	100
 ----------------------------|-------
 SPA		|	10
 Routing		|	10
+Burger-menu		|	10
 Loaders on images		|	10
 The app works on phone, tablet, PC		|	10
 The application is made in the same style		|	10
@@ -26,10 +27,7 @@ Application language changing to english or russian		|	10
 Login icon changing to user icon when user is logged in		|	10
 City selection, all data updating according to the selected city		|	10
 
-			
-Header		|	10
-----------------------------|-------
-Burger-menu		|	10
+
 
 Home Page		|	20
 ----------------------------|-------
@@ -37,6 +35,10 @@ Infinity Slider with autoplay		|	8
 Slider with restaurants recommendations according to the selected city		|	8
 Displaying user login when user is logged in		|	1
 Responsive layout		|	3
+<details>
+<summary>Home page screenshot</summary>
+<img src='https://i.postimg.cc/6QCbfBsg/homepage.jpg' alt='homepage'/>
+</details>
 
 Restaurants Catalog Page		|	95
 ----------------------------|-------
@@ -49,6 +51,11 @@ Responsive layout		|	20
 *Displaying all information about restaurant: work time, is restaurant open right now or not, reviews count, average mark, cuisine type, etc.*		|	*10*
 *Button to add / delete a restaurant to favorites*		|	*5*
 *Slider with restaurants photos*	|	*10*
+<details>
+<summary>Restaurants page screenshot</summary>
+<img src='https://i.postimg.cc/J0zT8JyC/restaurants-page.png' alt='restaurants-page'/>
+</details>
+
 			
 Restaurant Page		|	145
 ----------------------------|-------
@@ -72,6 +79,11 @@ Responsive layout		|	20
 *Validate review form*		|	*5*
 *Spinner*		|	*2*
 
+<details>
+<summary>Restaurant page screenshot</summary>
+<img src='https://i.postimg.cc/J0YpznJD/one-rest-page.png' alt='one-rest-page'/>
+</details>
+
 Registration / Login Page		|	25
 ----------------------------|-------
 Validate login (login should contain minimum 3 characters)		|	5
@@ -80,6 +92,14 @@ Validate phone (phone should start with "+" and contain minimum 9 characters)		|
 Validate password (password should contains minimum 6 characters)		|	5
 Dispalay errors		|	3
 Spinner on buttons		|	2
+<details>
+<summary>Registration page screenshot</summary>
+<img src='https://i.postimg.cc/rwBY4KH5/registr.png' alt='registr'/>
+</details>
+<details>
+<summary>Login page screenshot</summary>
+<img src='https://i.postimg.cc/285JNpvL/login.png' alt='login'/>
+</details>
 
 User Page		|	45
 ----------------------------|-------
@@ -107,13 +127,27 @@ Displaying user bonus level according information got from server (different col
 Button for log out, redirect to home page		|	2
 Responsive layout		|	5
 
+<details>
+<summary>User page screenshot</summary>
+<img src='https://i.postimg.cc/nzZRdNpz/userpage.jpg' alt='userpage'/>
+</details>
+
 About Us Page		|	5
 ----------------------------|-------
 Responsive layout		|	
+<details>
+<summary>About us page screenshot</summary>
+<img src='https://i.postimg.cc/jjNgstZv/about.jpg' alt='about'/>
+</details>
 
 Error 404 Page		|	5
 ----------------------------|-------
 Responsive layout		|	
+
+<details>
+<summary>Error 404 Page	 screenshot</summary>
+<img src='https://i.postimg.cc/pLh6yDs2/404.png' alt='404'/>
+</details>
 
 
 Back-end		|	170
