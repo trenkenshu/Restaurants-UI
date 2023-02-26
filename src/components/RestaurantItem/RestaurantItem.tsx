@@ -1,5 +1,4 @@
 import React, { FC, useContext, useState } from 'react';
-import ButtonBlack from 'components/ButtonBlack';
 import ButtonFavorite from 'components/ButtonFavorite';
 
 import Slider from 'react-slick';

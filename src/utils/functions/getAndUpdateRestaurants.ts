@@ -7,6 +7,7 @@ const getAndUpdateRestaurants = async (state: IState, dispatch: Dispatch<ActionT
     restaurants.forEach((el: IRestaurant) => {
         el.parsedTranslation = JSON.parse(el.translation);
     });
+    restaurants.sort((a, b) => b.rating - a.rating);
     dispatch({ type: 'getRestaurants', payload: restaurants });
 };
 

@@ -7,6 +7,7 @@ export const emailRegexp =
 
 export const phoneRegexp = /^\+[1-9]{1}[0-9]{7,}$/g;
 export const nameRegexp = /^[A-ZА-Я][a-zA-ZА-Яа-я\s]*$/;
+export const loginRegexp = /^[A-Za-z0-9_\-$#@.]{3,}$/;
 
 export const emptyRestaurant: IRestaurant = {
     id: 0,

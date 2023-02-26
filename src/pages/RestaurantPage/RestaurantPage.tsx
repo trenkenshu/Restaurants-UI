@@ -15,7 +15,7 @@ import { content } from 'utils/content';
 import BookingModal from 'components/BookingModal/BookingModal';
 import Error404 from 'pages/Error404';
 import checkFavorites from 'utils/functions/checkFavorites';
-import { baseURL, emptyRestaurant } from 'utils/constants';
+import { emptyRestaurant } from 'utils/constants';
 import checkWorkTime from 'utils/functions/checkWorkTime';
 import RestaurantModalReview from 'components/RestaurantModalReview';
 import NewImg from 'components/NewImg';
@@ -93,7 +93,6 @@ const RestaurantPage = () => {
         setIsBookingModalOpen(true);
         document.body.classList.add('active');
         document.getElementById('innerScroll')?.classList.add('active');
-        console.log('MODAL BOOKING');
     };
 
     const closeBookingModal = () => {
@@ -103,7 +102,6 @@ const RestaurantPage = () => {
     };
 
     const openImgModal = (newSrc: string) => {
-        console.log('clickec', newSrc);
         setIsImgModalOpen(true);
         setImgSrc(newSrc);
         document.body.classList.add('active');
@@ -117,13 +115,11 @@ const RestaurantPage = () => {
     };
 
     const openReviewModal = () => {
-        console.log('click');
         setIsModalReviewOpen(true);
         document.body.classList.add('active');
         document.getElementById('innerScroll')?.classList.add('active');
     };
     const closeReviewModal = () => {
-        console.log('click');
         setIsModalReviewOpen(false);
         document.body.classList.remove('active');
         document.getElementById('innerScroll')?.classList.remove('active');
@@ -145,8 +141,6 @@ const RestaurantPage = () => {
                                 setRestaurant={setRestaurant}
                                 isBookingModalOpen={isBookingModalOpen}
                                 closeBookingModal={closeBookingModal}
-                                title='Book a table'
-                                isBookingEdit={false}
                             />
                             <h1 className='text-4xl text-corall font-semibold drop-shadow-lg uppercase py-5 text-center'>
                                 {restaurant.name}

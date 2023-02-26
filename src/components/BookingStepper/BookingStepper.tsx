@@ -1,4 +1,4 @@
-import React, { FC, KeyboardEvent, useContext, useEffect, useState } from 'react';
+import React, { FC, useContext, useEffect, useState } from 'react';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
@@ -195,6 +195,10 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     };
 
     const handleReset = () => {
+        setNameFocus(false);
+        setPhoneFocus(false);
+        setIsNameValid(false);
+        setIsPhoneValid(false);
         setActiveStep(0);
         setStepperState(emptyStepper);
     };

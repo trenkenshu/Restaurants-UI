@@ -20,11 +20,11 @@ const Modal: FC<ModalProps> = ({ children, isModalOpen, width, height, closeModa
                 className={`relative ${width} ${height} flex flex-col gap-3 rounded bg-smoke-gray dark:bg-zinc-800 border border-zinc-800 dark:border-smoke-gray rounded`}
                 onClick={(event) => event.stopPropagation()}
             >
-                {/* <div
-                    className='absolute hidden md:block md:-top-10 md:-right-8 bg-closemenuCorall w-8 h-8 md:w-10 md:h-10 bg-cover bg-no-repeat bg-center cursor-pointer'
-                    onClick={closeModal}
-                ></div> */}
                 {children}
+                <div
+                    className='absolute z-[1501] block top-1 right-1 bg-closemenuCorall w-8 h-8 bg-cover bg-no-repeat bg-center cursor-pointer bg-black hover:bg-zinc-900 dark:bg-smoke-gray rounded-lg'
+                    onClick={closeModal}
+                ></div>
             </div>
         </div>
     );
