@@ -13,7 +13,7 @@
 
 ## Total points: 620
 
-1. General site features		|	100
+General site features		|	100
 ----------------------------|-------
 SPA		|	10
 Routing		|	10
@@ -27,18 +27,18 @@ Login icon changing to user icon when user is logged in		|	10
 City selection, all data updating according to the selected city		|	10
 
 			
-2. Header		|	10
+Header		|	10
 ----------------------------|-------
 Burger-menu		|	10
 
-3. Home Page		|	20
+Home Page		|	20
 ----------------------------|-------
 Infinity Slider with autoplay		|	8
 Slider with restaurants recommendations according to the selected city		|	8
 Displaying user login when user is logged in		|	1
 Responsive layout		|	3
 
-4. Restaurants Catalog Page		|	95
+Restaurants Catalog Page		|	95
 ----------------------------|-------
 Map with all restaurants according to the selected city (map with zoom, centered according selected City)		|	25
 Restaurants selection on the map, dispalying restaurants info on map tag		|	13
@@ -50,7 +50,7 @@ Responsive layout		|	20
 *Button to add / delete a restaurant to favorites*		|	*5*
 *Slider with restaurants photos*	|	*10*
 			
-5. Restaurant Page		|	145
+Restaurant Page		|	145
 ----------------------------|-------
 Section with information about restaurant: name, description, work time, is restaurant open now or not, reviews count, average mark, cuisine type, etc.		|	10
 Button to add / delete a restaurant to favorites (only authorized user can add restaurant to favorites)		|	3
@@ -72,7 +72,7 @@ Responsive layout		|	20
 *Validate review form*		|	*5*
 *Spinner*		|	*2*
 
-6. Registration / Login Page		|	25
+Registration / Login Page		|	25
 ----------------------------|-------
 Validate login (login should contain minimum 3 characters)		|	5
 Validate email (email should looks like an email adress)		|	5
@@ -81,7 +81,7 @@ Validate password (password should contains minimum 6 characters)		|	5
 Dispalay errors		|	3
 Spinner on buttons		|	2
 
-7. User Page		|	45
+User Page		|	45
 ----------------------------|-------
 Displaying user information got from server		|	4
 Displaying user bonus level according information got from server (different color and range according to bonuses)		|	5
@@ -107,16 +107,16 @@ Displaying user bonus level according information got from server (different col
 Button for log out, redirect to home page		|	2
 Responsive layout		|	5
 
-8. About Us Page		|	5
+About Us Page		|	5
 ----------------------------|-------
 Responsive layout		|	
 
-9. Error 404 Page		|	5
+Error 404 Page		|	5
 ----------------------------|-------
 Responsive layout		|	
 
 
-10. Back-end		|	170
+Back-end		|	170
 ----------------------------|-------
 Written by hand (from scratch) and has a history of commits.		|	30
 The back-end is deployed and responds to POSTman requests (an example request should be specified in the PR or Readme file).		|	30
