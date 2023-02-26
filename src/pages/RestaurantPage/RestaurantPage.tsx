@@ -129,7 +129,6 @@ const RestaurantPage = () => {
         document.getElementById('innerScroll')?.classList.remove('active');
     };
 
-    // !! Если ID > существующего то сдеать переход на ERROR page
     return (
         <>
             {idError && <Error404 />}
@@ -275,7 +274,6 @@ const RestaurantPage = () => {
             </Modal>
             <RestaurantModalReview
                 closeModalReview={closeReviewModal}
-                // setIsModalReviewOpen={setIsModalReviewOpen}
                 isModalReviewOpen={isModalReviewOpen}
                 restaurant={restaurant}
                 setRestaurant={setRestaurant}

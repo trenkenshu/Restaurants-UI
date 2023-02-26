@@ -5,8 +5,7 @@ export const baseURL = 'https://restaurants-server-3.onrender.com';
 export const emailRegexp =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-export const phoneRegexp = /^\+\d{9,}/g;
-// export const nameRegexp = /^([A-Z]{1,}[a-z]{0,}|[А-Я]{1,}[а-я]{0,})(\s[A-Z]{0,}[a-z]{0,}|[А-Я]{1,}[а-я]{0,})*[\s]*$/g;
+export const phoneRegexp = /^\+[1-9]{1}[0-9]{7,}$/g;
 export const nameRegexp = /^[A-ZА-Я][a-zA-ZА-Яа-я\s]*$/;
 
 export const emptyRestaurant: IRestaurant = {
@@ -66,7 +65,6 @@ export const emptyBooking: IBooking = {
 export const emptyStepper: IStepper = {
     stepsFinished: [false, false, false, false, false],
     reservedTables: [],
-    // selectedTable: '',
     stepOne: new Date(),
     stepTwo: '',
     stepThree: { guestNumber: 1, tableId: '' },

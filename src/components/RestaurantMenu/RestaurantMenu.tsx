@@ -1,8 +1,7 @@
-import { FC, useContext } from 'react';
+import { FC } from 'react';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { AppContext } from 'store/store';
 import './RestaurantMenu.css';
 import { IRestaurant } from 'types';
 import NewImg from 'components/NewImg';
@@ -13,8 +12,6 @@ type RestaurantMenuPropsType = {
 };
 
 const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant, openImgModal }) => {
-    // const { state } = useContext(AppContext);
-
     const sliderSetting = {
         dots: false,
         infinite: true,

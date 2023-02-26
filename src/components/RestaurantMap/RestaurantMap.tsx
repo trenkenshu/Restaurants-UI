@@ -23,7 +23,6 @@ const RestaurantMap: FC<RestaurantMenuPropsType> = ({ restaurant }) => {
 
     return (
         <div className=' w-full h-[400px]'>
-            {/* w-[calc(100%-20px)] */}
             <MapContainer
                 className='w-full h-full rounded'
                 center={restaurant.coordinates}
@@ -46,7 +45,6 @@ const RestaurantMap: FC<RestaurantMenuPropsType> = ({ restaurant }) => {
                         <p className='text-center'>
                             {restaurant.workTimeStart}.00 - {restaurant.workTimeEnd}.00
                         </p>
-                        {/* <ButtonBlack width='w-full' height='h-7' buttonText={content.common.details[state.language]} /> */}
                     </Popup>
                 </Marker>
             </MapContainer>

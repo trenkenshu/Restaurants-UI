@@ -32,22 +32,10 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     const [activeStep, setActiveStep] = useState(0);
     const [stepperState, setStepperState] = useState(emptyStepper);
     // for inputs
-    // const [nameError, setNameError] = useState(false);
     const [nameFocus, setNameFocus] = useState(false);
-    // const [phoneError, setPhoneError] = useState(false);
     const [phoneFocus, setPhoneFocus] = useState(false);
-    // Validate states
     const [isNameValid, setIsNameValid] = useState(false);
     const [isPhoneValid, setIsPhoneValid] = useState(false);
-
-    // states
-    // const [date, setDate] = useState(new Date());
-    // const [time, setTime] = useState('');
-    // const [name, setName] = useState('');
-    // const [phone, setPhone] = useState('');
-    // const [guestAmount, setGuestAmount] = useState(1);
-    // const [tableId, setTableId] = useState('');
-    // const [isStepEnd, setIsStepEnd] = useState(false);
 
     const timeIntervals = setTimeIntervals(restaurant.workTimeStart, restaurant.workTimeEnd - 2);
 
@@ -59,6 +47,16 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     stepsFinished: prev.stepsFinished.map((el) => (el = true)),
                 };
             });
+            // setStepperState((prev) => {
+            //     return {
+            //         ...prev,
+            //         stepsFinished: prev.stepsFinished.map((el) => {
+            //             let newEl = el;
+            //             newEl = true;
+            //             return newEl;
+            //         }),
+            //     };
+            // });
         } else {
             console.log('step4 false', activeStep);
             setStepperState((prev) => {
@@ -68,17 +66,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 };
             });
         }
-
-        // if (nameFocus && !nameError && stepperState.stepFour.name.length > 1) {
-        //     setNameValidate(true);
-        // } else {
-        //     setNameValidate(false);
-        // }
-        // if (phoneFocus && !phoneError && stepperState.stepFour.phone.length > 9) {
-        //     setPhoneValidate(true);
-        // } else {
-        //     setPhoneValidate(false);
-        // }
     }, [isNameValid, isPhoneValid, stepperState.stepFour.name, stepperState.stepFour.phone]);
 
     // Inputs functions
@@ -95,10 +82,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
         if (value.length > 1 && nameRegexp.test(value)) {
             console.log('validate name hanlder', value.match(nameRegexp), value);
             console.log('name hanlder', nameRegexp.test(value));
-            // setNameError(false);
             setIsNameValid(true);
         } else {
-            // setNameError(true);
             setIsNameValid(false);
         }
     };
@@ -114,41 +99,38 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
         });
 
         if (value.length > 9 && phoneRegexp.test(value)) {
-            // value.match(phoneRegexp) && value.length > 9
             console.log('validate phone hanlder inside');
             console.log('validate phone hanlder', phoneRegexp.test(value), value);
-            // setPhoneError(false);
             setIsPhoneValid(true);
         } else {
-            // setPhoneError(true);
             setIsPhoneValid(false);
         }
     };
 
-    const guestAmountHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        let value = event.target.value;
+    // const guestAmountHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    //     let value = event.target.value;
 
-        if (Number(value) < 1) {
-            value = '1';
-        }
-        if (Number(value) > 4) {
-            value = '4';
-        }
-        if (value.length < 2) {
-            setStepperState((prev) => {
-                return {
-                    ...prev,
-                    stepThree: { ...prev.stepThree, guestNumber: Number(value) },
-                };
-            });
-        } else {
-            value = value.slice(0, -1);
-        }
-    };
-    const disableKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-        event.preventDefault();
-        console.log('disableKeyDown');
-    };
+    //     if (Number(value) < 1) {
+    //         value = '1';
+    //     }
+    //     if (Number(value) > 4) {
+    //         value = '4';
+    //     }
+    //     if (value.length < 2) {
+    //         setStepperState((prev) => {
+    //             return {
+    //                 ...prev,
+    //                 stepThree: { ...prev.stepThree, guestNumber: Number(value) },
+    //             };
+    //         });
+    //     } else {
+    //         value = value.slice(0, -1);
+    //     }
+    // };
+    // const disableKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+    //     event.preventDefault();
+    //     console.log('disableKeyDown');
+    // };
 
     const increaseGuestAmount = () => {
         if (stepperState.stepThree.guestNumber + 1 > 0 && stepperState.stepThree.guestNumber + 1 < 5) {
@@ -158,7 +140,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     stepThree: { ...prev.stepThree, guestNumber: prev.stepThree.guestNumber + 1 },
                 };
             });
-            console.log('+', stepperState.stepThree.guestNumber);
+            // console.log('+', stepperState.stepThree.guestNumber);
         }
     };
     const decreaseGuestAmount = () => {
@@ -169,7 +151,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     stepThree: { ...prev.stepThree, guestNumber: prev.stepThree.guestNumber - 1 },
                 };
             });
-            console.log('+', stepperState.stepThree.guestNumber);
+            // console.log('+', stepperState.stepThree.guestNumber);
         }
     };
 
@@ -189,7 +171,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
         if (activeStep >= 0 && activeStep < steps[state.language].length) {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
         }
-        console.log('next', activeStep);
+
         if (activeStep === steps[state.language].length - 1) {
             console.log('Завершили бронь');
             const dateOfBooking = new Date(`${stepperState.stepOne.toDateString()} ${stepperState.stepTwo}:00:00`);
@@ -209,7 +191,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     };
 
     const handleBack = () => {
-        console.log('back', stepperState.stepsFinished, activeStep);
         setActiveStep((prevActiveStep) => prevActiveStep - 1);
     };
 
@@ -228,7 +209,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
         const reservedTables: string[] = [];
         restaurant.bookings.forEach((booking) => {
             const dateOfBooking = new Date(`${stepperState.stepOne.toDateString()} ${target.dataset.time}:00:00`);
-            // console.log(new Date(booking.date).getTime() - dateOfBooking.getTime());
             if (new Date(booking.date).getTime() === dateOfBooking.getTime()) {
                 reservedTables.push(String(booking.tableId));
             }
@@ -243,7 +223,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 stepThree: { ...prev.stepThree, tableId: '' },
             };
         });
-        console.log(stepperState.stepsFinished);
+        console.log('choose time', stepperState.stepsFinished);
     };
 
     const makeReservation = (body: ICreateBooking) => {
@@ -391,19 +371,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                         <>
                             <div className=''>
                                 <div className='flex gap-2 items-center'>
-                                    {/* <label className='whitespace-nowrap' htmlFor='guestsNum'>
-                                        {content.bookingModal.guestsNumber[state.language]}
-                                    </label>
-                                    <input
-                                        className='w-10 text-center text-zinc-800 border border-zinc-800 rounded focus:outline-none'
-                                        type='number'
-                                        id='guestsNum'
-                                        value={stepperState.stepThree.guestNumber}
-                                        min={1}
-                                        max={4}
-                                        onChange={guestAmountHandler}
-                                        // onKeyDown={disableKeyDown}
-                                    /> */}
                                     <div className='whitespace-nowrap'>
                                         {content.bookingModal.guestsNumber[state.language]}:
                                     </div>
