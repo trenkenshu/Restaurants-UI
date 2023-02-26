@@ -93,7 +93,7 @@ const LoginForm = () => {
             <div>
                 <button
                     type='submit'
-                    className='group relative flex gap-3 w-full justify-center rounded-full items-center bg-black text-corall hover:bg-transparent hover:text-black border border-black rounded-full font-semibold py-2 px-4 focus:outline-none'
+                    className='group relative flex gap-3 w-full justify-center items-center bg-black text-corall hover:bg-transparent hover:text-black border border-black rounded-full font-semibold py-2 px-4 focus:outline-none'
                 >
                     <img className={`${submitBtnClass} animate-spin h-4 w-4`} src={spinner}></img>
                     {content.registration.submit[state.language]}

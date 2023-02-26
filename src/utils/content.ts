@@ -347,8 +347,8 @@ export const content = {
             ru: 'Логин или email уже зарегистрирован',
         },
         shortLogin: {
-            en: 'Login should contain 3 characters or more',
-            ru: 'Логин должен содержать минимум 3 символа',
+            en: 'Login should contain at least 3 characters (acceptably: latin letters, digits and -$#@._)',
+            ru: 'Логин должен содержать минимум 3 символа (допустимо: латинские буквы, цифры и -$#@._)',
         },
         wrongPhone: {
             en: 'Phone should start with "+" and contain minimum 9 numbers',
@@ -413,8 +413,8 @@ export const content = {
             ru: 'Номер телефона',
         },
         phoneText: {
-            en: 'Must begin with plus and contain and at least 9 numbers',
-            ru: 'Должен начинаться с плюса и не менее 9 чисел',
+            en: 'Must begin with "+" and contain at least 9 numbers',
+            ru: 'Должен начинаться с "+" и состоять минимум из 9 цифр',
         },
         comment: {
             en: 'Comment',

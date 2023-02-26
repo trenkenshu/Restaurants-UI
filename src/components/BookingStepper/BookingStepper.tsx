@@ -195,6 +195,10 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
     };
 
     const handleReset = () => {
+        setNameFocus(false);
+        setPhoneFocus(false);
+        setIsNameValid(false);
+        setIsPhoneValid(false);
         setActiveStep(0);
         setStepperState(emptyStepper);
     };
