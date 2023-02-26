@@ -186,7 +186,6 @@ const UserPage = () => {
                                 onClick={() => logOut()}
                             ></button>
                         </div>
-                        {/* <ProgressStepsBarUX /> */}
                     </div>
 
                     <ModalUserData

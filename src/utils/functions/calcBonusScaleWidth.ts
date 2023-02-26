@@ -7,7 +7,7 @@ const calcBonusScaleWidth = (bonusPoints: number): string => {
     if (bonus > 5 && bonus < 8) return 'w-1/12';
     if (bonus > 7 && bonus < 14) return 'w-[10%]';
     if (bonus > 13 && bonus < 17) return 'w-1/6';
-    if (bonus > 16 && bonus < 21) return 'w-1/5';
+    if (bonus > 16 && bonus < 23) return 'w-1/5';
     if (bonus > 22 && bonus < 26) return 'w-1/4';
     if (bonus > 25 && bonus < 34) return 'w-4/12';
     if (bonus > 33 && bonus < 41) return 'w-2/5';
