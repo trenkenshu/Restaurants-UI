@@ -1,5 +1,5 @@
 import RestaurantTable from 'components/RestaurantTable';
-import { Dispatch, FC, SetStateAction, useState } from 'react';
+import { Dispatch, FC, SetStateAction } from 'react';
 import { IRestaurant, IStepper } from 'types';
 
 const tableScheme = [

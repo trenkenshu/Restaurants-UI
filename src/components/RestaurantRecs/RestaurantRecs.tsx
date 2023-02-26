@@ -12,7 +12,7 @@ import checkFavorites from 'utils/functions/checkFavorites';
 const RestaurantRecs = () => {
     const { state } = useContext(AppContext);
 
-    const filteredByRating = state.restaurants.sort((a, b) => b.rating - a.rating).slice(0, 6);
+    const filteredByRating = state.restaurants.slice(0, 6);
 
     const sliderSetting = {
         dots: false,
@@ -61,6 +61,7 @@ const RestaurantRecs = () => {
             },
         ],
     };
+
     return (
         <div className='w-full flex flex-col mt-6 mb-20 -pr-3'>
             <h2 className='text-2xl 2xl:text-3xl font-bold text-zinc-400 mt-8 mb-4'>

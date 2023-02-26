@@ -1,8 +1,6 @@
 import React, { FC, useContext, useEffect } from 'react';
 import { AppContext } from 'store/store';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import ButtonBlack from 'components/ButtonBlack';
-import { content } from 'utils/content';
 import { CoordsType } from 'components/Map/Map';
 import { IRestaurant } from 'types';
 

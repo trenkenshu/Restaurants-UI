@@ -1,9 +1,5 @@
 import React, { useContext } from 'react';
 import { content } from 'utils/content';
-import jpg1 from '../../assets/images/home-page/advantage-1.jpg';
-import jpg2 from '../../assets/images/home-page/advantage-2.jpg';
-import jpg3 from '../../assets/images/home-page/advantage-3.jpg';
-import jpg4 from '../../assets/images/home-page/advantage-4.jpg';
 import { AppContext } from '../../store/store';
 
 const Advantages = () => {

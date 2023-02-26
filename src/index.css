@@ -8,12 +8,6 @@
 html {
     scroll-behavior: smooth;
 }
-/* #restReviews ~ html {
-  overflow: hidden;
-} */
-/* html:has(#restReviews) {
-  overflow: hidden;
-} */
 
 @layer utilities {
     .scrollbar::-webkit-scrollbar {
@@ -38,19 +32,16 @@ body.active {
 .restaurant .slick-prev {
     width: auto;
     height: auto;
-    left: 20px;
+    left: 10px;
     z-index: 1;
 }
 .restaurant .slick-next {
     width: auto;
     height: auto;
-    right: 20px;
+    right: 10px;
     z-index: 1;
 }
-/* .restaurant .slick-prev:before {
-  font-size: 40px;
-  color: white !important;
-} */
+
 .restaurant .slick-prev:before,
 .restaurant .slick-next:before {
     font-size: 40px;
@@ -79,27 +70,6 @@ body.active {
 header .active {
     color: #ff5f49;
 }
-
-/* .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-active {
-    color: #ff5f49 !important;
-}
-.css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-    color: black !important;
-}
-.dark .css-1u4zpwo-MuiSvgIcon-root-MuiStepIcon-root.Mui-completed {
-    color: #f0f0f0 !important;
-}
-.css-1e6y48t-MuiButtonBase-root-MuiButton-root {
-    color: #ff5f49 !important;
-    filter: drop-shadow(0 10px 8px rgb(0 0 0 / 0.04)) drop-shadow(0 4px 3px rgb(0 0 0 / 0.1));
-}
-.css-1hv8oq8-MuiStepLabel-label.MuiStepLabel-alternativeLabel {
-    margin-top: 5px !important;
-}
-.dark .css-1hv8oq8-MuiStepLabel-label.MuiStepLabel-alternativeLabel {
-    color: #f0f0f0 !important;
-} */
-
 
 .timeblock.active {
     background-color: #ff5f49;
