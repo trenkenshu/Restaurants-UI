@@ -60,8 +60,8 @@ const MainSection = () => {
                     </Slider>
                 </div>
             </div>
-            <p className='2xl:text-xl mt-5 md:mt-0 before:content-["\2605\2605\2605\2605\2605"] before:mr-1.5 uppercase dark:before:text-corall'>
-                {reviewsCount} {content.homePage.reviews[state.language]}
+            <p className='2xl:text-xl mt-5 md:mt-0 before:content-["\2605\2605\2605\2605\2605"] before:mr-1.5 dark:before:text-corall'>
+                {reviewsCount} {content.homePage.reviews[state.language]} {state.currentCity[state.language]}
             </p>
         </div>
     );
