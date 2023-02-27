@@ -47,7 +47,6 @@ const MainSection = () => {
                 <div className='md:w-7/12 h-60 md:h-96 2xl:h-136'>
                     <Slider {...sliderSetting}>
                         {imgs.map((el) => {
-                            // return <img key={el} src={el} className='h-60 md:h-96 2xl:h-136' alt='Restaurant' />;
                             return (
                                 <NewImg
                                     key={el}

@@ -40,7 +40,6 @@ const RestaurantTable: FC<RestaurantTableProps> = ({ dataId, setStepperState, st
             target.classList.add('bg-tableCorall');
         }
         const tableNumber = target.dataset.id;
-        console.log('Table id', tableNumber);
         if (tableNumber) {
             setStepperState((prev) => {
                 return {

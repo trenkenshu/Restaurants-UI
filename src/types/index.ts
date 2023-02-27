@@ -27,7 +27,6 @@ export interface IReview {
     authorId: number;
     author: IUser;
     text: string;
-    // rating: number | string;
     rating: number;
     cafeId: number;
     cafe: IRestaurant;
@@ -132,7 +131,6 @@ export interface CityType extends Record<string, string> {
 
 export interface IState {
     restaurants: IRestaurant[];
-    // currentRestaurant: IRestaurant;
     user: IUser;
     currentCity: CityType;
     language: 'en' | 'ru';
@@ -141,7 +139,6 @@ export interface IState {
 export interface IStepper {
     stepsFinished: boolean[];
     reservedTables: string[];
-    // selectedTable: string;
     stepOne: Date;
     stepTwo: string;
     stepThree: { guestNumber: number; tableId: string };

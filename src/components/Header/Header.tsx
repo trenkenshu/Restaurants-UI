@@ -64,9 +64,7 @@ const Header = () => {
 
     const changeCityHandler = (event: React.ChangeEvent<HTMLSelectElement>) => {
         const { target } = event;
-        console.log('value', target.value);
         const newCity = cities.find((el) => el.city['en'] === target.value);
-        console.log(newCity);
         dispatch({ type: 'changeCity', payload: newCity?.city as CityType });
     };
 
@@ -93,7 +91,7 @@ const Header = () => {
                         isBurgerOpen
                             ? 'w-full fixed flex gap-3 top-0 left-0 items-center justify-center bg-smoke-gray dark:bg-zinc-800 flex-col h-screen z-1001 text-4xl'
                             : 'w-full fixed flex top-0 left-full'
-                    } font-medium md:text-lg font-medium md:justify-between md:static md:flex-row md:h-auto`}
+                    } font-medium md:text-lg md:justify-between md:static md:flex-row md:h-auto`}
                 >
                     <div className={`flex gap-2.5 items-center ${isBurgerOpen ? 'w-full flex-col' : 'flex-row'}`}>
                         {links.map(({ id, route, title }) => (

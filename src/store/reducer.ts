@@ -33,7 +33,6 @@ const reducer = (state: IState, action: ActionType): IState => {
             return newState;
         }
         default: {
-            console.log('defaul reducer');
             return state;
         }
     }

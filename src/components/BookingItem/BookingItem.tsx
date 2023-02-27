@@ -20,9 +20,7 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
     const minutes = new Date(booking.date).getMinutes().toString().padStart(2, '0');
 
     const deleteUserBooking = async () => {
-        console.log(booking.id, typeof booking.id);
         await deleteBooking(booking.id, state.user.id).then(() => {
-            console.log('click delete');
             const updatedUser = state.user;
             updatedUser.bookings = state.user.bookings.filter((reserv) => reserv.id !== booking.id);
             updatedUser.bonusPoints = updatedUser.bonusPoints - 5;
@@ -30,7 +28,6 @@ const BookingItem: FC<BookingItemProps> = ({ booking }) => {
                 type: 'updateUser',
                 payload: updatedUser,
             });
-            console.log(state.user);
         });
     };
 

@@ -1,6 +1,5 @@
 const calcBonusScaleWidth = (bonusPoints: number): string => {
     const bonus = bonusPoints >= 100 ? 100 : bonusPoints;
-    // return `w-[${bonus}%]`;
     if (bonus === 0) return 'w-0';
     if (bonus > 0 && bonus < 4) return 'w-[1%]';
     if (bonus > 3 && bonus < 6) return 'w-[5%]';

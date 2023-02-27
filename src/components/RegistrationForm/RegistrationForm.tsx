@@ -1,5 +1,5 @@
 import spinner from '../../assets/icons/spinner_corall.png';
-import { emailRegexp, loginRegexp, nameRegexp, phoneRegexp } from 'utils/constants';
+import { emailRegexp, loginRegexp, phoneRegexp } from 'utils/constants';
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
@@ -30,7 +30,6 @@ const RegistrationForm = () => {
         const value = event.target.value.replaceAll(' ', '');
         setLogin(value);
         if (value.length > 2 && loginRegexp.test(value)) {
-            console.log('login', loginRegexp.test(value));
             setIsLoginValid(true);
         } else {
             setIsLoginValid(false);
@@ -39,7 +38,6 @@ const RegistrationForm = () => {
     const onChangePhone = (event: React.ChangeEvent<HTMLInputElement>) => {
         const value = event.target.value.replace(/[^\d+]/g, '').replaceAll(' ', '');
         setPhone(value);
-        console.log(phone);
         if (value.match(phoneRegexp)) {
             setIsPhoneValid(true);
         } else {
@@ -88,7 +86,6 @@ const RegistrationForm = () => {
     const CreateNewUser = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setSubmitBtnClass('');
-        console.log('createUser', isLoginValid, isPhoneValid, isEmailValid, isPasswordValid);
         if (isLoginValid && isPhoneValid && isEmailValid && isPasswordValid) {
             const body = {
                 login,
@@ -96,9 +93,8 @@ const RegistrationForm = () => {
                 email,
                 phone,
             };
-            console.log(body);
+
             createUser(body).then((user) => {
-                console.log(user);
                 if (typeof user.data === 'object') {
                     setLogin('');
                     setPhone('');

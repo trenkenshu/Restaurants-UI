@@ -45,7 +45,6 @@ const LoginForm = () => {
                     });
                     navigate('/userpage');
                 } else {
-                    console.log(user);
                     setErrorMessage(content.error.wrongloginOrEmail[state.language]);
                     setSubmitBtnClass('hidden');
                 }

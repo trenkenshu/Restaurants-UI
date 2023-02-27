@@ -478,9 +478,5 @@ export const content = {
             en: 'If you want to leave a review, you need to reserve a table in this restaurant',
             ru: 'Если Вы хотите оставить отзыв, сначала следует забронировать столик в этом ресторане',
         },
-        noBookingBtnText: {
-            en: 'To booking',
-            ru: 'К бронированию',
-        },
     },
 };

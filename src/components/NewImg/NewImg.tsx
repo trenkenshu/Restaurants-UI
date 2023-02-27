@@ -17,7 +17,12 @@ const NewImg: FC<NewImgType> = (props) => {
     return (
         <div className={`relative cursor-pointer ${wrapperClasses}`} onClick={() => openImgModal && openImgModal(src)}>
             <Loader imageLoaded={imageLoaded} />
-            <img src={src} alt={alt} className={`w-full ${imgClasses}`} onLoad={() => setImageLoaded(true)} />
+            <img
+                src={src}
+                alt={alt}
+                className={`w-full object-cover ${imgClasses}`}
+                onLoad={() => setImageLoaded(true)}
+            />
         </div>
     );
 };

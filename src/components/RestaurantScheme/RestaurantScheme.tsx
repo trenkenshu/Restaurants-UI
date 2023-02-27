@@ -10,13 +10,11 @@ const tableScheme = [
 ];
 
 type RestaurantSchemeType = {
-    // getTableId: (event: React.MouseEvent<HTMLDivElement>) => void;
     restaurant: IRestaurant;
     stepperState: IStepper;
     setStepperState: Dispatch<SetStateAction<IStepper>>;
 };
 const RestaurantScheme: FC<RestaurantSchemeType> = ({ stepperState, setStepperState, restaurant }) => {
-    // const [seats, setSeats] = useState(tableScheme.flatMap((seat) => seat));
     const seats = tableScheme.flatMap((seat) => seat);
 
     const autoIncrement = () => {

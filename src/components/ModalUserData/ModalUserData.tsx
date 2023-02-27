@@ -53,7 +53,6 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
         setErrorMsgPrevPassword('');
         const value = event.target.value.toString().replaceAll(' ', '');
         value === state.user.password ? setIsPrevPasswordEqualNew(true) : setIsPrevPasswordEqualNew(false);
-        console.log(value === state.user.password);
     };
 
     const [newPassword, setNewPassword] = useState('');
@@ -64,7 +63,6 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
         } else {
             setErrorMsgNewPassword(content.error.shortPassword[state.language]);
         }
-        console.log(value);
         setNewPassword(value);
     };
 
@@ -84,7 +82,6 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
 
             updateUser(bodyForUpdateUser).then((updatedUser) => {
                 if (typeof updatedUser.data === 'object') {
-                    // setParsedTranslation(updatedUser.data);
                     dispatch({
                         type: 'updateUser',
                         payload: updatedUser.data,
@@ -115,7 +112,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                 <h4 className='font-semibold text-xl drop-shadow-md text-center'>
                     {content.userPage.changeInfo[state.language]}
                 </h4>
-                <form onSubmit={saveUpdatedUserData} noValidate className='w-full sm:w-11/12 flex flex-col gap-4 w-96'>
+                <form onSubmit={saveUpdatedUserData} noValidate className='w-full sm:w-11/12 flex flex-col gap-4'>
                     <div>
                         <label htmlFor='phone' className='w-full h-14 text-start'>
                             {content.registration.phone[state.language]}
@@ -127,7 +124,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                             autoComplete='phone'
                             value={phone}
                             onChange={(event) => onChangePhone(event)}
-                            className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                            className='w-full h-8 relative block appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                         ></input>
                     </div>
 
@@ -142,7 +139,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                             autoComplete='email'
                             value={email}
                             onChange={(event) => onChangeEmail(event)}
-                            className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                            className='w-full h-8 relative block appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                         ></input>
                     </div>
 
@@ -158,7 +155,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                             value={newPassword}
                             placeholder={content.userPage.newPassword[state.language]}
                             onChange={(event) => onChangePassword(event)}
-                            className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                            className='w-full h-8 relative block appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                         ></input>
                     </div>
 
@@ -175,7 +172,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                             defaultValue=''
                             placeholder={content.userPage.prevPassword[state.language]}
                             onChange={(event) => CheckPrevPassword(event)}
-                            className='w-full h-8 relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                            className='w-full h-8 relative block appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                         ></input>
                     </div>
 
@@ -188,14 +185,7 @@ const ModalUserData: FC<ModalUserDataProps> = ({ setIsModalUserInfoOpen, isModal
                         <ButtonBlack
                             width={'w-32'}
                             height={'h-8'}
-                            buttonText={content.common.cancel[state.language]}
-                            onClick={closeModal}
-                        />
-                        <ButtonBlack
-                            width={'w-32'}
-                            height={'h-8'}
                             buttonText={content.common.save[state.language]}
-                            // onClick={() => saveUpdatedUserData}
                             type='submit'
                         />
                     </div>

@@ -5,6 +5,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import './RestaurantMenu.css';
 import { IRestaurant } from 'types';
 import NewImg from 'components/NewImg';
+import { baseURL } from 'utils/constants';
 
 type RestaurantMenuPropsType = {
     restaurant: IRestaurant;
@@ -63,7 +64,7 @@ const RestaurantMenu: FC<RestaurantMenuPropsType> = ({ restaurant, openImgModal 
                             <NewImg
                                 wrapperClasses='h-[600px]'
                                 imgClasses='h-full w-full rounded-md min-[540px]:px-1'
-                                src={`https://restaurants-server-3.onrender.com/${img}`}
+                                src={`${baseURL}/${img}`}
                                 alt='Restaurant'
                                 key={img}
                                 openImgModal={openImgModal}
