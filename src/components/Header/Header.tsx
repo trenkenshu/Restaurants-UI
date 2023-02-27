@@ -1,7 +1,7 @@
 import RegistrLogo from 'components/RegistrLogo';
 import UserLogo from 'components/UserLogo';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { CityType } from 'types';
 import { content } from 'utils/content';
