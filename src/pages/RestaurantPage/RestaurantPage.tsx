@@ -70,20 +70,22 @@ const RestaurantPage = () => {
     const [isImgModalOpen, setIsImgModalOpen] = useState(false);
     const [imgSrc, setImgSrc] = useState('');
     const { id } = useParams();
-    window.scrollTo(0, 0);
 
     const saveRestaurant = async () => {
-        const restaurant = await getRestaurant(Number(id));
-        if (typeof restaurant === 'string') {
+        const restaurantNew = await getRestaurant(Number(id));
+        if (typeof restaurantNew === 'string') {
             setIdError(true);
         } else {
-            restaurant.parsedTranslation = JSON.parse(restaurant.translation);
-            const updatedCity = cities.find((el) => el.city['en'] === restaurant.city);
+            restaurantNew.parsedTranslation = JSON.parse(restaurantNew.translation);
+            const updatedCity = cities.find((el) => el.city['en'] === restaurantNew.city);
             updatedCity && dispatch({ type: 'changeCity', payload: updatedCity.city });
-            setRestaurant(restaurant);
+            setRestaurant(restaurantNew);
         }
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [restaurant]);
     useEffect(() => {
         saveRestaurant();
     }, []);
