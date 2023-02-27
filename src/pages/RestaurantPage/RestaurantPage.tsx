@@ -229,11 +229,17 @@ const RestaurantPage = () => {
                                 </div>
                                 <div className='pb-5'>
                                     {restaurant.reviews.length > 0 ? (
-                                        restaurant.reviews.map((review) => {
-                                            return (
-                                                <ReviewItem review={review} key={review.id} isOnRestaurantPage={true} />
-                                            );
-                                        })
+                                        restaurant.reviews
+                                            .sort((a, b) => b.rating - a.rating)
+                                            .map((review) => {
+                                                return (
+                                                    <ReviewItem
+                                                        review={review}
+                                                        key={review.id}
+                                                        isOnRestaurantPage={true}
+                                                    />
+                                                );
+                                            })
                                     ) : (
                                         <div className='text-lg'>
                                             {content.restaurantsPage.noReviews[state.language]}

@@ -136,25 +136,27 @@ const UserPage = () => {
                             </h2>
                             <div className='flex flex-col gap-5 justify-center text-center sm:justify-start sm:text-start'>
                                 {state.user.reviews.length > 0
-                                    ? state.user.reviews.map((review) => {
-                                          return (
-                                              <div className='' key={review.id}>
-                                                  <div className='-mb-8 w-15 flex items-center justify-end w-full gap-2 z-index-50'>
-                                                      <button
-                                                          title={content.common.edit[state.language]}
-                                                          className='w-4 h-4 bg-edit dark:bg-editWhite bg-cover'
-                                                          onClick={() => openModalReview(review.id)}
-                                                      ></button>
-                                                      <button
-                                                          title={content.common.delete[state.language]}
-                                                          className='w-4 h-4 mt-1 bg-delete dark:bg-deleteWhite bg-cover'
-                                                          onClick={() => deleteUserReview(review.id)}
-                                                      ></button>
+                                    ? state.user.reviews
+                                          .sort((a, b) => b.rating - a.rating)
+                                          .map((review) => {
+                                              return (
+                                                  <div className='' key={review.id}>
+                                                      <div className='-mb-8 w-15 flex items-center justify-end w-full gap-2 z-index-50'>
+                                                          <button
+                                                              title={content.common.edit[state.language]}
+                                                              className='w-4 h-4 bg-edit dark:bg-editWhite bg-cover'
+                                                              onClick={() => openModalReview(review.id)}
+                                                          ></button>
+                                                          <button
+                                                              title={content.common.delete[state.language]}
+                                                              className='w-4 h-4 mt-1 bg-delete dark:bg-deleteWhite bg-cover'
+                                                              onClick={() => deleteUserReview(review.id)}
+                                                          ></button>
+                                                      </div>
+                                                      <ReviewItem review={review} isOnRestaurantPage={false} />
                                                   </div>
-                                                  <ReviewItem review={review} isOnRestaurantPage={false} />
-                                              </div>
-                                          );
-                                      })
+                                              );
+                                          })
                                     : `${content.userPage.noreviews[state.language]}`}
                             </div>
                         </div>
