@@ -1,8 +1,17 @@
-## RaViOle - service for online reservation restaurants
+## RaViOle - service for online restaurants reservation
 
-#### The user can get acquainted with the list of restaurants in his city (so far two cities are available - Minsk and Kazan), see the location of restaurants on the map. On the restaurant page, you can find general information about the restaurant (opening hours, cuisine, menu, interior photos), book a table on the website, write a review.
-#### For each review or booking, the user earns points.
-#### Registration and authorization of users is implemented on the site, in your personal account you can see reservations, reviews, favorite restaurants
+### **Instruction for start application:**
+Click on app link and enjoy : [Raviole](https://rs-clone-raviole-booking.netlify.app/)
+
+### **Application description:**
+- User can view the list of restaurants in chosen city (so far two cities are available - Minsk and Kazan),see the location of restaurants on the map;
+- Registration and authorization of users is implemented on the site
+- On User page user can see his reservations, reviews, and favorite restaurants 
+- User can visit restaurant page by clicking on restaurant name or button on map popup upon restaurant marker;
+- On the restaurant page, User can find general information about the restaurant (opening hours, cuisine, menu, interior photos);
+- Main functionality is a possibility to book a table in chosen restaurant (user can choose table in table scheme, time and date when user want to visit chosen restaurant);
+- User can write a review about restaurant;
+- Bonus system is implemented on the site. For each review or booking, the user earns points. User can see bonus level on User page;
 
 ### **Test account:**
 
@@ -11,87 +20,95 @@
 - Password: 123456
 
 
-## Total points: 620
+## Total points		620
+		
+## 1. General site features		
+		
+Total for all items	|	100
+----------------------------|-------		
+Burger-menu	|	10
+Loaders on all images	|	28
+SPA (Was used on "Online Store" task)	|	0
+Routing (Was used on "Online Store" task)	|	0
+The application is made in the same style	|	10
+Saving and loading info using Local storage	|	15
+Application theme changing to dark or light	|	10
+Application language changing to english or russian	|	15
+Login icon changing to user icon when user is logged in	|	2
+City selection, all data updating according to the selected city	|	10
+		
+## 2. Home Page		
+		
+Total for all items	|	30
+----------------------------|:-------:
+Responsive layout	|	3
+Responsive infinity slider with autoplay	|	10
+Displaying user login when user is logged in	|	3
+Responsive slider with restaurants recommendations according to the selected city	|	14
 
-General site features		|	100
-----------------------------|-------
-SPA		|	10
-Routing		|	10
-Burger-menu		|	10
-Loaders on images		|	10
-The app works on phone, tablet, PC		|	10
-The application is made in the same style		|	10
-Saving and loading info using Local storage		|	10
-Application theme changing to dark or light		|	10
-Application language changing to english or russian		|	10
-Login icon changing to user icon when user is logged in		|	10
-City selection, all data updating according to the selected city		|	10
-
-
-
-Home Page		|	20
-----------------------------|-------
-Infinity Slider with autoplay		|	8
-Slider with restaurants recommendations according to the selected city		|	8
-Displaying user login when user is logged in		|	1
-Responsive layout		|	3
 <details>
 <summary>Home page screenshot</summary>
 <img src='https://i.postimg.cc/6QCbfBsg/homepage.jpg' alt='homepage'/>
 </details>
-
-Restaurants Catalog Page		|	95
-----------------------------|-------
-Map with all restaurants according to the selected city (map with zoom, centered according selected City)		|	25
-Restaurants selection on the map, dispalying restaurants info on map tag		|	13
-Section with all restaurants list according to the selected city		|	10
-Custom scroll bar		|	2
-Responsive layout		|	20
+		
+## 3. Restaurants Catalog Page		
+		
+Total for all items	|	115
+----------------------------|:-------:
+Custom scroll bar	|	2
+Responsive layout	|	20
+Section with all restaurants list according to the selected city	|	10
+Restaurants selection on the map, dispalying restaurants info on map tag	|	23
+Map with all restaurants according to the selected city (map with zoom, centered according selected City)	|	35
 **Restaurant card:**	|	**25**
-*Displaying all information about restaurant: work time, is restaurant open right now or not, reviews count, average mark, cuisine type, etc.*		|	*10*
-*Button to add / delete a restaurant to favorites*		|	*5*
-*Slider with restaurants photos*	|	*10*
+*Responsive slider with restaurants photos*	|	*10*
+*Button to add / delete a restaurant to favorites (only authorized user can add restaurant to favorites)*	|	*5*
+*Displaying all information about restaurant: work time, is restaurant open right now or not, reviews count, average mark, cuisine type, etc.*	|	*10*
+
 <details>
 <summary>Restaurants page screenshot</summary>
 <img src='https://i.postimg.cc/J0zT8JyC/restaurants-page.png' alt='restaurants-page'/>
 </details>
-
-			
-Restaurant Page		|	145
-----------------------------|-------
-Section with information about restaurant: name, description, work time, is restaurant open now or not, reviews count, average mark, cuisine type, etc.		|	10
-Button to add / delete a restaurant to favorites (only authorized user can add restaurant to favorites)		|	3
-Slider with menu		|	10
-Map with restaurant location		|	10
-Section with users reviews		|	5
-Slider with restaurants photo		|	10
-Responsive layout		|	20
-**Modal window for booking a table (only authorized user can book a table):**		|	**55**
-*Selecting a date from the custom calendar*		|	*10*
-*Selecting a time for reservation*		|	*10*
-*Selecting a table on the cheme*		|	*15*
-*Input guests data*		|	*5*
-*Displaying all booking steps*		|	*10*
-*Validate booking form* (guest phone: should start with "+" and contain minimum 9 characters, guest name: first letter capitalize and 2 or more letters )*		|	*5*
-**Modal window for leaving a review (only authorized user can leave a review):**		|	**22**
-*Stars for selecting a mark*		|	*10*
-*Input guests review*		|	*5*
-*Validate review form*		|	*5*
-*Spinner*		|	*2*
-
+		
+## 4. Restaurant Page		
+		
+Total for all items	|	135
+----------------------------|:-------:
+Responsive layout	|	20
+Section with users reviews	|	10
+Responsive slider with menu	|	10
+Slider with restaurants photo	|	10
+Map with restaurant location	|	10
+Button to add / delete a restaurant to favorites (only authorized user can add restaurant to favorites)	|	3
+Section with information about restaurant: name, description, work time, is restaurant open now or not, reviews count, average mark, cuisine type, etc.	|	10
+**Modal window for booking a table (only authorized user can book a table):**	|	**55**
+*Input guests data*	|	*5*
+*Display progress through a sequence of logical and numbered steps.*	|	*15*
+*Selecting a table on the cheme*	|	*15*
+*Selecting a time for reservation*	|	*10*
+*Selecting a date from the custom calendar*	|	*10*
+*Validate booking form (guest phone: should start with "+" and contain minimum 9 characters, guest name: first letter capitalize and 2 or more letters ) - Was used on "Online Store" task*	|	*0*
+**Modal window for leaving a review (only authorized user can leave a review):**	|	**7**
+*Spinner*	|	*2*
+*Input guests review*	|	*5*
+*Stars for selecting a mark*	|	
+*Validate review form (Was used on "Online Store" task)*	|	*0*
 <details>
 <summary>Restaurant page screenshot</summary>
 <img src='https://i.postimg.cc/J0YpznJD/one-rest-page.png' alt='one-rest-page'/>
 </details>
-
-Registration / Login Page		|	25
-----------------------------|-------
-Validate login (login should contain minimum 3 characters)		|	5
-Validate email (email should looks like an email adress)		|	5
-Validate phone (phone should start with "+" and contain minimum 9 characters)		|	5
-Validate password (password should contains minimum 6 characters)		|	5
-Dispalay errors		|	3
-Spinner on buttons		|	2
+		
+## 5. Registration / Login Page		
+		
+Total for all items	|	18
+----------------------------|:-------:
+Spinner on buttons	|	2
+Changing to registration or login page	|	6
+Dispalay errors if login on email is already taken	|	10
+Validate email (email should looks like an email adress) - Was used on "Online Store" task	|	0
+Validate login (login should contain minimum 3 characters) - Was used on "Online Store" task	|	0
+Validate password (password should contains minium 6 characters) - Was used on "Online Store" task	|	0
+Validate phone (phone should start with "+" and contain minimum 9 characters) - Was used on "Online Store" task	|	0
 <details>
 <summary>Registration page screenshot</summary>
 <img src='https://i.postimg.cc/rwBY4KH5/registr.png' alt='registr'/>
@@ -99,68 +116,73 @@ Spinner on buttons		|	2
 <details>
 <summary>Login page screenshot</summary>
 <img src='https://i.postimg.cc/285JNpvL/login.png' alt='login'/>
-</details>
-
-User Page		|	45
-----------------------------|-------
-Displaying user information got from server		|	4
-Displaying user bonus level according information got from server (different color and range according to bonuses)		|	5
-**Modal window for changing user info**		|	**10**
-*Validate email (should looks like an email address)* |	*6*
-*Validate phone (should start with "+" and contain minimum 9 characters)*  |	*2*
-*Validate password (should contains minimum 6 characters)*	|	*2*
-*Check prev and current password*		|	*4*
-**Section with user bookings**		|	**8**
-*Information about restaurant (name, adress)*		|	*2*
-*Information about booking time and date (day, mounth, week day, time)*		|	*2*
-*Information about user, table number and booking duration*		|	*2*
-*Button for cancel booking*		|	*2*
-**Section with user reviews**		|	**7**
-*Restaurant name*		|	*1*
-*Stars count according to user mark*		|	*2*
-*Modal window for changing user review*		|	*2*
-*Button to delete review*		|	*1*
-*Spinner*		|	*1*
-**Section with user favourites restaurants**		|	**4**
-*User can delete restaurant from favourites*		|	*2*
-*User can go to restaurants page*		|	*2*
-Button for log out, redirect to home page		|	2
-Responsive layout		|	5
-
+</details>	
+		
+## 6. User Page		
+		
+Total for all items	|	40
+----------------------------|:-------:	
+Responsive layout	|	5
+Button for log out, redirect to home page	|	2
+Displaying user information got from server	|	2
+Displaying user bonus level according information got from server (different color and range according to bonuses)	|	5
+**Section with user reviews**	|	**12**
+*Spinner*	|	*2*
+*Restaurant name*	|	*1*
+*Button to delete review*	|	*1*
+*Stars count according to user mark*	|	*5*
+*Modal window for changing user review*	|	*3*
+**Section with user bookings**	|	**4**
+*Button for cancel booking*	|	*1*
+*Information about restaurant (name, adress)*	|	*1*
+*Information about user, table number and booking duration*	|	*1*
+*Information about booking time and date (day, mounth, week day, time)*	|	*1*
+**Modal window for changing user info**	|	**8**
+*User can change phone, email or password*	|	*5*
+*Check prev and currunt password*	|	*3*
+*Validate email, phone and password inputs - Was used on "Online Store" task*	|	*0*
+*Section with user favourites restaurants*	|	*2*
+*User can go to restaurants page*	|	*1*
+*User can delete restaurant from favourites*	|	*1*
 <details>
 <summary>User page screenshot</summary>
 <img src='https://i.postimg.cc/nzZRdNpz/userpage.jpg' alt='userpage'/>
 </details>
-
-About Us Page		|	5
-----------------------------|-------
-Responsive layout		|	
+		
+## 7. About Us Page		
+		
+Total for all items	|	5
+----------------------------|:-------:
+Information about all participants	|	3
+Responsive layout	|	2
 <details>
 <summary>About us page screenshot</summary>
 <img src='https://i.postimg.cc/jjNgstZv/about.jpg' alt='about'/>
-</details>
-
-Error 404 Page		|	5
-----------------------------|-------
-Responsive layout		|	
-
+</details>	
+		
+## 8. Error 404 Page		
+		
+Total for all items	|	2
+----------------------------|:-------:	
+Custom Error Page - Was used on "Online Store" task	|	0
+Responsive layout	|	2
 <details>
-<summary>Error 404 Page	 screenshot</summary>
+<summary>Error 404 Page screenshot</summary>
 <img src='https://i.postimg.cc/pLh6yDs2/404.png' alt='404'/>
-</details>
-
-
-Back-end		|	170
-----------------------------|-------
-Written by hand (from scratch) and has a history of commits.		|	30
-The back-end is deployed and responds to POSTman requests (an example request should be specified in the PR or Readme file).		|	30
-REST API used.		|	20
-Used MVC pattern.		|	20
-Connecting and working with the database.		|	20
-The all application data is stored in database.		|	20
-Registration.		|	10
-Authorization.		|	10
-The application displays any statistics/images/tables, data for which it receives from the backend.		|	10
+</details>	
+		
+## 9. Back-end		
+		
+Total for all items	|	175
+----------------------------|:-------:
+REST API used.	|	20
+Used MVC pattern.	|	20
+Registration and Authorization	|	20
+Connecting and working with the database.	|	20
+The all application data is stored in database.	|	20
+Written by hand (from scratch) and has a history of commits.	|	30
+The application displays any statistics/images/tables, data for which it receives from the backend.	|	15
+The back-end is deployed and responds to POSTman requests (an example request should be specified in the PR or Readme file).	|	30
 
 
 ### POSTman requests examples:
