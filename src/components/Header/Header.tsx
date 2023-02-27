@@ -66,6 +66,10 @@ const Header = () => {
         const { target } = event;
         const newCity = cities.find((el) => el.city['en'] === target.value);
         dispatch({ type: 'changeCity', payload: newCity?.city as CityType });
+        if (window.location.pathname.includes('/restaurants/')) {
+            window.scrollTo(0, 0);
+            window.location.href = '/restaurants';
+        }
     };
 
     const changeTheme = () => {

@@ -72,17 +72,20 @@ const RestaurantPage = () => {
     const { id } = useParams();
 
     const saveRestaurant = async () => {
-        const restaurant = await getRestaurant(Number(id));
-        if (typeof restaurant === 'string') {
+        const restaurantNew = await getRestaurant(Number(id));
+        if (typeof restaurantNew === 'string') {
             setIdError(true);
         } else {
-            restaurant.parsedTranslation = JSON.parse(restaurant.translation);
-            const updatedCity = cities.find((el) => el.city['en'] === restaurant.city);
+            restaurantNew.parsedTranslation = JSON.parse(restaurantNew.translation);
+            const updatedCity = cities.find((el) => el.city['en'] === restaurantNew.city);
             updatedCity && dispatch({ type: 'changeCity', payload: updatedCity.city });
-            setRestaurant(restaurant);
+            setRestaurant(restaurantNew);
         }
     };
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [restaurant]);
     useEffect(() => {
         saveRestaurant();
     }, []);
@@ -228,11 +231,17 @@ const RestaurantPage = () => {
                                 </div>
                                 <div className='pb-5'>
                                     {restaurant.reviews.length > 0 ? (
-                                        restaurant.reviews.map((review) => {
-                                            return (
-                                                <ReviewItem review={review} key={review.id} isOnRestaurantPage={true} />
-                                            );
-                                        })
+                                        restaurant.reviews
+                                            .sort((a, b) => b.rating - a.rating)
+                                            .map((review) => {
+                                                return (
+                                                    <ReviewItem
+                                                        review={review}
+                                                        key={review.id}
+                                                        isOnRestaurantPage={true}
+                                                    />
+                                                );
+                                            })
                                     ) : (
                                         <div className='text-lg'>
                                             {content.restaurantsPage.noReviews[state.language]}
