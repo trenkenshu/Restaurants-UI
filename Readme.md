@@ -53,13 +53,13 @@ Responsive slider with restaurants recommendations according to the selected cit
 		
 ## 3. Restaurants Catalog Page		
 		
-Total for all items	|	115
+Total for all items	|	110
 ----------------------------|:-------:
 Custom scroll bar	|	2
 Responsive layout	|	20
 Section with all restaurants list according to the selected city	|	10
 Restaurants selection on the map, dispalying restaurants info on map tag	|	23
-Map with all restaurants according to the selected city (map with zoom, centered according selected City)	|	35
+Map with all restaurants according to the selected city (map with zoom, centered according selected City)	|	30
 **Restaurant card:**	|	**25**
 *Responsive slider with restaurants photos*	|	*10*
 *Button to add / delete a restaurant to favorites (only authorized user can add restaurant to favorites)*	|	*5*
@@ -72,7 +72,7 @@ Map with all restaurants according to the selected city (map with zoom, centered
 		
 ## 4. Restaurant Page		
 		
-Total for all items	|	135
+Total for all items	|	140
 ----------------------------|:-------:
 Responsive layout	|	20
 Section with users reviews	|	10
@@ -88,10 +88,10 @@ Section with information about restaurant: name, description, work time, is rest
 *Selecting a time for reservation*	|	*10*
 *Selecting a date from the custom calendar*	|	*10*
 *Validate booking form (guest phone: should start with "+" and contain minimum 9 characters, guest name: first letter capitalize and 2 or more letters ) - Was used on "Online Store" task*	|	*0*
-**Modal window for leaving a review (only authorized user can leave a review):**	|	**7**
+**Modal window for leaving a review (only authorized user can leave a review):**	|	**12**
 *Spinner*	|	*2*
 *Input guests review*	|	*5*
-*Stars for selecting a mark*	|	
+*Stars for selecting a mark*	|	*5*
 *Validate review form (Was used on "Online Store" task)*	|	*0*
 <details>
 <summary>Restaurant page screenshot</summary>
