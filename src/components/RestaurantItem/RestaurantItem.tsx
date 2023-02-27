@@ -12,6 +12,7 @@ import checkFavorites from 'utils/functions/checkFavorites';
 import checkWorkTime from 'utils/functions/checkWorkTime';
 import NewImg from 'components/NewImg';
 import Modal from 'components/Modal';
+import { baseURL } from 'utils/constants';
 
 type RestaurantItemType = {
     restaurant: IRestaurant;
@@ -62,7 +63,6 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
         setImgSrc(newSrc);
         document.body.classList.add('active');
         document.getElementById('innerScroll')?.classList.add('active');
-        console.log('img modal');
     };
     const closeImgModal = () => {
         setIsImgModalOpen(false);
@@ -130,7 +130,7 @@ const RestaurantItem: FC<RestaurantItemType> = ({ restaurant }) => {
                             <NewImg
                                 wrapperClasses=''
                                 imgClasses='h-40 w-40 object-cover rounded-md'
-                                src={`https://restaurants-server-3.onrender.com/${img}`}
+                                src={`${baseURL}/${img}`}
                                 alt='Restaurant'
                                 key={img}
                                 openImgModal={openImgModal}

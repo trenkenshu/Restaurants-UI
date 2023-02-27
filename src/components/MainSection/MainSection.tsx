@@ -47,7 +47,6 @@ const MainSection = () => {
                 <div className='md:w-7/12 h-60 md:h-96 2xl:h-136'>
                     <Slider {...sliderSetting}>
                         {imgs.map((el) => {
-                            // return <img key={el} src={el} className='h-60 md:h-96 2xl:h-136' alt='Restaurant' />;
                             return (
                                 <NewImg
                                     key={el}
@@ -61,8 +60,8 @@ const MainSection = () => {
                     </Slider>
                 </div>
             </div>
-            <p className='2xl:text-xl mt-5 md:mt-0 before:content-["\2605\2605\2605\2605\2605"] before:mr-1.5 uppercase dark:before:text-corall'>
-                {reviewsCount} {content.homePage.reviews[state.language]}
+            <p className='2xl:text-xl mt-5 md:mt-0 before:content-["\2605\2605\2605\2605\2605"] before:mr-1.5 dark:before:text-corall'>
+                {reviewsCount} {content.homePage.reviews[state.language]} {state.currentCity[state.language]}
             </p>
         </div>
     );

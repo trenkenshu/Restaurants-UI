@@ -15,7 +15,7 @@ import { content } from 'utils/content';
 import BookingModal from 'components/BookingModal/BookingModal';
 import Error404 from 'pages/Error404';
 import checkFavorites from 'utils/functions/checkFavorites';
-import { emptyRestaurant } from 'utils/constants';
+import { baseURL, emptyRestaurant } from 'utils/constants';
 import checkWorkTime from 'utils/functions/checkWorkTime';
 import RestaurantModalReview from 'components/RestaurantModalReview';
 import NewImg from 'components/NewImg';
@@ -29,7 +29,6 @@ const sliderSetting = {
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 4000,
-    // fade: true,
     arrows: true,
     swipeToSlide: true,
     swipe: true,
@@ -74,7 +73,6 @@ const RestaurantPage = () => {
 
     const saveRestaurant = async () => {
         const restaurant = await getRestaurant(Number(id));
-        console.log(restaurant);
         if (typeof restaurant === 'string') {
             setIdError(true);
         } else {
@@ -252,7 +250,7 @@ const RestaurantPage = () => {
                                         <NewImg
                                             wrapperClasses='h-44 lg:h-[calc(100vh-130px)] w-full'
                                             imgClasses='h-full w-full object-cover min-[480px]:px-0.5 lg:px-0'
-                                            src={`https://restaurants-server-3.onrender.com/${img}`}
+                                            src={`${baseURL}/${img}`}
                                             alt='Restaurant'
                                             key={img}
                                         />

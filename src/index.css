@@ -74,11 +74,15 @@ header .active {
 .timeblock.active {
     background-color: #ff5f49;
 }
-
-#guestsNum::-webkit-inner-spin-button, 
-#guestsNum::-webkit-outer-spin-button {  
-   opacity: 1;
+.timeblock.active:hover {
+    background-color: #ff5f49;
+    color: #27272a;
 }
+.dark .timeblock.active:hover {
+    background-color: #ff5f49;
+    color: #f0f0f0;
+}
+
 
 @media (min-width: 1024px) {
     html:has(#restReviews) {

@@ -47,18 +47,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     stepsFinished: prev.stepsFinished.map((el) => (el = true)),
                 };
             });
-            // setStepperState((prev) => {
-            //     return {
-            //         ...prev,
-            //         stepsFinished: prev.stepsFinished.map((el) => {
-            //             let newEl = el;
-            //             newEl = true;
-            //             return newEl;
-            //         }),
-            //     };
-            // });
         } else {
-            console.log('step4 false', activeStep);
             setStepperState((prev) => {
                 return {
                     ...prev,
@@ -79,9 +68,7 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
             };
         });
 
-        if (value.length > 1 && nameRegexp.test(value)) {
-            console.log('validate name hanlder', value.match(nameRegexp), value);
-            console.log('name hanlder', nameRegexp.test(value));
+        if (value.length > 1 && value.match(nameRegexp)) {
             setIsNameValid(true);
         } else {
             setIsNameValid(false);
@@ -98,39 +85,12 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
             };
         });
 
-        if (value.length > 9 && phoneRegexp.test(value)) {
-            console.log('validate phone hanlder inside');
-            console.log('validate phone hanlder', phoneRegexp.test(value), value);
+        if (value.length > 9 && value.match(phoneRegexp)) {
             setIsPhoneValid(true);
         } else {
             setIsPhoneValid(false);
         }
     };
-
-    // const guestAmountHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-    //     let value = event.target.value;
-
-    //     if (Number(value) < 1) {
-    //         value = '1';
-    //     }
-    //     if (Number(value) > 4) {
-    //         value = '4';
-    //     }
-    //     if (value.length < 2) {
-    //         setStepperState((prev) => {
-    //             return {
-    //                 ...prev,
-    //                 stepThree: { ...prev.stepThree, guestNumber: Number(value) },
-    //             };
-    //         });
-    //     } else {
-    //         value = value.slice(0, -1);
-    //     }
-    // };
-    // const disableKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
-    //     event.preventDefault();
-    //     console.log('disableKeyDown');
-    // };
 
     const increaseGuestAmount = () => {
         if (stepperState.stepThree.guestNumber + 1 > 0 && stepperState.stepThree.guestNumber + 1 < 5) {
@@ -140,7 +100,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     stepThree: { ...prev.stepThree, guestNumber: prev.stepThree.guestNumber + 1 },
                 };
             });
-            // console.log('+', stepperState.stepThree.guestNumber);
         }
     };
     const decreaseGuestAmount = () => {
@@ -151,7 +110,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                     stepThree: { ...prev.stepThree, guestNumber: prev.stepThree.guestNumber - 1 },
                 };
             });
-            // console.log('+', stepperState.stepThree.guestNumber);
         }
     };
 
@@ -173,7 +131,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
         }
 
         if (activeStep === steps[state.language].length - 1) {
-            console.log('Завершили бронь');
             const dateOfBooking = new Date(`${stepperState.stepOne.toDateString()} ${stepperState.stepTwo}:00:00`);
             const bookingBody = {
                 clientId: state.user.id,
@@ -185,7 +142,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 guestPhone: stepperState.stepFour.phone,
                 guestAmount: stepperState.stepThree.guestNumber,
             };
-            console.log('bookingBody', bookingBody);
             makeReservation(bookingBody);
         }
     };
@@ -205,11 +161,8 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
 
     const chooseTime = (event: React.MouseEvent<HTMLButtonElement>) => {
         const target = event.currentTarget;
-        console.log(target.dataset.time);
         document.querySelectorAll('.timeblock').forEach((el) => el.classList.remove('active'));
         target.classList.add('active');
-        // target.dataset.time && setTime(target.dataset.time);
-        console.log('restnbookings', restaurant.bookings);
         const reservedTables: string[] = [];
         restaurant.bookings.forEach((booking) => {
             const dateOfBooking = new Date(`${stepperState.stepOne.toDateString()} ${target.dataset.time}:00:00`);
@@ -227,14 +180,12 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 stepThree: { ...prev.stepThree, tableId: '' },
             };
         });
-        console.log('choose time', stepperState.stepsFinished);
     };
 
     const makeReservation = (body: ICreateBooking) => {
         createBooking(body).then(() => {
             getUser(state.user.id).then((updatedUser) => {
                 setParsedTranslation(updatedUser);
-                console.log('NEWUSER', updatedUser);
                 dispatch({
                     type: 'updateUser',
                     payload: updatedUser,
@@ -243,7 +194,6 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                 handleReset();
             });
             getRestaurant(restaurant.id).then((restaurant) => {
-                console.log('NEWrestaurant', restaurant);
                 restaurant.parsedTranslation = JSON.parse(restaurant.translation);
                 setRestaurant(restaurant);
             });
@@ -336,12 +286,12 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                                     setStepperState((prev) => {
                                         return {
                                             ...prev,
+                                            stepTwo: '',
                                             stepsFinished: prev.stepsFinished.map((el, index) =>
                                                 index === 0 ? (el = true) : (el = false),
                                             ),
                                         };
                                     });
-                                    console.log(stepperState.stepsFinished);
                                 }}
                             />
                             <div className='flex flex-col min-[400px]:flex-row gap-1 text-center'>
@@ -356,8 +306,9 @@ const BookingStepper: FC<BookingStepperProps> = ({ restaurant, closeBookingModal
                             <div className='flex gap-1 justify-center flex-wrap w-full min-[480px]:w-10/12 sm:w-8/12'>
                                 {timeIntervals.map((el, index) => (
                                     <button
-                                        className={`timeblock w-16 h-16 min-[400px]:w-20 min-[400px]:h-20 min-[680px]:w-24  min-[680px]:h-24 rounded bg-gray-400 flex items-center justify-center cursor-pointer
-                                        disabled:bg-zinc-700 disabled:cursor-default ${
+                                        className={`timeblock flex items-center justify-center w-16 h-16 min-[400px]:w-20 min-[400px]:h-20 min-[680px]:w-24  min-[680px]:h-24
+                                         bg-gray-400 hover:bg-gray-500 hover:text-corall transition duration-300 cursor-pointer rounded
+                                        disabled:bg-zinc-700 disabled:cursor-default disabled:hover:bg-zinc-700 disabled:hover:text-zinc-800 disabled:dark:hover:text-smoke-gray ${
                                             stepperState.stepTwo === String(el) && 'active'
                                         }`}
                                         disabled={!checkActiveTime(stepperState.stepOne, el)}

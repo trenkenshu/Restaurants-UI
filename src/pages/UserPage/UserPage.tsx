@@ -19,7 +19,6 @@ const UserPage = () => {
     const [isModalReviewOpen, setIsModalReviewOpen] = useState(false);
     const [currentReview, setCurrentReview] = useState(emptyReview);
     const navigate = useNavigate();
-    // console.log('state:::', state);
 
     useEffect(() => {
         getUser(state.user.id).then((updatedUser) => {
@@ -38,7 +37,6 @@ const UserPage = () => {
 
     const openModalReview = async (reviewId: number) => {
         const newCurrentReview = state.user.reviews.find((rev) => rev.id === reviewId);
-        console.log('newCurrentReview', newCurrentReview);
         newCurrentReview && setCurrentReview(newCurrentReview);
         setIsModalReviewOpen(true);
         document.body.classList.add('active');

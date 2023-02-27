@@ -15,9 +15,6 @@ const ButtonFavorite: FC<ButtonFavoriteProps> = ({ filled, restaurant }) => {
 
     const updateFavorites = async (id: number, filled: boolean) => {
         if (state.user.id === 0) return;
-        // filled
-        //     ? (state.user.favourites = state.user.favourites.filter((rest) => rest.id !== id))
-        //     : state.user.favourites && state.user.favourites.push(restaurant);
         let updatedUser;
         filled
             ? (updatedUser = await addRemoveFavourites('delete', state.user.id, restaurant.id))
@@ -31,17 +28,6 @@ const ButtonFavorite: FC<ButtonFavoriteProps> = ({ filled, restaurant }) => {
             });
         }
     };
-
-    // const bodyForUpdateUser = { ...state.user };
-    // updateUser(bodyForUpdateUser).then((updatedUser) => {
-    //     if (typeof updatedUser.data === 'object') {
-    //         dispatch({
-    //             type: 'updateUser',
-    //             payload: updatedUser.data,
-    //         });
-    //     }
-    // });
-    // };
 
     return (
         <button

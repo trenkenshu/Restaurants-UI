@@ -5,7 +5,6 @@ import { AppContext } from '../../store/store';
 const Advantages = () => {
     const { state } = useContext(AppContext);
 
-    // const imgs = [jpg1, jpg2, jpg3, jpg4];
     const imgs = ['bg-adv1', 'bg-adv2', 'bg-adv3', 'bg-adv4'];
 
     return (

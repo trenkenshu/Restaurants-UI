@@ -57,8 +57,6 @@ const UserPageModalReview: FC<UserPageModalReviewProps> = (props) => {
                     updateUserState();
                     setSubmitBtnClass('hidden');
                     closeModalReview();
-                } else {
-                    console.log('error:::', data);
                 }
             });
         } else {
@@ -78,7 +76,7 @@ const UserPageModalReview: FC<UserPageModalReviewProps> = (props) => {
                 <h4 className='font-semibold text-xl drop-shadow-md py-4 text-center'>{`${
                     content.reviewModal.title[state.language]
                 } "${userReview.cafe.name}"`}</h4>
-                <form onSubmit={saveReview} noValidate className='w-full sm:w-11/12 flex flex-col gap-4 w-96'>
+                <form onSubmit={saveReview} noValidate className='w-full sm:w-11/12 flex flex-col gap-4'>
                     <div className='flex w-full gap-5 items-center justify-center'>
                         <Rating
                             fillColor='#ff5f49'
@@ -99,7 +97,7 @@ const UserPageModalReview: FC<UserPageModalReviewProps> = (props) => {
                             value={userReview.text}
                             required
                             onChange={(event) => onChangeReview(event)}
-                            className='w-full h-60 wrap overfloy-y-auto relative block w-full appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
+                            className='w-full h-60 wrap overfloy-y-auto relative block appearance-none rounded border border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10 focus:border-corall focus:outline-none focus:ring-corall sm:text-sm'
                         ></textarea>
                     </div>
 
@@ -110,13 +108,6 @@ const UserPageModalReview: FC<UserPageModalReviewProps> = (props) => {
                     <p className='text-corall text-center flex justify-center drop-shadow-md'>{errorMessageReview}</p>
 
                     <div className='flex flex-col sm:flex-row w-full gap-5 mt-3 justify-center items-center'>
-                        <ButtonBlack
-                            width='w-32'
-                            height='h-10'
-                            fontsize='text-lg'
-                            buttonText={content.common.cancel[state.language]}
-                            onClick={closeModalReview}
-                        />
                         <ButtonBlack
                             width='w-32'
                             height='h-10'
