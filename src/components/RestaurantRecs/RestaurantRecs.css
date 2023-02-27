@@ -1,6 +1,4 @@
-/* .slick-slide {
-  padding-right: 12px;
-}
+/* 
 
 .slick-active {
   padding-right: 12px;
@@ -13,20 +11,27 @@
  /* .slick-current {
   padding-right: 12px;
 } */
-.rest-recs,
-.main-slider {
-  margin-right: -12px;
-} 
-
+.slick-slide {
+    padding: 0 6px;
+    /*opacity: 0;
+    transition: all 0.3s;*/
+}
 .slick-active {
-  padding-right: 12px;
+  padding-right: 0 6px;
+ /* opacity: 1;*/
 }
 .slick-current {
-  padding-right: 12px;
+  padding-right: 0 6px;
 }
 
 .rest-recs > .slick-next {
   right: -15px;
 }
+
+.rest-recs > .slick-prev {
+    left: -15px;
+}
+
+
 
 

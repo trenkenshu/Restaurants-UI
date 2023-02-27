@@ -116,7 +116,7 @@ const RegistrationForm = () => {
     };
 
     return (
-        <form className='mt-8 space-y-6 w-80 h-48' onSubmit={CreateNewUser}>
+        <form className='mt-8 space-y-6 w-80' onSubmit={CreateNewUser}>
             {errorExistingLoginEmail && (
                 <p className='text-corall text-center font-semibold drop-shadow-md uppercase'>
                     {content.error.userExsist[state.language]}

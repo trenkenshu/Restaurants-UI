@@ -70,6 +70,7 @@ const RestaurantPage = () => {
     const [isImgModalOpen, setIsImgModalOpen] = useState(false);
     const [imgSrc, setImgSrc] = useState('');
     const { id } = useParams();
+    window.scrollTo(0, 0);
 
     const saveRestaurant = async () => {
         const restaurant = await getRestaurant(Number(id));
