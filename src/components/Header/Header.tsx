@@ -1,7 +1,7 @@
 import RegistrLogo from 'components/RegistrLogo';
 import UserLogo from 'components/UserLogo';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { CityType } from 'types';
 import { content } from 'utils/content';
@@ -66,6 +66,11 @@ const Header = () => {
         const { target } = event;
         const newCity = cities.find((el) => el.city['en'] === target.value);
         dispatch({ type: 'changeCity', payload: newCity?.city as CityType });
+        console.log(window.location.pathname);
+        if (window.location.pathname.includes('/restaurants/')) {
+            window.scrollTo(0, 0);
+            window.location.href = '/restaurants';
+        }
     };
 
     const changeTheme = () => {
