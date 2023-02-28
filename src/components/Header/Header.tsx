@@ -1,7 +1,7 @@
 import RegistrLogo from 'components/RegistrLogo';
 import UserLogo from 'components/UserLogo';
 import React, { useContext, useEffect, useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { AppContext } from 'store/store';
 import { CityType } from 'types';
 import { content } from 'utils/content';
@@ -30,6 +30,7 @@ export const cities = [
 const Header = () => {
     const { state, dispatch } = useContext(AppContext);
     const [isBurgerOpen, setIsBurgerOpen] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (isBurgerOpen) {
@@ -68,7 +69,7 @@ const Header = () => {
         dispatch({ type: 'changeCity', payload: newCity?.city as CityType });
         if (window.location.pathname.includes('/restaurants/')) {
             window.scrollTo(0, 0);
-            window.location.href = '/restaurants';
+            navigate('/restaurants');
         }
     };
 
