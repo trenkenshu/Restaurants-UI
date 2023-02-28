@@ -1,0 +1,91 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    box-sizing: border-box;
+}
+html {
+    scroll-behavior: smooth;
+}
+
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+        width: 10px;
+    }
+    .scrollbar::-webkit-scrollbar-track {
+        border-radius: 10px;
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+    }
+}
+
+body.active {
+    overflow: hidden;
+}
+#innerScroll.active {
+    overflow: hidden;
+}
+
+
+.restaurant .slick-prev {
+    width: auto;
+    height: auto;
+    left: 10px;
+    z-index: 1;
+}
+.restaurant .slick-next {
+    width: auto;
+    height: auto;
+    right: 10px;
+    z-index: 1;
+}
+
+.restaurant .slick-prev:before,
+.restaurant .slick-next:before {
+    font-size: 40px;
+    color: white !important;
+}
+.restaurant .slick-list {
+    height: 100% !important;
+}
+.restaurant .slick-slide {
+    padding: 0 !important;
+}
+.restaurant .slick-track {
+    height: 100% !important;
+}
+
+.slick-prev:before,
+.slick-next:before {
+    color: black !important;
+}
+
+.leaflet-popup-content p {
+    margin: 0;
+    margin-bottom: 2px;
+}
+
+header .active {
+    color: #ff5f49;
+}
+
+.timeblock.active {
+    background-color: #ff5f49;
+}
+.timeblock.active:hover {
+    background-color: #ff5f49;
+    color: #27272a;
+}
+.dark .timeblock.active:hover {
+    background-color: #ff5f49;
+    color: #f0f0f0;
+}
+
+
+@media (min-width: 1024px) {
+    html:has(#restReviews) {
+        overflow: hidden;
+    }
+}
